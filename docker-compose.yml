@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: postgresql
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ProcureFlow
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgresql
+    volumes:
+      - db:/data/postgresql
+    ports:
+      - "5332:5432"
+    networks:
+      - db
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:

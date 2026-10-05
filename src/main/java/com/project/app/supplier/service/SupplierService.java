@@ -1,14 +1,15 @@
-package com.project.app.service;
+package com.project.app.supplier.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.project.app.model.Supplier;
-import com.project.app.repository.SupplierRepo;
-import com.project.app.mapper.SupplierMapper;
-import com.project.app.DTO.SupplierDtoRequest;
-import com.project.app.DTO.SupplierDtoResponse;
-import com.project.app.exceptions.ResourceNotFoundException;
+
+import com.project.app.supplier.DTO.SupplierDtoRequest;
+import com.project.app.supplier.DTO.SupplierDtoResponse;
+import com.project.app.supplier.exceptions.ResourceNotFoundException;
+import com.project.app.supplier.mapper.SupplierMapper;
+import com.project.app.supplier.model.Supplier;
+import com.project.app.supplier.repository.SupplierRepo;
 
 @Service
 public class SupplierService {

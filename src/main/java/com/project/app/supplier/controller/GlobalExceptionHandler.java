@@ -1,4 +1,4 @@
-package com.project.app.controller;
+package com.project.app.supplier.controller;
 
 import java.time.Instant;
 
@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.project.app.exceptions.ResourceNotFoundException;
+
+import com.project.app.supplier.exceptions.ResourceNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

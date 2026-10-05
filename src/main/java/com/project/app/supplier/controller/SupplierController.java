@@ -1,11 +1,11 @@
-package com.project.app.controller;
+package com.project.app.supplier.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.app.DTO.SupplierDtoRequest;
-import com.project.app.DTO.SupplierDtoResponse;
-import com.project.app.service.SupplierService;
+import com.project.app.supplier.DTO.SupplierDtoRequest;
+import com.project.app.supplier.DTO.SupplierDtoResponse;
+import com.project.app.supplier.service.SupplierService;
 
 import jakarta.validation.Valid;
 
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @Setter
@@ -46,7 +45,7 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SupplierDtoResponse> getSupplierById(@RequestParam long id) {
+    public ResponseEntity<SupplierDtoResponse> getSupplierById(@PathVariable long id) {
         return ResponseEntity.ok(supplierService.getSupplierById(id));
 
     }

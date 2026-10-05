@@ -1,7 +1,8 @@
-package com.project.app.repository;
+package com.project.app.supplier.repository;
 
-import com.project.app.model.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.project.app.supplier.model.Supplier;
 
 public interface SupplierRepo extends JpaRepository<Supplier, Long> {
 

@@ -1,4 +1,4 @@
-package com.project.app.controller;
+package com.project.app.supplier.controller;
 
 import java.time.Instant;
 

@@ -1,0 +1,570 @@
+﻿{
+    "installed_at":  "2026-10-09T13:20:01.5024177+00:00",
+    "authority":  "APR-SETUP-001",
+    "existing_spec_skill":  "retained, not reinstalled",
+    "count":  10,
+    "skills":  [
+                   {
+                       "name":  "agile-v-core",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/agile-v-core/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "78ec25f68c17b0834bf09adb0b8b42e953e0cfd3cbffc2c74e74a7255cf33828",
+                                         "bytes":  12184
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "requirement-architect",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/requirement-architect/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "846f9a0f3bc17a26b82e6b227fe14866237c5b2847e1edf6f804b0697e812e99",
+                                         "bytes":  5258
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "logic-gatekeeper",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/logic-gatekeeper/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "420cce4df9e7eb9a3bb59a898682cf8db1c34973f83ee58c644df29e44947bba",
+                                         "bytes":  3647
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "system-understanding-agent",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/examples/input_change_request.md",
+                                         "action":  "created",
+                                         "sha256":  "5ecb423af812780302ab6167c9c9901809f91f59dc32f4b980114ccb4bd17b67",
+                                         "bytes":  592
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/examples/output_system_overview.md",
+                                         "action":  "created",
+                                         "sha256":  "46b768727f78309d912a11e8048dab71facdff8514fa6fcb204fe8f1cab1bf16",
+                                         "bytes":  3031
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/examples/output_understanding_gate_decision.md",
+                                         "action":  "created",
+                                         "sha256":  "1fa08c64c4cc9e7f86cf30ec1c2d73517070ccba10f764dcec540dfcfc46f57b",
+                                         "bytes":  1482
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/metadata.json",
+                                         "action":  "created",
+                                         "sha256":  "10656ba8ac1eb5c776405531b792be5871bf1769df1ddcf1d25f4bf6d00de908",
+                                         "bytes":  1485
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/README.md",
+                                         "action":  "created",
+                                         "sha256":  "b7f2d8069a48769e1f27de3d7499ff58d5d93aa66379efbcd69800c1097b84c2",
+                                         "bytes":  1287
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "ebb8331e02363bfce64f49f64c9f02dd6e6e26795c35b0d68657634652f6d583",
+                                         "bytes":  6188
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/tests/activation_cases.md",
+                                         "action":  "created",
+                                         "sha256":  "3bbfbf7358440afe86bab6598fa86868c2acaeca01a3631fa1d16c181023e7af",
+                                         "bytes":  1371
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/tests/expected_artifacts.md",
+                                         "action":  "created",
+                                         "sha256":  "27d085ab5969d139268cf8ea59fb373e85453021a33d7b8e144e0f292f1a23dc",
+                                         "bytes":  1873
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-understanding-agent/tests/negative_cases.md",
+                                         "action":  "created",
+                                         "sha256":  "c6b1ecec12d54a50168f4122c968dc5c02c46ae2490a8acc68eb284ffda8bc28",
+                                         "bytes":  1132
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "impact-analysis-agent",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/impact-analysis-agent/metadata.json",
+                                         "action":  "created",
+                                         "sha256":  "bf2c6bc1d65af6e37cc81d3e73eb1728c29090f75cc0a9ba2040678eea9b27db",
+                                         "bytes":  1383
+                                     },
+                                     {
+                                         "path":  ".agents/skills/impact-analysis-agent/README.md",
+                                         "action":  "created",
+                                         "sha256":  "d16422f0546470672082768bfe1d49523b06fc475040aadbf5e7672b19add2ca",
+                                         "bytes":  1048
+                                     },
+                                     {
+                                         "path":  ".agents/skills/impact-analysis-agent/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "3cf0e245feab8cfdd754675267c9d6d12f8e35b824e25b0c997c705702d4164d",
+                                         "bytes":  4546
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "test-designer",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/test-designer/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "cb49c62b9f8c8e6eeb95250d63d0b4d2dba96b1efd39c39f027e0f4133d881a9",
+                                         "bytes":  8093
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "red-team-verifier",
+                       "source":  "https://github.com/Agile-V/agile_v_skills",
+                       "source_revision":  "4bcc9172f7e00fa3f04bd249584d537a7dbe5600",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/red-team-verifier/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "362cb40618a906d19a30d30a451bef597a2d26feabebe485dc8af391ad41af83",
+                                         "bytes":  14025
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "architecture-patterns",
+                       "source":  "https://github.com/netsky-prod/architecture-patterns",
+                       "source_revision":  "41a8a78a800366e21b3ed58b61bff3bd79859773",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/adapter.md",
+                                         "action":  "created",
+                                         "sha256":  "0a93b3b3876ea0bc0af3ccb62bea032aa9b9135eead5ae5dc3ab6ce0bf1157d0",
+                                         "bytes":  1370
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/aggregate.md",
+                                         "action":  "created",
+                                         "sha256":  "1edc180e5ea3d96d8cbaeafb1e6e979b58dcfdcfea9842122b40e2163ab19510",
+                                         "bytes":  1440
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/builder.md",
+                                         "action":  "created",
+                                         "sha256":  "d5d5aed158eec1fc16bc2177783444d5e25cc55bfcba19b07609d2c456d2ec15",
+                                         "bytes":  1502
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/cache-aside.md",
+                                         "action":  "created",
+                                         "sha256":  "28ce265ea09e614d1089b18b597ccc2f30a3c2606bfe354b0c99b135c0b19e42",
+                                         "bytes":  1364
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/chain-of-responsibility.md",
+                                         "action":  "created",
+                                         "sha256":  "666cefe7d546496a6c44b9baa63a80fbe3a88c7c9b8029bae72dd864f4b3d9d5",
+                                         "bytes":  1480
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/command.md",
+                                         "action":  "created",
+                                         "sha256":  "19d770ed5f3d0f7386437bac8677383503906902ac6444597d08e35a95a85a25",
+                                         "bytes":  1443
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/data-mapper.md",
+                                         "action":  "created",
+                                         "sha256":  "99abe6af422b84427d8a99d78d6baca15934177bd1d81784c3cb4c3d8ccf1b80",
+                                         "bytes":  1373
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/decorator.md",
+                                         "action":  "created",
+                                         "sha256":  "fbb0b154c5b32ed0106961b8a70e4ff55087ec769892d8013849161d007952cc",
+                                         "bytes":  1440
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/dependency-injection.md",
+                                         "action":  "created",
+                                         "sha256":  "0d6adaffaf4e29c245a9bb80f355d4aa8e834abbb265dc73a881987e8bebb519",
+                                         "bytes":  1516
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/dto.md",
+                                         "action":  "created",
+                                         "sha256":  "b86ead68c6e2a13ecf465913d149a111fbc8583ab919fb5af2ed46b69b3b6845",
+                                         "bytes":  1320
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/facade.md",
+                                         "action":  "created",
+                                         "sha256":  "258d36536c10473394e99ddc90423562613c9265dc9d1e1c24688da63bdac35c",
+                                         "bytes":  1419
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/factory-method.md",
+                                         "action":  "created",
+                                         "sha256":  "ee7eee520855fab153aa8690d11b15b6ca1a94aac8e8e793320d44580e0e5db9",
+                                         "bytes":  1542
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/feature-flag.md",
+                                         "action":  "created",
+                                         "sha256":  "ebf708da71b235fe1fbda69cdcd2ffe939fb528659f24a2dbf29147c2bdf231a",
+                                         "bytes":  1312
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/mediator.md",
+                                         "action":  "created",
+                                         "sha256":  "7c9d6482c023e664a5bfc834e8cba3ca61657009a8b157384100d31c2908b449",
+                                         "bytes":  1408
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/memoization.md",
+                                         "action":  "created",
+                                         "sha256":  "5b745aaf6df2dc8751095df22a831aac850a00d906324c06896cea30a3c91227",
+                                         "bytes":  1324
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/observer.md",
+                                         "action":  "created",
+                                         "sha256":  "da362c23685d2d4d9fc700f06f7650008e88cbe10aafcc82017ee617e52950b1",
+                                         "bytes":  1629
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/pub-sub.md",
+                                         "action":  "created",
+                                         "sha256":  "fb542ec4f9e93775298af3659aad75f5d453f3240f0f6c4a3f467e7c47154d6c",
+                                         "bytes":  1481
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/repository.md",
+                                         "action":  "created",
+                                         "sha256":  "844935501e686470e8c29c8922a08a63733cb1c66cb1f87c1fd61d8b5bf9837f",
+                                         "bytes":  1425
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/specification.md",
+                                         "action":  "created",
+                                         "sha256":  "07e81f262d52a000812cc4e6d5e3d124ac6a9e17dcfc0deac211a226aea8b1fc",
+                                         "bytes":  1321
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/state.md",
+                                         "action":  "created",
+                                         "sha256":  "040973c9f63012c14d5da2e4b634f0e0d37b191389dca793901c8e24b25b7879",
+                                         "bytes":  1459
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/strategy.md",
+                                         "action":  "created",
+                                         "sha256":  "9a505b12da33bb4328d7bfa28b841ca5dea1f2be20f4e43b48e5af767c0622d2",
+                                         "bytes":  1813
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/template-method.md",
+                                         "action":  "created",
+                                         "sha256":  "ee91ba4a760c1808e4589f4b75aa0a37e43e5f4628abfe5583f678cb528384b8",
+                                         "bytes":  1391
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/unit-of-work.md",
+                                         "action":  "created",
+                                         "sha256":  "88a744d5c1aa598bda38b03e50ac7502f561e371e4272d58bbeed51733b1b25a",
+                                         "bytes":  1308
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/code/value-object.md",
+                                         "action":  "created",
+                                         "sha256":  "1f0d3a031454cea2025f3160068077c64312d35ba633c393edb3a74426ef5364",
+                                         "bytes":  1317
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/bff.md",
+                                         "action":  "created",
+                                         "sha256":  "24604e60f8fe1273947e8c42642da5382a55eec902d2998bf1d03c496eda1dca",
+                                         "bytes":  1317
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/clean-architecture.md",
+                                         "action":  "created",
+                                         "sha256":  "c8bdc088be0778a317dd02d32b20f8b29650a4cb5df930f8ccff414d653247ff",
+                                         "bytes":  1367
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/event-driven.md",
+                                         "action":  "created",
+                                         "sha256":  "18b873ec38cb82c9252b79db5aab11b9932a0df15da76aec8ab72f56ea1566f4",
+                                         "bytes":  1358
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/hexagonal.md",
+                                         "action":  "created",
+                                         "sha256":  "7bf73610b760f0efce9b9540bdf2a132e39d3ed1a39bd1bd839b612ac23957b3",
+                                         "bytes":  1587
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/layered.md",
+                                         "action":  "created",
+                                         "sha256":  "5a70353b620eb163bdac56bf5c93e5d411836e742d1a2fe998d08f358e51551c",
+                                         "bytes":  1315
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/microservices.md",
+                                         "action":  "created",
+                                         "sha256":  "ff21c221e694bc64c7cd6c93a697c29b9baf3bdeda09e572260b96e06c2dee6a",
+                                         "bytes":  1399
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/modular-monolith.md",
+                                         "action":  "created",
+                                         "sha256":  "394eb2ec36eefe76570cce90eba8459518a8de1c3b57ada7afe42379ed989bcc",
+                                         "bytes":  1385
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/component/plugin-architecture.md",
+                                         "action":  "created",
+                                         "sha256":  "8f84600ef09276f68b97221f0a57af3bca097fe6690db2a502dc96df895766af",
+                                         "bytes":  1503
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/bulkhead.md",
+                                         "action":  "created",
+                                         "sha256":  "9c0d81c0c206d335dde1fe4ac6019aa3617d66925e87fcb8f84c91fbae19a45d",
+                                         "bytes":  1463
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/circuit-breaker.md",
+                                         "action":  "created",
+                                         "sha256":  "931e0d6691a41321210c202bbf0f93c4a8101f9b8191819ad2ccc7762d93d9de",
+                                         "bytes":  1462
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/cqrs.md",
+                                         "action":  "created",
+                                         "sha256":  "a00a4fc8baf17d639ac68407e15c553ff34f8a0b55f4197e311b789fe5c56f01",
+                                         "bytes":  1404
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/event-sourcing.md",
+                                         "action":  "created",
+                                         "sha256":  "af7c980c73b760e81abe16e5a4a96283da755e12c402661f9aa15bf2160cb8a5",
+                                         "bytes":  1398
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/idempotency.md",
+                                         "action":  "created",
+                                         "sha256":  "bee624ee768cccfe5780b3bec9a0d86abf996693a2c89bb6f67527539f673e28",
+                                         "bytes":  1383
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/monolith-vs-microservices.md",
+                                         "action":  "created",
+                                         "sha256":  "2739c84639065a6efad9d6e9281d200b7374f1a2c68f59d7cc106562348506c5",
+                                         "bytes":  1442
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/outbox.md",
+                                         "action":  "created",
+                                         "sha256":  "5952360fce951fa2ab7b76f8d95d3ed563cd9755a100bfd99fd52b34ee2c4167",
+                                         "bytes":  1429
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/retry-with-backoff.md",
+                                         "action":  "created",
+                                         "sha256":  "65b1790a81a85616b667a288d976f41ce479d372ca974c5ee15343961d9d9f82",
+                                         "bytes":  1335
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/saga.md",
+                                         "action":  "created",
+                                         "sha256":  "6d8d5656bba64f7184c79489e5017935dfca42d79de3446111f75141f6c902bf",
+                                         "bytes":  1373
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/patterns/system/strangler-fig.md",
+                                         "action":  "created",
+                                         "sha256":  "6a8a037753fe846a8c233f5187b57972bf49a9f1751dee532c7156bda3d4e363",
+                                         "bytes":  1550
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/references/anti-patterns.md",
+                                         "action":  "created",
+                                         "sha256":  "260cfcc3eaa9e8c61b3c9f2940e1bc4504eda99e0d569a843061d44598c9d69e",
+                                         "bytes":  3262
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/references/decision-tree.md",
+                                         "action":  "created",
+                                         "sha256":  "6a8cbcf9ea54721a390a6ede103d899f96b6a904a39689c85965ba70d48b94a5",
+                                         "bytes":  10561
+                                     },
+                                     {
+                                         "path":  ".agents/skills/architecture-patterns/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "e4a3b29b69d25bca9b54f04abaad969d96b0aeccd3f2491a9a9bc66140b79096",
+                                         "bytes":  11424
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "system-design-first-principles",
+                       "source":  "https://github.com/snepraj2709/system-design-first-principles-skill",
+                       "source_revision":  "d1a965c8bf8e5782e54f3b6ec0e18660f160ec37",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/examples/build-production-app-from-prd.md",
+                                         "action":  "created",
+                                         "sha256":  "230e92da7ae9647f85bd8e40a1618d8ffb3b805f5cc0a8bb94910dd091362ef1",
+                                         "bytes":  6051
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/examples/design-ai-market-intelligence-agent.md",
+                                         "action":  "created",
+                                         "sha256":  "7398978fd7c7fb17a6650e9344e9c25eb25a8a8f3fa3cf1c77b5885d0be39009",
+                                         "bytes":  5107
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/examples/design-url-shortener.md",
+                                         "action":  "created",
+                                         "sha256":  "1dfbe27886f42db1fdb4b75a864796d26f082b72e925661ae437de098493192f",
+                                         "bytes":  4362
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/examples/review-existing-saas-architecture.md",
+                                         "action":  "created",
+                                         "sha256":  "60eab830d81c154e4bed2a92b46426e5dd129f1c7b151933e9789d1288ab2802",
+                                         "bytes":  4747
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/references/architecture-review-checklist.md",
+                                         "action":  "created",
+                                         "sha256":  "2294d338cea91020633c85fcaee506938d159f15d69cca0709de8b6bbbe1aa43",
+                                         "bytes":  4036
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/references/first-principles-briefing.md",
+                                         "action":  "created",
+                                         "sha256":  "ac93796a47d5ab80ca9ad344e80cf6307707cfa5a6080852a198e7564b8b99f0",
+                                         "bytes":  10646
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/references/production-readiness-rubric.md",
+                                         "action":  "created",
+                                         "sha256":  "dcc4eb93349bfe5c74759c4d34d662b5d048a7a74d62732ead679e574b0423b9",
+                                         "bytes":  3623
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/references/scaling-laws.md",
+                                         "action":  "created",
+                                         "sha256":  "127a6270e93fbf2d82520703a7fd1b2f2291a3c989224146b84387408c492445",
+                                         "bytes":  4615
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/references/tradeoff-matrix.md",
+                                         "action":  "created",
+                                         "sha256":  "aa40164a8441230b8b2b82f1c9ee6671fd9953bba6db3acafe28779ddf0f2935",
+                                         "bytes":  7301
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "aa789aff0ac6d5f1bd3529fec4b7bf66079364bd0cca622eda4c915576cae883",
+                                         "bytes":  9743
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/templates/architecture-review-template.md",
+                                         "action":  "created",
+                                         "sha256":  "ee53ebfaf53104b500bb52815f11731b96137f2144901358e987ee52356084cf",
+                                         "bytes":  1705
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/templates/prd-to-architecture-template.md",
+                                         "action":  "created",
+                                         "sha256":  "8eba7672b1a8eca1e8bd3e091902d26f80042da50c0ffd78b677e1b7c883a5a3",
+                                         "bytes":  1691
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/templates/production-app-design-template.md",
+                                         "action":  "created",
+                                         "sha256":  "9c86947e52ea78dde09692ccd0e355346c7885395e0313788836bfa7c899b3af",
+                                         "bytes":  1722
+                                     },
+                                     {
+                                         "path":  ".agents/skills/system-design-first-principles/templates/system-design-interview-template.md",
+                                         "action":  "created",
+                                         "sha256":  "2aea25547dbe2b86944c1ed9087d9c0aacbf1c7fd364488db50aab863d56d690",
+                                         "bytes":  1614
+                                     }
+                                 ]
+                   },
+                   {
+                       "name":  "java-springboot",
+                       "source":  "https://github.com/github/awesome-copilot",
+                       "source_revision":  "82701c24b99488536ca399ff4789a458b7a05db7",
+                       "reason":  "Approved agent workflow/architecture support; not application runtime",
+                       "business_concept":  "Agent guidance and specification quality",
+                       "api_db_authorization_impact":  "none",
+                       "files":  [
+                                     {
+                                         "path":  ".agents/skills/java-springboot/SKILL.md",
+                                         "action":  "created",
+                                         "sha256":  "574898202ce298557226c49d35036a6e9e66a1cb205ea15c44db298e6d74e3bd",
+                                         "bytes":  4133
+                                     }
+                                 ]
+                   }
+               ]
+}

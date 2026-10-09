@@ -1,0 +1,158 @@
+﻿{
+    "captured_at":  "2026-10-09T13:19:59.1295838+00:00",
+    "authority":  "APR-SETUP-001",
+    "purpose":  "Source/build/planning preservation fingerprint; no application implementation performed",
+    "git_head":  "44165770de45f249a4efc94ea923fbf22548b76a",
+    "files":  [
+                  {
+                      "path":  ".gitignore",
+                      "sha256":  "089382e4d7944ab6cb6900a1269678ebff93c00d441ada788cd05a8da182b22b",
+                      "bytes":  394
+                  },
+                  {
+                      "path":  ".mvn/wrapper/maven-wrapper.properties",
+                      "sha256":  "488e1b3f2e641779d4636abf9390845f901e64607261bc3c0b0bfe4fe96e6706",
+                      "bytes":  168
+                  },
+                  {
+                      "path":  "docker-compose.yml",
+                      "sha256":  "b66f9fa72f2a6347de4777f724754676b1b80a4c04615a7d6f28293dcb6d4e1a",
+                      "bytes":  340
+                  },
+                  {
+                      "path":  "docs/planning/architecture-decisions.md",
+                      "sha256":  "f19807f885159bf4f165ac83c64e3aeb66959ad85ae8a246b71975cff07affc6",
+                      "bytes":  4608
+                  },
+                  {
+                      "path":  "docs/planning/decisions.md",
+                      "sha256":  "1e24dfb66c5793ff89d2883efd8ebaefa38561cdec2bca9625c0d6c83caceed2",
+                      "bytes":  7941
+                  },
+                  {
+                      "path":  "docs/planning/diagrams.md",
+                      "sha256":  "b8897d4ca5c5dad4fc3db57bdcdea4d5bc039859e41c37658035811d2062ba91",
+                      "bytes":  4426
+                  },
+                  {
+                      "path":  "docs/planning/living-plan.md",
+                      "sha256":  "44c0e24924eb15c4bd5431635377268a0d29e36d084d4633551b35b21d118c3a",
+                      "bytes":  26550
+                  },
+                  {
+                      "path":  "docs/planning/vertical-slices.md",
+                      "sha256":  "57c5a71c3f617c278662dc387abb8b8031d5772ea4906a24302dcc7dbdd537b7",
+                      "bytes":  16868
+                  },
+                  {
+                      "path":  "mvnw",
+                      "sha256":  "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02",
+                      "bytes":  11790
+                  },
+                  {
+                      "path":  "mvnw.cmd",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                      "bytes":  0
+                  },
+                  {
+                      "path":  "pom.xml",
+                      "sha256":  "1da54f41e4d4898b1d9b0c4abe99eee4258c8f4146905a83efc5a7da7f93c364",
+                      "bytes":  3657
+                  },
+                  {
+                      "path":  "README.md",
+                      "sha256":  "d6e18e9d2c490e7424238dd2e53c5ac9788d51a1f03e0da9ca0713621568d789",
+                      "bytes":  10047
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/AppApplication.java",
+                      "sha256":  "f478814361836b0b04176c8b40172e046918fbc6480d619a031efd7945264eb6",
+                      "bytes":  408
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/common/exception/ResourceNotFoundException.java",
+                      "sha256":  "a553f7b881c419bbb20fed2eb96329dafa4de377c3c281e25e7c9896a8e47314",
+                      "bytes":  197
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/ApiError.java",
+                      "sha256":  "74d3201f50f2613fecdccd28d2374685a73660dc21444b9801f67c682b27eedd",
+                      "bytes":  197
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/GlobalExceptionHandler.java",
+                      "sha256":  "d70ba62f94685d9f79cdd04d08244d56d978856078075738089ad137d4a94aa3",
+                      "bytes":  2634
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/SupplierController.java",
+                      "sha256":  "0511813609033a07388b6900e6fdbad390c6babb240621eca7ac920128d119d9",
+                      "bytes":  2298
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoRequest.java",
+                      "sha256":  "4902617145a509f4ff9bf8cb5d3f122fa6c666b2fee528cde54315b2aad9383e",
+                      "bytes":  179
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoResponse.java",
+                      "sha256":  "6baa70628988e4bd70c9ec9f36a0a8e5762c2d484f45eb90fecb507a2a25c5e6",
+                      "bytes":  156
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/exceptions/ResourceNotFoundException.java",
+                      "sha256":  "59ceec1bf8d671d54ff1968651969c4b722eb8ed66985660d1f2cf3054d4c3ea",
+                      "bytes":  200
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/exceptions/SupplierNotFoundException.java",
+                      "sha256":  "b9ea1c9ff35e129627fb479b3cf35b9fa7649288021bb2cccfbf3808ca672440",
+                      "bytes":  90
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/mapper/SupplierMapper.java",
+                      "sha256":  "42265cf1ee371c7f52bbd2835171b449b642ec0d7e593216880664ac594608ea",
+                      "bytes":  573
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/model/Supplier.java",
+                      "sha256":  "a7f84487cc0c5c5018c8ff793676241734924305264ea4113b353d1bf9b97d23",
+                      "bytes":  641
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/repository/SupplierRepo.java",
+                      "sha256":  "af98bf7c54e208c14c62fe158c9faad0c19b6e9838cb1e134827d94fd3deab8a",
+                      "bytes":  231
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/service/SupplierService.java",
+                      "sha256":  "ca81919c12693cbf490b5bdbc31a524c81fcb0e55b54b4310aa5f1439a1c0a2a",
+                      "bytes":  2200
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/userAccount/model/User.java",
+                      "sha256":  "2ca939605dbd4f0e9d0364bad29680f1296b3470c91061fe84a4124a22c427b9",
+                      "bytes":  652
+                  },
+                  {
+                      "path":  "src/main/resources/application.properties",
+                      "sha256":  "7e15d790c51fa3e3cf3ca05136c8d2591a53ae7aacf30594c59859228ce53402",
+                      "bytes":  414
+                  },
+                  {
+                      "path":  "src/main/resources/db/migration/V1__create_supplier_table.sql",
+                      "sha256":  "4b58825a00c7a0c7c62dd99cbfa87086026d8db657fcf156e2931fceed15fd89",
+                      "bytes":  88
+                  },
+                  {
+                      "path":  "src/test/java/com/project/app/AppApplicationTests.java",
+                      "sha256":  "f80f10ede15e3bfc92486a8dff7c5a21b416da9882850402f50fe31cb6048d40",
+                      "bytes":  204
+                  },
+                  {
+                      "path":  "src/test/java/com/project/app/supplier/service/SupplierServiceTest.java",
+                      "sha256":  "38e5039384874d20d4ee95e2e1ed141e2b4eb9aff26d9017ee2038fb96af7201",
+                      "bytes":  11164
+                  }
+              ]
+}

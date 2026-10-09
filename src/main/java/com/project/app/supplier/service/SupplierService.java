@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.app.supplier.DTO.SupplierDtoRequest;
 import com.project.app.supplier.DTO.SupplierDtoResponse;
-import com.project.app.supplier.exceptions.ResourceNotFoundException;
+import com.project.app.common.exception.ResourceNotFoundException;
 import com.project.app.supplier.mapper.SupplierMapper;
 import com.project.app.supplier.model.Supplier;
 import com.project.app.supplier.repository.SupplierRepo;
@@ -15,19 +15,18 @@ import com.project.app.supplier.repository.SupplierRepo;
 public class SupplierService {
 
     private final SupplierRepo supplierRepo;
+    private final SupplierMapper supplierMapper;
 
-    public SupplierService(SupplierRepo supplierRepo) {
+    public SupplierService(SupplierRepo supplierRepo, SupplierMapper supplierMapper) {
         this.supplierRepo = supplierRepo;
+        this.supplierMapper = supplierMapper;
     }
 
     public List<SupplierDtoResponse> getAllSuppliers() {
-        List<Supplier> suppliers = supplierRepo.findAll();
-        if (suppliers.isEmpty()) {
-            throw new ResourceNotFoundException("No suppliers found");
-        }
 
-        return suppliers.stream()
-                .map(SupplierMapper::toDto)
+        return supplierRepo.findAll()
+                .stream()
+                .map(supplierMapper::toDto)
                 .toList();
     }
 
@@ -35,13 +34,13 @@ public class SupplierService {
         Supplier suplier = supplierRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
 
-        return SupplierMapper.toDto(suplier);
+        return supplierMapper.toDto(suplier);
     }
 
     public SupplierDtoResponse createSupplier(SupplierDtoRequest supplier) {
-        Supplier newSupplier = SupplierMapper.toEntity(supplier);
+        Supplier newSupplier = supplierMapper.toEntity(supplier);
         Supplier savedSupplier = supplierRepo.save(newSupplier);
-        return SupplierMapper.toDto(savedSupplier);
+        return supplierMapper.toDto(savedSupplier);
     }
 
     public SupplierDtoResponse updateSupplier(Long id, SupplierDtoRequest updatedSupplier) {
@@ -49,7 +48,7 @@ public class SupplierService {
                 .map(supplier -> {
                     supplier.setName(updatedSupplier.name());
                     return supplierRepo.save(supplier);
-                }).map(SupplierMapper::toDto)
+                }).map(supplierMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
     }
 
@@ -58,5 +57,4 @@ public class SupplierService {
                 .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
         supplierRepo.delete(supplier);
     }
-
 }

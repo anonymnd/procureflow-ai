@@ -3,6 +3,8 @@
 Updated: 2026-10-09. Author: Codex, AI-assisted setup/specification.
 
 - Current stage: Slice 0 requirement review; application implementation not started.
+- Role assignment: Codex plans, maintains requirements/architecture/workflow and reviews actual code/evidence; FCC Claude/Kimi implements authorized application work and corrections. Codex implementation requires an explicit owner request to Codex, not just approval of FCC's task.
+- Review gate: actual FCC implementation receives PASS or NEEDS CHANGES with the owner's ten finding categories, followed by FCC corrections and Codex re-review; final human approval remains separate. No FCC implementation has been presented for review in this role-assignment task.
 - Publication authority: APR-PUSH-001 authorizes committing/pushing the current work to origin/main as a checkpoint; requirement and implementation gates remain pending.
 - Setup: ten approved skills installed at pinned revisions, existing `spec` retained.
 - Authoritative draft: [Slice 0 revision 1](requirements/slice-0.md).

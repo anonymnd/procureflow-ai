@@ -29,6 +29,12 @@ This lightweight, locally adapted Agile V workflow supports studying and reviewi
 
 No application implementation or GitHub Issues have been authorized by the setup approval. Slice 0 is a draft for review. Future slices get records when work begins, rather than empty files now.
 
+## Agent responsibilities and review gate
+
+Codex plans requirements, architecture, task scopes and tests, maintains traceability, prepares issues when authorized, and reviews actual implementation. FCC Claude/Kimi implements explicitly authorized work and applies corrections. Codex writes application code only if the owner explicitly asks Codex to do so. The role directive is recorded as DIR-ROLES-001; details and the required handoff/review format are in [AGENTS.md](../AGENTS.md).
+
+After implementation/tests/traceability/code-reading updates, Codex inspects the actual diff, files and evidence independently of FCC's summary and returns PASS or NEEDS CHANGES. FCC applies corrections and Codex re-reviews before recommending completion. Final human approval remains separate. Reuse the existing slice verification record and issue/conversation for review/handoff; do not add another planning or handoff system.
+
 ## Required requirement fields
 
 Each `REQ-SN-NNN` records requirement, rationale, business rule, acceptance criteria, affected actors, related entities, related API behavior, database impact, authorization/security rule, related tests, status and stakeholder source. Include revision/baseline when approved. Distinguish observed behavior from intended behavior.

@@ -273,19 +273,13 @@ class SupplierServiceTest {
                 .thenReturn(
                         Optional.of(existingSupplier));
 
-        /*
-         * This assumes your mapper has an update method
-         * similar to:
-         *
-         * updateEntity(existingSupplier, request)
-         *
-         * If your mapper does NOT have this method,
-         * tell me your actual mapper code and we will
-         * adapt this test.
-         */
-
         when(supplierRepository.save(existingSupplier))
-                .thenReturn(updatedSupplier);
+                .thenAnswer(invocation -> {
+                    Supplier entityBeingSaved = invocation.getArgument(0);
+                    assertEquals(supplierId.longValue(), entityBeingSaved.getId());
+                    assertEquals("Updated Supplies", entityBeingSaved.getName());
+                    return updatedSupplier;
+                });
 
         when(supplierMapper.toDto(updatedSupplier))
                 .thenReturn(response);

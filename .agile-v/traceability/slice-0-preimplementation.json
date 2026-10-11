@@ -1,0 +1,233 @@
+﻿{
+    "captured_at":  "2026-10-10T16:42:00.2079563+00:00",
+    "actor":  "Codex; explicitly authorized builder under GATE-S0-IMPLEMENT",
+    "preimplementation_commit":  "ab33bb68a01ad582569f3778266cb6efb0151b55",
+    "baseline":  "BL-S0-R1",
+    "dirty_worktree":  [
+                           " M .agile-v/APPROVALS.md",
+                           " M .agile-v/REQUIREMENTS.md",
+                           " M .agile-v/STATE.md",
+                           " M .agile-v/decisions/slice-0.md",
+                           " M .agile-v/requirements/slice-0.md",
+                           " M .agile-v/tests/slice-0-test-plan.md",
+                           " M .agile-v/traceability/slice-0.md",
+                           " M .agile-v/verification/slice-0-results.md",
+                           " M .agile-v/verification/slice-0-review.md",
+                           " M docs/code-reading-guide.md",
+                           "?? .agile-v/requirements/baselines/"
+                       ],
+    "files":  [
+                  {
+                      "path":  "AGENTS.md",
+                      "sha256":  "318da7578ab3f85760d94757cee9339623ebd5554b3aaf3ed393e2eeefdd3272"
+                  },
+                  {
+                      "path":  ".mvn/wrapper/maven-wrapper.properties",
+                      "sha256":  "488e1b3f2e641779d4636abf9390845f901e64607261bc3c0b0bfe4fe96e6706"
+                  },
+                  {
+                      "path":  ".gitignore",
+                      "sha256":  "089382e4d7944ab6cb6900a1269678ebff93c00d441ada788cd05a8da182b22b"
+                  },
+                  {
+                      "path":  "mvnw.cmd",
+                      "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  {
+                      "path":  "mvnw",
+                      "sha256":  "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02"
+                  },
+                  {
+                      "path":  "README.md",
+                      "sha256":  "d6e18e9d2c490e7424238dd2e53c5ac9788d51a1f03e0da9ca0713621568d789"
+                  },
+                  {
+                      "path":  "pom.xml",
+                      "sha256":  "1da54f41e4d4898b1d9b0c4abe99eee4258c8f4146905a83efc5a7da7f93c364"
+                  },
+                  {
+                      "path":  "docker-compose.yml",
+                      "sha256":  "b66f9fa72f2a6347de4777f724754676b1b80a4c04615a7d6f28293dcb6d4e1a"
+                  },
+                  {
+                      "path":  "docs/code-reading-guide.md",
+                      "sha256":  "894d4a01e92f1ac9334e513d8f3b2f5f354c10f959d46bb09fe7b006b51be0c8"
+                  },
+                  {
+                      "path":  ".gitattributes",
+                      "sha256":  "5775a77ad2f6d12dde053a3fb0cca4309189163f0888f4e7e984cd0ab327028b"
+                  },
+                  {
+                      "path":  "docs/planning/decisions.md",
+                      "sha256":  "1e24dfb66c5793ff89d2883efd8ebaefa38561cdec2bca9625c0d6c83caceed2"
+                  },
+                  {
+                      "path":  "docs/planning/architecture-decisions.md",
+                      "sha256":  "f19807f885159bf4f165ac83c64e3aeb66959ad85ae8a246b71975cff07affc6"
+                  },
+                  {
+                      "path":  "docs/planning/diagrams.md",
+                      "sha256":  "b8897d4ca5c5dad4fc3db57bdcdea4d5bc039859e41c37658035811d2062ba91"
+                  },
+                  {
+                      "path":  "docs/planning/living-plan.md",
+                      "sha256":  "44c0e24924eb15c4bd5431635377268a0d29e36d084d4633551b35b21d118c3a"
+                  },
+                  {
+                      "path":  "docs/planning/vertical-slices.md",
+                      "sha256":  "57c5a71c3f617c278662dc387abb8b8031d5772ea4906a24302dcc7dbdd537b7"
+                  },
+                  {
+                      "path":  "src/main/resources/application.properties",
+                      "sha256":  "7e15d790c51fa3e3cf3ca05136c8d2591a53ae7aacf30594c59859228ce53402"
+                  },
+                  {
+                      "path":  "src/main/resources/db/migration/V1__create_supplier_table.sql",
+                      "sha256":  "4b58825a00c7a0c7c62dd99cbfa87086026d8db657fcf156e2931fceed15fd89"
+                  },
+                  {
+                      "path":  ".agile-v/verification/slice-0-review.md",
+                      "sha256":  "3ed5e279b5f064297446c6a32a03d457f838908932d272fa5b7708866718495e"
+                  },
+                  {
+                      "path":  ".agile-v/verification/slice-0-results.md",
+                      "sha256":  "c9446c5bd70c1e9025819f0ba90711db7d7024fc5a3620c263245b4e7c9a2fc5"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/common/exception/ResourceNotFoundException.java",
+                      "sha256":  "a553f7b881c419bbb20fed2eb96329dafa4de377c3c281e25e7c9896a8e47314"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/AppApplication.java",
+                      "sha256":  "f478814361836b0b04176c8b40172e046918fbc6480d619a031efd7945264eb6"
+                  },
+                  {
+                      "path":  ".agile-v/traceability/slice-0.md",
+                      "sha256":  "8a5c5372856e689d47adc70f63286c62db848fdd488552732305e58536eb7db9"
+                  },
+                  {
+                      "path":  ".agile-v/traceability/skill-installation.json",
+                      "sha256":  "ff7c02c21d1af4956ed88ad2acb699ce5a9e0202a872f5360b61d2e503908832"
+                  },
+                  {
+                      "path":  ".agile-v/traceability/repository-baseline.json",
+                      "sha256":  "43bec501b56ac59a699b6bcfc635841b2bcb30cf6137544e8c22546c8c73591d"
+                  },
+                  {
+                      "path":  ".agile-v/tests/slice-0-test-plan.md",
+                      "sha256":  "f205da329ae340cc5062d697f74b35126f6415c0cdc6b771e925859a291fc2f4"
+                  },
+                  {
+                      "path":  ".agile-v/STATE.md",
+                      "sha256":  "886e66987ca97624f2c06b2147c4b64875b01f024cb8054dee11a23c95c8932b"
+                  },
+                  {
+                      "path":  ".agile-v/SKILLS.md",
+                      "sha256":  "06a65b31695b5df46e122fd032442a582a9eea0f464f8e65521a0f6de6ea8120"
+                  },
+                  {
+                      "path":  ".agile-v/REQUIREMENTS.md",
+                      "sha256":  "0fbd695feb4c8045f3fa6c87fc63967d966d7b2381dd07a78cb133026b647709"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/userAccount/model/User.java",
+                      "sha256":  "2ca939605dbd4f0e9d0364bad29680f1296b3470c91061fe84a4124a22c427b9"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/slice-0.md",
+                      "sha256":  "d808fe9f1195906ff48d18f600451759f8a98816f1cf07a0e3df2a64d5d8be66"
+                  },
+                  {
+                      "path":  ".agile-v/README.md",
+                      "sha256":  "64186c3fd6ee6f98808ee8f71a6e6d8aa14e671bc1425e83f640a84b672a3009"
+                  },
+                  {
+                      "path":  ".agile-v/APPROVALS.md",
+                      "sha256":  "b7e7c3e618c8d764b562c34a83cdd8fbb18f9d6d46541719fb1da4525b94f241"
+                  },
+                  {
+                      "path":  "src/test/java/com/project/app/AppApplicationTests.java",
+                      "sha256":  "f80f10ede15e3bfc92486a8dff7c5a21b416da9882850402f50fe31cb6048d40"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/exceptions/SupplierNotFoundException.java",
+                      "sha256":  "b9ea1c9ff35e129627fb479b3cf35b9fa7649288021bb2cccfbf3808ca672440"
+                  },
+                  {
+                      "path":  ".agile-v/decisions/slice-0.md",
+                      "sha256":  "776851654e8b7886bb60e85baddded0171e5275b468b8fb9a9234870e8c604b9"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/exceptions/ResourceNotFoundException.java",
+                      "sha256":  "59ceec1bf8d671d54ff1968651969c4b722eb8ed66985660d1f2cf3054d4c3ea"
+                  },
+                  {
+                      "path":  ".agile-v/decisions/README.md",
+                      "sha256":  "e8d7ca9648d2cb1ab31cedacbb8d08bb980acf944ce9319692f40fb17c5ca846"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/.gitattributes",
+                      "sha256":  "eb68d8d3b7cdf611ca98468313fd2fb7d13cda5449cb531ebf484f9a18b9823d"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/decisions.md",
+                      "sha256":  "ff5287a25460ca2f68636f5022c40fb4ec4eaceb4c3caaacafc2e06604fbc06e"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/traceability.md",
+                      "sha256":  "dcb73a1f0e051561f022ed6457d2fc745453cc3c73bb083d9531930cda187eae"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/test-plan.md",
+                      "sha256":  "927660fba8eb0d0dd4fe50ad6459bc35a41067e9100f4761cdb2e157a4d06df0"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/requirement.md",
+                      "sha256":  "21ac94c5df24d081231edb879d71ea64db2083b047f33ab73b7abc03eed50135"
+                  },
+                  {
+                      "path":  ".agile-v/requirements/baselines/slice-0-r1/manifest.json",
+                      "sha256":  "849f0d1c7525aeb3014977c1f025552f526a2ec4781f9faabe986b11d64827a8"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/service/SupplierService.java",
+                      "sha256":  "ca81919c12693cbf490b5bdbc31a524c81fcb0e55b54b4310aa5f1439a1c0a2a"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/repository/SupplierRepo.java",
+                      "sha256":  "af98bf7c54e208c14c62fe158c9faad0c19b6e9838cb1e134827d94fd3deab8a"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoResponse.java",
+                      "sha256":  "6baa70628988e4bd70c9ec9f36a0a8e5762c2d484f45eb90fecb507a2a25c5e6"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoRequest.java",
+                      "sha256":  "4902617145a509f4ff9bf8cb5d3f122fa6c666b2fee528cde54315b2aad9383e"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/model/Supplier.java",
+                      "sha256":  "a7f84487cc0c5c5018c8ff793676241734924305264ea4113b353d1bf9b97d23"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/mapper/SupplierMapper.java",
+                      "sha256":  "42265cf1ee371c7f52bbd2835171b449b642ec0d7e593216880664ac594608ea"
+                  },
+                  {
+                      "path":  "src/test/java/com/project/app/supplier/service/SupplierServiceTest.java",
+                      "sha256":  "38e5039384874d20d4ee95e2e1ed141e2b4eb9aff26d9017ee2038fb96af7201"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/SupplierController.java",
+                      "sha256":  "0511813609033a07388b6900e6fdbad390c6babb240621eca7ac920128d119d9"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/GlobalExceptionHandler.java",
+                      "sha256":  "d70ba62f94685d9f79cdd04d08244d56d978856078075738089ad137d4a94aa3"
+                  },
+                  {
+                      "path":  "src/main/java/com/project/app/supplier/controller/ApiError.java",
+                      "sha256":  "74d3201f50f2613fecdccd28d2374685a73660dc21444b9801f67c682b27eedd"
+                  }
+              ]
+}

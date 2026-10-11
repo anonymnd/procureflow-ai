@@ -1,0 +1,35 @@
+{
+    "baseline_id":  "BL-S0-R1",
+    "requirement_revision":  1,
+    "status":  "baselined",
+    "approval_reference":  "GATE-S0-R1",
+    "approved_on":  "2026-10-10",
+    "approval_source":  "Project owner: \"i approve slice 0\"",
+    "captured_from_commit":  "ab33bb68a01ad582569f3778266cb6efb0151b55",
+    "content_policy":  "Byte-for-byte copies of the reviewed documents before lifecycle bookkeeping. Draft/pending text inside these historical copies is superseded only by this scoped approval record; acceptance content is unchanged. Embedded relative links retain their original-path context, recorded for each file.",
+    "scope":  "REQ-S0-001 through REQ-S0-007 and DEC-S0-001 through DEC-S0-004, including normative test and traceability companions.",
+    "implementation_authorization":  "NOT AUTHORIZED; GATE-S0-IMPLEMENT remains pending.",
+    "wrapper_restoration_source":  "44165770de45f249a4efc94ea923fbf22548b76a:mvnw.cmd (the inspected HEAD cited in the requirement, not the later empty-wrapper checkpoint).",
+    "files":  [
+                  {
+                      "original_path":  ".agile-v/requirements/slice-0.md",
+                      "frozen_path":  ".agile-v/requirements/baselines/slice-0-r1/requirement.md",
+                      "sha256":  "21ac94c5df24d081231edb879d71ea64db2083b047f33ab73b7abc03eed50135"
+                  },
+                  {
+                      "original_path":  ".agile-v/decisions/slice-0.md",
+                      "frozen_path":  ".agile-v/requirements/baselines/slice-0-r1/decisions.md",
+                      "sha256":  "ff5287a25460ca2f68636f5022c40fb4ec4eaceb4c3caaacafc2e06604fbc06e"
+                  },
+                  {
+                      "original_path":  ".agile-v/tests/slice-0-test-plan.md",
+                      "frozen_path":  ".agile-v/requirements/baselines/slice-0-r1/test-plan.md",
+                      "sha256":  "927660fba8eb0d0dd4fe50ad6459bc35a41067e9100f4761cdb2e157a4d06df0"
+                  },
+                  {
+                      "original_path":  ".agile-v/traceability/slice-0.md",
+                      "frozen_path":  ".agile-v/requirements/baselines/slice-0-r1/traceability.md",
+                      "sha256":  "dcb73a1f0e051561f022ed6457d2fc745453cc3c73bb083d9531930cda187eae"
+                  }
+              ]
+}

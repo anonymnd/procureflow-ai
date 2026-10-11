@@ -1,7 +1,7 @@
 # Slice 0 - Restore a trustworthy development baseline
 
-- Status: baselined (BL-S0-R1, GATE-S0-R1, 2026-10-10); implementation authorized under GATE-S0-IMPLEMENT; builder verification and fresh-context implementation review PASS (I1); owner final acceptance recorded 2026-10-11. Historical findings/proposals below describe the preimplementation state.
-- Project: ProcureFlow; created 2026-10-09; revision 1; approved: yes; completed: yes (owner accepted 2026-10-11).
+- Status: draft_persisted; no application implementation authorized.
+- Project: ProcureFlow; created 2026-10-09; revision 1; approved/completed: no.
 - Stakeholder directive: project owner, 2026-10-09; inspect actual code, preserve work/data, specify the smallest baseline repair and stop for approval.
 - Baseline inspected: Git HEAD `44165770de45f249a4efc94ea923fbf22548b76a` plus the current working tree. Source fingerprints: [repository baseline](../traceability/repository-baseline.json).
 - Related records: [decisions](../decisions/slice-0.md), [impact/architecture map](../traceability/slice-0.md), [draft test plan and exact steps](../tests/slice-0-test-plan.md), [review](../verification/slice-0-review.md), [observed evidence](../verification/slice-0-results.md).
@@ -106,7 +106,7 @@ Exact proposed file actions and dependencies are in [traceability](../traceabili
 
 ## 11. Requirements and Definition of Done
 
-Every requirement below inherits stakeholder source: project owner, baseline/traceability directive dated 2026-10-09; revision 1, no approved baseline; status **baselined**, approval GATE-S0-R1 / BL-S0-R1 (2026-10-10). Acceptance tests and exact executable commands/numbered steps are in [test plan](../tests/slice-0-test-plan.md). That document is a draft normative companion, not observed results.
+Every requirement below inherits stakeholder source: project owner, baseline/traceability directive dated 2026-10-09; revision 1, no approved baseline; status **draft_persisted**. Acceptance tests and exact executable commands/numbered steps are in [test plan](../tests/slice-0-test-plan.md). That document is a draft normative companion, not observed results.
 
 ### REQ-S0-001 - Reproducible Windows build
 
@@ -120,7 +120,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: none from build; DB tests use isolated target only.
 - Authorization/security rule: no application permissions added; no dependency/version expansion.
 - Related tests: TC-S0-001, TC-S0-002, TC-S0-010.
-- Status: baselined (BL-S0-R1); decision DEC-S0-003.
+- Status: draft_persisted; decision DEC-S0-003.
 
 ### REQ-S0-002 - Fresh migration and context compatibility
 
@@ -134,7 +134,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: isolated database creation for verification only; no schema/migration change.
 - Authorization/security rule: target guard and explicit local credentials; Flyway clean disabled.
 - Related tests: TC-S0-003, TC-S0-010, TC-S0-011.
-- Status: baselined (BL-S0-R1); decisions DEC-S0-001, DEC-S0-002.
+- Status: draft_persisted; decisions DEC-S0-001, DEC-S0-002.
 
 ### REQ-S0-003 - Preserve successful Supplier CRUD
 
@@ -148,7 +148,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: writes restricted to isolated fixture database; existing suppliers table unchanged.
 - Authorization/security rule: current API has no authorization; explicitly documented local-only acceptance boundary.
 - Related tests: TC-S0-002, TC-S0-004, TC-S0-005, TC-S0-010.
-- Status: baselined (BL-S0-R1); decision DEC-S0-004.
+- Status: draft_persisted; decision DEC-S0-004.
 
 ### REQ-S0-004 - Correct missing-resource and client-input errors
 
@@ -162,7 +162,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: none; rejected operations leave existing rows unchanged.
 - Authorization/security rule: responses sanitize internal failures; do not expose SQL/credentials/stack traces.
 - Related tests: TC-S0-006, TC-S0-008, TC-S0-009.
-- Status: baselined (BL-S0-R1); decision DEC-S0-004.
+- Status: draft_persisted; decision DEC-S0-004.
 
 ### REQ-S0-005 - Align name validation with schema
 
@@ -176,7 +176,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: unchanged VARCHAR(255); no migration.
 - Authorization/security rule: validate at API boundary; parameterized Spring Data operations remain.
 - Related tests: TC-S0-007, TC-S0-004.
-- Status: baselined (BL-S0-R1); decision DEC-S0-004.
+- Status: draft_persisted; decision DEC-S0-004.
 
 ### REQ-S0-006 - Safe verification and preservation
 
@@ -190,7 +190,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: one new named isolated DB per verification run; retained, not dropped.
 - Authorization/security rule: reject unsafe target before datasource/Flyway; credentials supplied explicitly and not recorded in results.
 - Related tests: TC-S0-003, TC-S0-011, TC-S0-012.
-- Status: baselined (BL-S0-R1); decision DEC-S0-002.
+- Status: draft_persisted; decision DEC-S0-002.
 
 ### REQ-S0-007 - Accurate documentation and connected study record
 
@@ -204,7 +204,7 @@ Every requirement below inherits stakeholder source: project owner, baseline/tra
 - Database impact: documents existing table and absence of FKs; no schema change.
 - Authorization/security rule: instructions scoped to local development, no false security/production-readiness claim.
 - Related tests: TC-S0-010, TC-S0-012, TC-S0-013.
-- Status: baselined (BL-S0-R1); decisions DEC-S0-002, DEC-S0-004.
+- Status: draft_persisted; decisions DEC-S0-002, DEC-S0-004.
 
 ### Definition of Done
 
@@ -221,11 +221,3 @@ The user wants options and reasons for technical choices. Material schema, API, 
 ## 13. Implementation log and verification evidence
 
 No application implementation performed. Skill/workflow setup completed under APR-SETUP-001. Baseline source inspection, Compose parsing, wrapper-distribution HEAD checks and existing unit tests are recorded in [results](../verification/slice-0-results.md). Generated `target/` test outputs may have changed; they are ignored build artifacts, not source changes. GitHub Issues and approved baseline do not exist yet. The detailed [review](../verification/slice-0-review.md) identifies remaining proposed decisions and verification gaps.
-
-## Approval bookkeeping - GATE-S0-R1
-
-2026-10-10: project owner said "i approve slice 0". REQ-S0-001 through REQ-S0-007 and DEC-S0-001 through DEC-S0-004, together with the normative test-plan and traceability companions, are approved as BL-S0-R1. See the [immutable manifest](baselines/slice-0-r1/manifest.json) and [approval record](../APPROVALS.md). Reviewed acceptance content was copied byte-for-byte before these lifecycle updates; historical pending statements describe the drafting stage and are superseded by this record. No business/acceptance requirement changed.
-
-The original inspected HEAD means commit 44165770de45f249a4efc94ea923fbf22548b76a for wrapper restoration. Later checkpoint ab33bb68a01ad582569f3778266cb6efb0151b55 preserves the empty wrapper; it is not the restoration source.
-
-Implementation authorization remains NOT AUTHORIZED (GATE-S0-IMPLEMENT pending). No application files, implementation tests, database or volume were changed by this approval task. GitHub Issues are created under the standing instruction after this baseline; actual links are maintained in traceability/STATE. Completion and behavior verification remain pending.

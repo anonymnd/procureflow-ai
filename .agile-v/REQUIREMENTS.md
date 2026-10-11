@@ -4,7 +4,7 @@ This is an index, not a second specification. Follow the authoritative slice lin
 
 | Slice | Authoritative document | Revision | Status | Approved baseline |
 |---|---|---|---|---|
-| 0 - Trustworthy development baseline | [slice-0.md](requirements/slice-0.md) | 1 | Draft persisted; awaiting review/approval | None |
+| 0 - Trustworthy development baseline | [slice-0.md](requirements/slice-0.md) | 1 | Complete; GATE-S0-R1 approved, GATE-S0-IMPLEMENT authorized, owner final acceptance recorded 2026-10-11 | [BL-S0-R1](requirements/baselines/slice-0-r1/manifest.json), GATE-S0-R1, 2026-10-10 |
 
 High-level scope remains in [living plan](../docs/planning/living-plan.md), [confirmed decisions](../docs/planning/decisions.md), [roadmap](../docs/planning/vertical-slices.md) and [planning ADRs](../docs/planning/architecture-decisions.md). No later slice requirement is approved merely because it appears in the roadmap.
 

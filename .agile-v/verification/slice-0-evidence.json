@@ -1,0 +1,341 @@
+{
+    "timestamp":  "2026-10-11T02:36:33.599451+00:00",
+    "actor":  "Codex authorized builder; I0; AI-assisted",
+    "baseline":  "BL-S0-R1",
+    "base":  "ab33bb68a01ad582569f3778266cb6efb0151b55",
+    "authorization":  "GATE-S0-IMPLEMENT",
+    "fresh_context_review":  {
+                                 "result":  "PASS",
+                                 "independence_class":  "I1",
+                                 "date":  "2026-10-11",
+                                 "limitation":  "Review context inspected preserved raw test/HTTP/hash evidence; did not rerun application tests."
+                             },
+    "runtime":  {
+                    "maven":  "3.9.16",
+                    "jdk":  "Temurin25.0.3",
+                    "postgresql":  "17.11",
+                    "boot":  "4.1.1"
+                },
+    "database_url":  "jdbc:postgresql://localhost:5332/procureflow_slice0_20261010165158_c7b60445",
+    "http_port":  18080,
+    "test_totals":  {
+                        "tests":  72,
+                        "failures":  0,
+                        "errors":  0,
+                        "skipped":  0
+                    },
+    "http_checks":  110,
+    "http_timestamp":  "2026-10-10T17:15:16.830994+00:00",
+    "restart_marker_id":  31,
+    "retained_rows":  6,
+    "post_review_verify_database":  "procureflow_slice0_20261010172658_272a1249",
+    "post_restart_sql":  {
+                             "successful_v1_rows":  1,
+                             "public_tables":  [
+                                                   "flyway_schema_history",
+                                                   "suppliers"
+                                               ],
+                             "marker_name":  "Slice0 restart marker"
+                         },
+    "missing_configuration_rejected_before_datasource":  true,
+    "immutable_baseline_hashes_match":  true,
+    "preservation":  {
+                         "captured_files":  53,
+                         "unchanged":  [
+                                           "AGENTS.md",
+                                           ".mvn/wrapper/maven-wrapper.properties",
+                                           ".gitignore",
+                                           "mvnw",
+                                           "pom.xml",
+                                           "docker-compose.yml",
+                                           ".gitattributes",
+                                           "docs/planning/decisions.md",
+                                           "docs/planning/architecture-decisions.md",
+                                           "docs/planning/diagrams.md",
+                                           "docs/planning/living-plan.md",
+                                           "docs/planning/vertical-slices.md",
+                                           "src/main/resources/application.properties",
+                                           "src/main/resources/db/migration/V1__create_supplier_table.sql",
+                                           "src/main/java/com/project/app/common/exception/ResourceNotFoundException.java",
+                                           "src/main/java/com/project/app/AppApplication.java",
+                                           ".agile-v/traceability/skill-installation.json",
+                                           ".agile-v/traceability/repository-baseline.json",
+                                           ".agile-v/SKILLS.md",
+                                           ".agile-v/README.md",
+                                           "src/main/java/com/project/app/supplier/exceptions/SupplierNotFoundException.java",
+                                           "src/main/java/com/project/app/supplier/exceptions/ResourceNotFoundException.java",
+                                           ".agile-v/decisions/README.md",
+                                           ".agile-v/requirements/baselines/slice-0-r1/.gitattributes",
+                                           ".agile-v/requirements/baselines/slice-0-r1/decisions.md",
+                                           ".agile-v/requirements/baselines/slice-0-r1/traceability.md",
+                                           ".agile-v/requirements/baselines/slice-0-r1/test-plan.md",
+                                           ".agile-v/requirements/baselines/slice-0-r1/requirement.md",
+                                           ".agile-v/requirements/baselines/slice-0-r1/manifest.json",
+                                           "src/main/java/com/project/app/supplier/service/SupplierService.java",
+                                           "src/main/java/com/project/app/supplier/repository/SupplierRepo.java",
+                                           "src/main/java/com/project/app/supplier/DTO/SupplierDtoResponse.java",
+                                           "src/main/java/com/project/app/supplier/model/Supplier.java",
+                                           "src/main/java/com/project/app/supplier/mapper/SupplierMapper.java",
+                                           "src/main/java/com/project/app/supplier/controller/SupplierController.java",
+                                           "src/main/java/com/project/app/supplier/controller/ApiError.java"
+                                       ],
+                         "approved_modified":  [
+                                                   "mvnw.cmd",
+                                                   "README.md",
+                                                   "docs/code-reading-guide.md",
+                                                   ".agile-v/verification/slice-0-review.md",
+                                                   ".agile-v/verification/slice-0-results.md",
+                                                   ".agile-v/traceability/slice-0.md",
+                                                   ".agile-v/tests/slice-0-test-plan.md",
+                                                   ".agile-v/STATE.md",
+                                                   ".agile-v/REQUIREMENTS.md",
+                                                   "src/main/java/com/project/app/userAccount/model/User.java",
+                                                   ".agile-v/requirements/slice-0.md",
+                                                   ".agile-v/APPROVALS.md",
+                                                   "src/test/java/com/project/app/AppApplicationTests.java",
+                                                   ".agile-v/decisions/slice-0.md",
+                                                   "src/main/java/com/project/app/supplier/DTO/SupplierDtoRequest.java",
+                                                   "src/test/java/com/project/app/supplier/service/SupplierServiceTest.java",
+                                                   "src/main/java/com/project/app/supplier/controller/GlobalExceptionHandler.java"
+                                               ],
+                         "deleted":  [
+
+                                     ]
+                     },
+    "source_fingerprints":  [
+                                {
+                                    "path":  "src/main/java/com/project/app/AppApplication.java",
+                                    "sha256":  "f478814361836b0b04176c8b40172e046918fbc6480d619a031efd7945264eb6"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/common/exception/ResourceNotFoundException.java",
+                                    "sha256":  "a553f7b881c419bbb20fed2eb96329dafa4de377c3c281e25e7c9896a8e47314"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/controller/ApiError.java",
+                                    "sha256":  "74d3201f50f2613fecdccd28d2374685a73660dc21444b9801f67c682b27eedd"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/controller/GlobalExceptionHandler.java",
+                                    "sha256":  "5fc8539d08a3614f0b083a966963508d8dece355d3f5f0d5f4eab1084a294f7f"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/controller/SupplierController.java",
+                                    "sha256":  "0511813609033a07388b6900e6fdbad390c6babb240621eca7ac920128d119d9"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoRequest.java",
+                                    "sha256":  "b9e1755701f97b80be76c9caba672ab4229b8d34ae42a6df02d795b5d3871b2a"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/DTO/SupplierDtoResponse.java",
+                                    "sha256":  "6baa70628988e4bd70c9ec9f36a0a8e5762c2d484f45eb90fecb507a2a25c5e6"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/exceptions/ResourceNotFoundException.java",
+                                    "sha256":  "59ceec1bf8d671d54ff1968651969c4b722eb8ed66985660d1f2cf3054d4c3ea"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/exceptions/SupplierNotFoundException.java",
+                                    "sha256":  "b9ea1c9ff35e129627fb479b3cf35b9fa7649288021bb2cccfbf3808ca672440"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/mapper/SupplierMapper.java",
+                                    "sha256":  "42265cf1ee371c7f52bbd2835171b449b642ec0d7e593216880664ac594608ea"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/model/Supplier.java",
+                                    "sha256":  "a7f84487cc0c5c5018c8ff793676241734924305264ea4113b353d1bf9b97d23"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/repository/SupplierRepo.java",
+                                    "sha256":  "af98bf7c54e208c14c62fe158c9faad0c19b6e9838cb1e134827d94fd3deab8a"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/supplier/service/SupplierService.java",
+                                    "sha256":  "ca81919c12693cbf490b5bdbc31a524c81fcb0e55b54b4310aa5f1439a1c0a2a"
+                                },
+                                {
+                                    "path":  "src/main/java/com/project/app/userAccount/model/User.java",
+                                    "sha256":  "6eacab315fe84868eb10bb98198f0a461a3447ad2b7ec8fa5b4e25ca84b43727"
+                                },
+                                {
+                                    "path":  "src/main/resources/application.properties",
+                                    "sha256":  "7e15d790c51fa3e3cf3ca05136c8d2591a53ae7aacf30594c59859228ce53402"
+                                },
+                                {
+                                    "path":  "src/main/resources/db/migration/V1__create_supplier_table.sql",
+                                    "sha256":  "4b58825a00c7a0c7c62dd99cbfa87086026d8db657fcf156e2931fceed15fd89"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/AppApplicationTests.java",
+                                    "sha256":  "b4f01dccb66f42b9cfa1f2d28d6434941214574b2e804c86f430e078571ce2a3"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/supplier/controller/SupplierControllerTest.java",
+                                    "sha256":  "79e41c31dda2b0b9a03b6d8899b9c18938a42da5bb940a7892a2b39fe313d7fa"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/supplier/service/SupplierServiceTest.java",
+                                    "sha256":  "b5a0bbe12d5dee80dc8d91a1bf34219ae18bfee582db1d1567ec8040bebb81c3"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/supplier/SupplierApiIntegrationTest.java",
+                                    "sha256":  "eb607a15bef334fe5e70755eebeffa403041149bd72c68836bbb10a7934d5813"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/support/Slice0DatabaseGuard.java",
+                                    "sha256":  "195213f07db306ef6d3bc8aeca9d411fb2e4d92741dd85f3d06aa17d2dab41be"
+                                },
+                                {
+                                    "path":  "src/test/java/com/project/app/support/Slice0DatabaseGuardTest.java",
+                                    "sha256":  "530c9be913807ea9c5d12ad86dcc8c69e8c28915c146f24af2997d7e2d010fea"
+                                },
+                                {
+                                    "path":  "src/test/resources/application-slice0-test.properties",
+                                    "sha256":  "eddba8861dad0ce07243670e5c298f7af2ed7f375f36cbe20d1d0efca93a3b0c"
+                                }
+                            ],
+    "execution_artifacts":  [
+                                {
+                                    "path":  "target/surefire-reports/TEST-com.project.app.AppApplicationTests.xml",
+                                    "sha256":  "69c63826c37c42fcd2c40cd2e189945d21fc7c13948d9e99c791b71a92685f16",
+                                    "suite":  "com.project.app.AppApplicationTests",
+                                    "tests":  1,
+                                    "failures":  0,
+                                    "errors":  0,
+                                    "skipped":  0
+                                },
+                                {
+                                    "path":  "target/surefire-reports/TEST-com.project.app.supplier.controller.SupplierControllerTest.xml",
+                                    "sha256":  "b6105b08e8e64e9d0e7c26d3ad542fb95f354aaf001ce96e87e031c82c30ad32",
+                                    "suite":  "com.project.app.supplier.controller.SupplierControllerTest",
+                                    "tests":  16,
+                                    "failures":  0,
+                                    "errors":  0,
+                                    "skipped":  0
+                                },
+                                {
+                                    "path":  "target/surefire-reports/TEST-com.project.app.supplier.service.SupplierServiceTest.xml",
+                                    "sha256":  "b319c34820f91a8dd9a072976328a0fd32b48ea971b504f80f8589a6d074d91e",
+                                    "suite":  "com.project.app.supplier.service.SupplierServiceTest",
+                                    "tests":  9,
+                                    "failures":  0,
+                                    "errors":  0,
+                                    "skipped":  0
+                                },
+                                {
+                                    "path":  "target/surefire-reports/TEST-com.project.app.supplier.SupplierApiIntegrationTest.xml",
+                                    "sha256":  "115f8ae572efd1c4a84f69c2e3feb246f0170b616c74a4ed2dd6b239c823391e",
+                                    "suite":  "com.project.app.supplier.SupplierApiIntegrationTest",
+                                    "tests":  10,
+                                    "failures":  0,
+                                    "errors":  0,
+                                    "skipped":  0
+                                },
+                                {
+                                    "path":  "target/surefire-reports/TEST-com.project.app.support.Slice0DatabaseGuardTest.xml",
+                                    "sha256":  "476e6141fe32fce366a8f3ebcfea41b0e1e33340cc73fbadf7dd5c6cfa6343e8",
+                                    "suite":  "com.project.app.support.Slice0DatabaseGuardTest",
+                                    "tests":  36,
+                                    "failures":  0,
+                                    "errors":  0,
+                                    "skipped":  0
+                                },
+                                {
+                                    "path":  "target/slice0-http-results.json",
+                                    "sha256":  "80c85022f8f2637a9a8297628166fbe0036690e118e5e49991c01c7f52c6f001"
+                                },
+                                {
+                                    "path":  "target/slice0-preflight.log",
+                                    "sha256":  "91133a5ef86f600d35944e76271b69d278bb13cf778edb7860ea7a0ffe2c3c95"
+                                },
+                                {
+                                    "path":  "target/slice0-preflight-reports/TEST-com.project.app.AppApplicationTests.xml",
+                                    "sha256":  "bfb837499370b170febb1fea4a88ff83e94c173966e2bb46c243570f4b2e9a8b"
+                                },
+                                {
+                                    "path":  "target/slice0-preflight-reports/com.project.app.AppApplicationTests.txt",
+                                    "sha256":  "21142edd17a5398c235b333be50f3c860ee135b5f39dbe66955d42e26dbbf5a9"
+                                },
+                                {
+                                    "path":  "target/slice0-jar-start-1.log",
+                                    "sha256":  "c3d7103fc8ac8ca53aa086186a38623e5870290864e2301b8fd1c8b9da33e654"
+                                },
+                                {
+                                    "path":  "target/slice0-jar-start-2.log",
+                                    "sha256":  "6fb3954f09dd70ffe26305f8cf63be2ddf69239d368265eca3fa4a36d714c06c"
+                                },
+                                {
+                                    "path":  "target/app-0.0.1-SNAPSHOT.jar",
+                                    "sha256":  "9de96ace6cb349a0c3868c4c5bb5e9d70dcb434d0733bfb8f617f86ac99cac4f"
+                                },
+                                {
+                                    "path":  "target/slice0-http-smoke.py",
+                                    "sha256":  "7a5512f44a3d79f4c0c4b3761cd0fc758638b47e84573141e542f6f4156f59aa"
+                                },
+                                {
+                                    "path":  "target/slice0-build.ps1",
+                                    "sha256":  "46888c6ed93682c6db4c15476df41a09a5530389cae868f9a190264fb4a120e5"
+                                },
+                                {
+                                    "path":  "target/slice0-verify.ps1",
+                                    "sha256":  "1f6a024105d26ff42bb3fa84fac6de4fa9097b20d7c517de77fe5020ede941cb"
+                                },
+                                {
+                                    "path":  "target/slice0-preflight.ps1",
+                                    "sha256":  "0f6de3c6d08c03eb1a0c315ccdbc9b93236d8df70b1163bd4e577ae28664f375"
+                                },
+                                {
+                                    "path":  "target/slice0-database.ps1",
+                                    "sha256":  "844a5208fec664a210313cd02239baba4d32d82910c265e96be6274a1f84272c"
+                                },
+                                {
+                                    "path":  "README.md",
+                                    "sha256":  "668d17f60b885896037561173a5205b855ddb05288e96b577d307919f873387c"
+                                },
+                                {
+                                    "path":  "docs/code-reading-guide.md",
+                                    "sha256":  "f876f4068663bf14fdf179e65daee04d763418b85976d6e345477627a6a0fa0e"
+                                },
+                                {
+                                    "path":  ".agile-v/APPROVALS.md",
+                                    "sha256":  "74168ab1960ca2128dd26e3ed0dc3409f730bf97574b902779340ef42a73c2d2"
+                                },
+                                {
+                                    "path":  ".agile-v/STATE.md",
+                                    "sha256":  "a7125469452fd4c5774d2779b989fe6f6324762671ea53cfb308ab58d2a0164e"
+                                },
+                                {
+                                    "path":  ".agile-v/REQUIREMENTS.md",
+                                    "sha256":  "1df9b131056ba91b1573fecaeea427b45509e0dbbc60e3894fee03f432de7be4"
+                                },
+                                {
+                                    "path":  ".agile-v/requirements/slice-0.md",
+                                    "sha256":  "29b96d00d3e28a28a716cebd4b7fdf543d5d0a313b4447014010d865662c0aa5"
+                                },
+                                {
+                                    "path":  ".agile-v/traceability/slice-0.md",
+                                    "sha256":  "57de7d05464e4c5092d462cb19dbe39fbcd3a31ba1198d04008916a861e7cdf6"
+                                },
+                                {
+                                    "path":  ".agile-v/tests/slice-0-test-plan.md",
+                                    "sha256":  "d19d5172b3f333ae9d9ef1967784f05c7797d870c5e2b6bcf95a42f20f58f201"
+                                },
+                                {
+                                    "path":  ".agile-v/verification/slice-0-results.md",
+                                    "sha256":  "6f0e2c0449df28311a4495afea83d2ee630d5f4e185f9c81137a6f819a6d99cf"
+                                },
+                                {
+                                    "path":  ".agile-v/verification/slice-0-review.md",
+                                    "sha256":  "29e7aceafa12b9ec58dc74720c9ad1b22d407caa64431e5a4b9e473d0befbcd8"
+                                }
+                            ],
+    "limitations":  [
+                        "Builder evidence I0; fresh-context review recorded separately",
+                        "No Java17 runtime or Unix wrapper execution",
+                        "Business DB preservation based on safe target/operation log; no before/after business-row snapshot",
+                        "Artifacts under ignored target remain local; durable evidence is committed with the accepted Slice 0 checkpoint",
+                        "Final owner acceptance and scoped commit/push authority recorded 2026-10-11; no merge/deployment authority"
+                    ]
+}

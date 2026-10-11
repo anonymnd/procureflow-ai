@@ -1,445 +1,83 @@
-# ProcureFlow AI
+# ProcureFlow
 
-### Intelligent Procurement Management Platform
+ProcureFlow currently contains a Spring Boot backend with name-only Supplier CRUD, PostgreSQL and Flyway. Slice 0 restores this development baseline under [BL-S0-R1](.agile-v/requirements/baselines/slice-0-r1/manifest.json) and GATE-S0-IMPLEMENT. The owner accepted Slice 0 on 2026-10-11 after verification and review. Changes remain local and unpublished.
 
-ProcureFlow AI is a modern procurement management platform designed to centralize supplier management, purchasing workflows, procurement data, and AI-assisted decision making in a single system.
+The agreed future procurement direction is RFQ -> quotation -> order; see [confirmed decisions](docs/planning/decisions.md). React, AI services, authentication, organization permissions and that workflow are future work. User is an unmapped scaffold.
 
-It combines a scalable **Spring Boot backend**, **React frontend**, **PostgreSQL database**, and an AI service layer to provide a structured foundation for modern procurement operations.
+## Environment
 
----
+Windows PowerShell, Docker Desktop and an installed JDK are needed. Java compilation target is 17; observed verification used Temurin 25.0.3, not a Java 17 runtime. Spring Boot is 4.1.1; the wrapper pins Maven 3.9.16. Compose defines PostgreSQL 17 service `db`, container `postgresql`, host port 5332. Preserve existing databases and volumes.
 
-## What is ProcureFlow?
+Select your installed JDK and check the wrapper:
 
-Procurement teams often work across spreadsheets, emails, documents, and disconnected systems.
-
-This makes it difficult to:
-
-* maintain accurate supplier information
-* track procurement requests
-* manage purchasing workflows
-* find relevant procurement information
-* analyze supplier data
-* make decisions from large amounts of unstructured information
-
-**ProcureFlow** brings these operations into one centralized platform.
-
-The system provides structured procurement management while introducing AI capabilities that can help users search, understand, and act on procurement information more efficiently.
-
----
-
-## Core Capabilities
-
-### Supplier Management
-
-Manage the complete supplier lifecycle through a centralized interface.
-
-* Create suppliers
-* Update supplier information
-* Retrieve supplier data
-* Delete suppliers
-* Validate supplier information
-* Handle missing or invalid resources
-
-### Procurement Management
-
-The platform is designed around a complete procurement workflow:
-
-```text
-Supplier
-    ↓
-Product / Service
-    ↓
-Purchase Request
-    ↓
-Approval
-    ↓
-Purchase Order
-    ↓
-Procurement Tracking
+```powershell
+$env:JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot'
+$env:Path = "$env:JAVA_HOME\bin;" + $env:Path
+.\mvnw.cmd -v
 ```
 
-This structure allows procurement operations to evolve beyond simple CRUD management into a complete business workflow.
+The Unix wrapper is present; execution evidence for this slice is Windows only.
 
-### AI-Assisted Procurement
+## Safe verification
 
-ProcureFlow introduces an AI layer for working with procurement information.
+Run from the repository root. Database-free tests:
 
-Potential use cases include:
-
-* Natural-language procurement search
-* Supplier information analysis
-* Procurement document understanding
-* Intelligent recommendations
-* Question answering over company procurement data
-* RAG-powered knowledge retrieval
-
-The AI layer is separated from the core business API so that AI capabilities can evolve independently.
-
----
-
-# Architecture
-
-ProcureFlow follows a modular full-stack architecture.
-
-```text
-                         ┌──────────────────┐
-                         │    React App     │
-                         │   Web Interface  │
-                         └────────┬─────────┘
-                                  │
-                              REST API
-                                  │
-                                  ▼
-                     ┌────────────────────────┐
-                     │      Spring Boot       │
-                     │       REST API         │
-                     └───────────┬────────────┘
-                                 │
-                ┌────────────────┼────────────────┐
-                │                │                │
-                ▼                ▼                ▼
-          Controllers        Services        Security
-                │                │
-                │                ▼
-                │          Repositories
-                │                │
-                │                ▼
-                │           PostgreSQL
-                │
-                ▼
-          Exception Handling
-                │
-                ▼
-          Consistent API Errors
-
-
-                     ┌───────────────────┐
-                     │    AI Service     │
-                     │ Python / FastAPI  │
-                     └─────────┬─────────┘
-                               │
-                               ▼
-                         RAG Pipeline
-                               │
-                               ▼
-                              LLM
+```powershell
+.\mvnw.cmd '-Dtest=SupplierServiceTest,SupplierControllerTest,Slice0DatabaseGuardTest' test
+if ($LASTEXITCODE -ne 0) { throw 'Database-free tests failed' }
 ```
 
----
+Full tests require a **new empty isolated database**. This workspace already has the `postgresql` container: start it without recreating volumes. If absent, inspect Compose and your environment before first-time provisioning. Use the existing server's credentials; changing Compose variables does not reset an initialized volume's credentials.
 
-# Backend Architecture
-
-The Spring Boot application uses a layered architecture with clear separation of responsibilities.
-
-```text
-Controller
-     ↓
-Service
-     ↓
-Repository
-     ↓
-Database
+```powershell
+docker start postgresql
+if ($LASTEXITCODE -ne 0) { throw 'Existing PostgreSQL container could not start' }
+$slice0Db = 'procureflow_slice0_' + (Get-Date -Format 'yyyyMMddHHmmss') + '_' + [guid]::NewGuid().ToString('N').Substring(0,8)
+$env:PROCUREFLOW_TEST_DB_USERNAME = 'ProcureFlow'
+$env:PROCUREFLOW_TEST_DB_PASSWORD = [System.Net.NetworkCredential]::new('', (Read-Host 'Existing local PostgreSQL password' -AsSecureString)).Password
+docker exec postgresql createdb -U $env:PROCUREFLOW_TEST_DB_USERNAME $slice0Db
+if ($LASTEXITCODE -ne 0) { throw 'Isolated database creation failed; do not recreate volumes' }
+$env:PROCUREFLOW_TEST_DB_URL = "jdbc:postgresql://localhost:5332/$slice0Db"
+.\mvnw.cmd verify
+if ($LASTEXITCODE -ne 0) { throw 'Verification failed' }
 ```
 
-### Controller
+Both database-backed test classes activate `slice0-test` and a test-only initializer. It validates the resolved datasource/Flyway targets before database beans initialize. Missing configuration, business DB names, remote hosts, wrong ports and unsafe schema generation fail. Fixtures roll back, though sequences can advance. Keep the isolated database as evidence. Do not drop databases/volumes, run Flyway clean/repair or enable Hibernate create/update to make tests pass. Full `test`/`verify` without explicit test configuration intentionally fails.
 
-Responsible for:
+## Run the packaged backend locally
 
-* HTTP requests
-* request validation
-* HTTP responses
-* REST endpoint definitions
+After verification, use the same isolated target. The jar does not contain the test-only guard: validate the URL and use these explicit local settings. Avoid inherited Spring/Hibernate/JVM overrides; the [approved test plan](.agile-v/tests/slice-0-test-plan.md) explains the verification protocol.
 
-### Service
-
-Contains application and business logic.
-
-This layer prevents business rules from being coupled directly to HTTP or database code.
-
-### Repository
-
-Responsible for database access through Spring Data JPA.
-
-### DTOs
-
-The API uses dedicated request and response DTOs rather than exposing database entities directly.
-
-This provides a clean boundary between the API and persistence layers.
-
-### Exception Handling
-
-A centralized exception handling mechanism provides consistent API responses for errors such as:
-
-* resource not found
-* invalid request data
-* database constraint violations
-* unexpected server errors
-
----
-
-# Technology Stack
-
-## Backend
-
-* Java 17
-* Spring Boot
-* Spring Web
-* Spring Data JPA
-* Hibernate
-* Jakarta Validation
-* Maven
-
-## Frontend
-
-* React
-* REST API
-* Modern component-based UI architecture
-
-## Data
-
-* PostgreSQL
-* Flyway
-* Hibernate / JPA
-
-## AI
-
-* Python
-* FastAPI
-* Retrieval-Augmented Generation
-* Large Language Models
-
-## Infrastructure
-
-* Docker
-* Kubernetes
-* Git
-* GitHub
-* CI/CD
-
----
-
-# API
-
-The backend exposes RESTful APIs for procurement resources.
-
-### Supplier API
-
-| Method   | Endpoint              | Purpose             |
-| -------- | --------------------- | ------------------- |
-| `POST`   | `/api/suppliers`      | Create a supplier   |
-| `GET`    | `/api/suppliers`      | Retrieve suppliers  |
-| `GET`    | `/api/suppliers/{id}` | Retrieve a supplier |
-| `PUT`    | `/api/suppliers/{id}` | Update a supplier   |
-| `DELETE` | `/api/suppliers/{id}` | Delete a supplier   |
-
-Example request:
-
-```http
-POST /api/suppliers
-Content-Type: application/json
+```powershell
+if ($env:PROCUREFLOW_TEST_DB_URL -notmatch '^jdbc:postgresql://localhost:5332/procureflow_slice0_[0-9]{14}_[a-z0-9]{8}$') { throw 'Unsafe verification target' }
+java -jar target/app-0.0.1-SNAPSHOT.jar '--spring.config.location=classpath:/application.properties' '--spring.profiles.active=slice0-smoke' '--server.address=127.0.0.1' '--server.port=18080' "--spring.datasource.url=$env:PROCUREFLOW_TEST_DB_URL" '--spring.datasource.username=${PROCUREFLOW_TEST_DB_USERNAME}' '--spring.datasource.password=${PROCUREFLOW_TEST_DB_PASSWORD}' "--spring.flyway.url=$env:PROCUREFLOW_TEST_DB_URL" '--spring.flyway.user=${PROCUREFLOW_TEST_DB_USERNAME}' '--spring.flyway.password=${PROCUREFLOW_TEST_DB_PASSWORD}' '--spring.jpa.hibernate.ddl-auto=validate' '--spring.flyway.enabled=true' '--spring.flyway.clean-disabled=true'
 ```
 
-```json
-{
-  "name": "Acme Supplies",
-  "email": "contact@acme.com"
-}
+In another PowerShell window:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:18080/api/suppliers
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:18080/api/suppliers -ContentType 'application/json' -Body '{"name":"Atlas Supplies"}'
 ```
 
-Successful creation returns:
+Stop with Ctrl+C. Restarting on the same isolated database preserves rows without reapplying V1. Verification used port 18080 because 8080 was occupied. Normal `application.properties` still targets the existing local development DB: inspect it before ordinary runs. The API has no authentication/authorization; this documented run binds to localhost.
 
-```text
-201 Created
-```
+## Supplier API
 
-with the created resource and its location.
+| Method/path | Result |
+|---|---|
+| POST `/api/suppliers` | 201, generated `id` and supplied `name` |
+| GET `/api/suppliers` | 200, array (empty `[]` when no rows) |
+| GET `/api/suppliers/{id}` | 200, `id`/`name` |
+| PUT `/api/suppliers/{id}` | 200, same `id` and updated `name` |
+| DELETE `/api/suppliers/{id}` | 204, empty body |
 
----
+Request: `{"name":"Atlas Supplies"}`. Response: `{"id":1,"name":"Atlas Supplies"}`; IDs vary. No email field or Location-header guarantee. Names are nonblank, at most 255 Java character-sequence units, preserved as supplied; duplicates are allowed.
 
-# Data & Database
+Errors contain `timestamp`, `status`, `error`, `message`: invalid names -> 400 `VALIDATION_ERROR`; malformed/missing JSON and nonnumeric/overflowing IDs -> 400 `BAD_REQUEST`; absent numeric IDs (including negative/repeatedly deleted IDs) -> 404 `Resource Not Found`; integrity failures -> sanitized 409 `DATA_CONFLICT`; unexpected failures -> sanitized 500 `INTERNAL_SERVER_ERROR`.
 
-PostgreSQL is used as the primary relational database.
+## Read the code
 
-Database changes are version-controlled through Flyway migrations.
+`src/main/java/com/project/app/supplier/` contains controller -> service -> repository -> PostgreSQL, with explicit DTOs and mapper. Unchanged Flyway `V1__create_supplier_table.sql` owns `suppliers(id BIGSERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL)`. Supplier has no entity relations/FKs. User has no mapped table or Organization relationship.
 
-```text
-Application
-     │
-     ▼
-Spring Data JPA
-     │
-     ▼
-Hibernate
-     │
-     ▼
-PostgreSQL
-```
-
-This provides a reliable persistence layer while keeping database schema evolution reproducible across environments.
-
----
-
-# AI Architecture
-
-AI capabilities are designed as a separate service rather than being tightly coupled to the main Spring Boot application.
-
-```text
-User
- │
- ▼
-React
- │
- ▼
-Spring Boot
- │
- ├──────────────► PostgreSQL
- │
- ▼
-AI Service
- │
- ▼
-Retrieval
- │
- ▼
-Relevant Procurement Data
- │
- ▼
-LLM
- │
- ▼
-AI Response
-```
-
-This architecture makes it possible to scale and evolve the AI components independently from the transactional procurement system.
-
----
-
-# Engineering Principles
-
-ProcureFlow is built around production-oriented software engineering principles:
-
-* Separation of concerns
-* Layered architecture
-* RESTful API design
-* DTO-based API contracts
-* Constructor-based dependency injection
-* Centralized exception handling
-* Request validation
-* Database migrations
-* Modular architecture
-* Containerized deployment
-* Automated testing
-* CI/CD
-
-The goal is to keep the system maintainable as new procurement domains and AI capabilities are introduced.
-
----
-
-# Project Structure
-
-```text
-procureflow-ai/
-│
-├── backend/
-│   └── src/
-│       └── main/
-│           ├── java/
-│           │   └── ...
-│           │       ├── controller/
-│           │       ├── service/
-│           │       ├── repository/
-│           │       ├── entity/
-│           │       ├── dto/
-│           │       ├── mapper/
-│           │       ├── exception/
-│           │       └── config/
-│           │
-│           └── resources/
-│               └── db/
-│                   └── migration/
-│
-├── frontend/
-│   └── ...
-│
-├── ai-service/
-│   └── ...
-│
-├── docker/
-│   └── ...
-│
-└── README.md
-```
-
----
-
-# Development
-
-Clone the repository:
-
-```bash
-git clone https://github.com/anonymnd/procureflow-ai.git
-cd procureflow-ai
-```
-
-Start the backend:
-
-```bash
-./mvnw spring-boot:run
-```
-
-On Windows:
-
-```bash
-mvnw.cmd spring-boot:run
-```
-
-Start the frontend:
-
-```bash
-npm install
-npm run dev
-```
-
----
-
-# Roadmap
-
-ProcureFlow is being developed as an extensible procurement platform.
-
-### Procurement
-
-* Supplier management
-* Product and service management
-* Purchase requests
-* Approval workflows
-* Purchase orders
-* Procurement tracking
-
-### Platform
-
-* Authentication and authorization
-* Role-based access control
-* Audit logging
-* Notifications
-* Reporting and analytics
-
-### AI
-
-* Procurement knowledge assistant
-* RAG-based search
-* Supplier analysis
-* Document intelligence
-* Procurement recommendations
-
-### Infrastructure
-
-* Dockerized services
-* CI/CD pipelines
-* Kubernetes deployment
-* Monitoring and observability
-
----
-
-## ProcureFlow AI
-
-**One platform for procurement operations, supplier intelligence, and AI-assisted decision making.**
+Start with the [code-reading guide](docs/code-reading-guide.md), [traceability](.agile-v/traceability/slice-0.md) and [observed evidence](.agile-v/verification/slice-0-results.md). `.agile-v` is authoritative; Jira/GitHub mirror planning. Slice 0 final acceptance is recorded separately; it does not authorize commit, push, merge or deployment.

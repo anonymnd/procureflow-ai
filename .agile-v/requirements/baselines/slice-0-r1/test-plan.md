@@ -1,4 +1,4 @@
-# Slice 0 test plan and verification commands
+# Slice 0 draft test plan and verification commands
 
 Revision 1; companion to [requirement revision 1](../requirements/slice-0.md). Status: proposed; no approved baseline or application test implementation yet. This proposal is part of specification drafting, not formal execution of test-designer against a baselined requirement. After approval, bind every test to the approved requirement revision/hash and independently review its expected behavior.
 
@@ -192,30 +192,3 @@ Expected one successful V1, marker preserved, no schema drift. Leave this dedica
 ## Evidence format
 
 For each `VER-S0-NNN`: test/REQ revision+baseline; timestamp; actor/reviewer and separation; target URL without credentials; command or numbered UI/HTTP steps; expected vs actual; exit/status code; report/output locator; PASS/FAIL/NOT_RUN; residual limits. Keep build logs under ignored target if useful and summarize durable evidence here; never paste credentials or hidden reasoning.
-
-
-## Approved acceptance binding
-
-2026-10-10: GATE-S0-R1 approves this normative companion with requirement revision 1. TC-S0-001 through TC-S0-013 are bound to [BL-S0-R1](../requirements/baselines/slice-0-r1/manifest.json), whose frozen requirement and test-plan hashes identify the acceptance inputs. Historical proposed/pending wording describes drafting, not the current requirement gate. Criteria and command content remain unchanged; implementation and database execution remain NOT AUTHORIZED until GATE-S0-IMPLEMENT. This approval is not a test pass or a claim of a new independent formal test-design review.
-
-## Actual test bindings — 2026-10-10, BL-S0-R1
-
-Acceptance above and the frozen companion are unchanged. GATE-S0-IMPLEMENT authorizes this execution. A fresh-context Test Designer (`slice0_test_expectations`) read only frozen requirements/companions, not source, and supplied the TC-S0-001..013 expectation matrix before final checks. This is I1 expectation review; executed builder checks below remain I0.
-
-| ID | Actual method/artifact binding |
-|---|---|
-| TC-S0-001 | Restored wrapper `-v`, full `verify`/jar packaging |
-| TC-S0-002 | Nine `SupplierServiceTest` methods, especially `shouldUpdateSupplier` save-argument assertion |
-| TC-S0-003 | `AppApplicationTests.contextLoads`: managed entities, V1 history and exact public tables; integration context |
-| TC-S0-004 | `SupplierApiIntegrationTest.completeCrudPersistsUpdateAndDelete`, `duplicatesAndUntrimmedNamesRemainAllowed`, `validNameBoundariesPersist`; MVC success contract |
-| TC-S0-005 | `SupplierApiIntegrationTest.freshEmptyList`; real jar initial empty list |
-| TC-S0-006 | MVC `missingSupplierIs404`, integration `missingAndBadIdsLeaveFixtureUnchanged`, CRUD repeated delete; real HTTP |
-| TC-S0-007 | MVC `invalidNamesNeverReachService`, `acceptsOneAnd255CharacterNames`; integration `invalidNamesAndJsonLeaveFixtureUnchanged`, `validNameBoundariesPersist` |
-| TC-S0-008 | MVC `badOrMissingJsonNeverReachesService`, `badIdNeverReachesService`, `negativeNumericIdIsLookupRatherThanBadRequest`; integration missing/bad-ID and JSON matrices; real HTTP |
-| TC-S0-009 | MVC `integrityErrorIsSanitized409`, `unexpectedErrorIsSanitized500` with sensitive sentinel |
-| TC-S0-010 | Full verify/package, `target/slice0-http-smoke.py`, startup logs/results and read-only SQL after restart |
-| TC-S0-011 | Guard `acceptsOnlyIsolatedTargets`, `acceptsHikariUrlOnlyWhenItMatchesGuardedTarget`, `rejectsUnsafeUrlsBeforeBeans`, `rejectsEffectiveTargetAndSchemaOverrides`, `rejectsMissingConfiguration`, `guardsResolvedSpringPropertyRatherThanEnvironmentVariable`; actual missing-config context preflight |
-| TC-S0-012 | Captured fingerprints, immutable hashes, scope/diff and preservation check |
-| TC-S0-013 | README commands, study/traceability mapping and fresh-context documentation review |
-
-Actual execution/results, including first failed integration assertions and the corrected JPA flush timing, belong to [results](../verification/slice-0-results.md). Port 18080 replaces the protocol's example 8080 because 8080 was occupied; API paths/behavior and DB constraints are unchanged. Both jar starts bind only 127.0.0.1. Generated scripts/logs under target are local verification artifacts, not runtime features or another handoff system.

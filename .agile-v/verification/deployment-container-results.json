@@ -1,0 +1,45 @@
+{
+  "scope": "I0 real Chromium/Java17 container/PostgreSQL TLS/local STARTTLS fixture; no external emails",
+  "database": "procureflow_slice0_20261014_deploy",
+  "checks": [
+    {
+      "name": "identity onboarding and dual-grant procurement navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "buyer private contacts, RFQ item edit/remove, two recipients and immutable send",
+      "status": "PASS"
+    },
+    {
+      "name": "supplier B invitation draft validation and frozen submission",
+      "status": "PASS"
+    },
+    {
+      "name": "supplier C invitation draft validation and frozen submission",
+      "status": "PASS"
+    },
+    {
+      "name": "buyer sees both submitted responses and no hostile HTML; unrelated supplier has no invitation",
+      "status": "PASS"
+    },
+    {
+      "name": "comparison currency/expiry rendering, explicit keyboard award, pending guard, stale conflict and shared immutable order",
+      "status": "PASS"
+    },
+    {
+      "name": "supplier fulfillment and explicit buyer receipt, keyboard pending guard and late replay",
+      "status": "PASS"
+    },
+    {
+      "name": "All fixture mail uses authenticated required STARTTLS",
+      "status": "PASS",
+      "tlsSessions": 4
+    }
+  ],
+  "container": {
+    "image": "sha256:71107b11a3fd5aec5a519046fa9df33db02577e4f2d927bc870132fd42d4d721",
+    "memoryLimit": 536870912,
+    "oomKilled": false,
+    "restarts": 0
+  }
+}

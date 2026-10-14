@@ -1,0 +1,33 @@
+# Apply only to the isolated, no-card Hobby workspace after deployment review.
+services:
+  - type: web
+    name: procureflow-ai
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/public/offerings
+    autoDeployTrigger: off
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: deploy
+      - key: PROCUREFLOW_DB_URL
+        sync: false
+      - key: PROCUREFLOW_DB_USERNAME
+        sync: false
+      - key: PROCUREFLOW_DB_PASSWORD
+        sync: false
+      - key: PROCUREFLOW_PUBLIC_BASE_URL
+        sync: false
+      - key: PROCUREFLOW_SMTP_HOST
+        sync: false
+      - key: PROCUREFLOW_SMTP_PORT
+        value: "2525"
+      - key: PROCUREFLOW_SMTP_USERNAME
+        sync: false
+      - key: PROCUREFLOW_SMTP_PASSWORD
+        sync: false
+      - key: PROCUREFLOW_EMAIL_FROM
+        sync: false
+# Grok key provisioning is separate. Do not inject it into an unapproved AI feature.

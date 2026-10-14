@@ -1,0 +1,10 @@
+# Allow only build inputs. No Git history, credentials, logs or local databases.
+**
+!Dockerfile
+!docker-entrypoint.sh
+!pom.xml
+!src
+!src/**
+src/**/.env*
+src/**/*.log
+src/**/target/**

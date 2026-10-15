@@ -275,17 +275,20 @@ async function showOperationalQueue() {
   }
   const statuses = queueStatuses[queueState.kind];
   const finalPage = Math.max(0, Math.ceil(data.total / data.size) - 1);
-  procurementPage('Operational queues', `<p class="muted">Status counts cover this kind and title search. Open a record to see its current actions.</p>
+  procurementPage('Operational queues', `<p class="muted">Status counts cover this kind and title search across all statuses and pages. Open a record to see its current actions.</p>
     <form id="queue-search"><label>Queue kind<select id="queue-kind" name="kind">${kinds.map(kind => `<option value="${kind}" ${kind===queueState.kind?'selected':''}>${kind === 'RFQS' ? 'RFQs' : kind === 'INVITATIONS' ? 'Invitations' : 'Orders'}</option>`).join('')}</select></label>
     <label>Status<select id="queue-status" name="status"><option value="">All statuses</option>${statuses.map(status => `<option value="${status}" ${status===queueState.status?'selected':''}>${status}</option>`).join('')}</select></label>
     <label>Search title<input id="queue-q" name="q" value="${escapeHtml(queueState.q)}"></label>
     <label>Page size<select id="queue-size" name="size">${[10,20,50,100].map(size => `<option value="${size}" ${size===queueState.size?'selected':''}>${size}</option>`).join('')}</select></label>
     <button type="submit">Search</button></form>
-    <h2>Status summary</h2><ul>${data.statusCounts.map(entry => `<li>${escapeHtml(entry.status)}: ${entry.count}</li>`).join('')}</ul>
+    <h2>Status summary</h2><div class="queue-status-cards" role="group" aria-label="Filter queue by status">${[{status:'',count:data.statusCounts.reduce((sum,entry)=>sum+entry.count,0)},...data.statusCounts].map(entry=>`<button type="button" class="queue-status-card" data-queue-status="${escapeHtml(entry.status)}" aria-pressed="${queueState.status===entry.status}"><span>${escapeHtml(queueStatusLabel(queueState.kind,entry.status))}</span><strong>${entry.count}</strong></button>`).join('')}</div>
     <p role="status">${data.total} matching record${data.total===1?'':'s'} · Page ${data.page+1} of ${finalPage+1}</p>
     <div class="cards">${data.rows.length ? data.rows.map(row => `<article class="card"><h2>${escapeHtml(row.title)}</h2><p>${escapeHtml(row.status)}${row.counterparty ? ' · ' + escapeHtml(row.counterparty) : ''}</p><button type="button" data-queue-open="${escapeHtml(row.id)}">Open ${queueState.kind === 'RFQS' ? 'RFQ' : queueState.kind === 'INVITATIONS' ? 'invitation' : 'order'}</button></article>`).join('') : '<p>No records match these filters.</p>'}</div>
     <div class="actions"><button type="button" id="queue-previous" ${data.page===0?'disabled':''}>Previous page</button><button type="button" id="queue-next" ${data.page>=finalPage?'disabled':''}>Next page</button></div>`);
   const reload = () => procurementAction(showOperationalQueue);
+  app.querySelectorAll('[data-queue-status]').forEach(button=>button.onclick=()=>{
+    queueState={...queueState,status:button.dataset.queueStatus,page:0};reload();
+  });
   app.querySelector('#queue-search').onsubmit = event => {
     event.preventDefault();
     const values = new FormData(event.currentTarget);
@@ -426,11 +429,29 @@ async function showCompletedAnalytics() {
 async function showOrder(id) {
   activeView = 'orders';
   const order=await request(`${procurementBase}/orders/${id}`);
-    procurementPage(`Order ${order.id}`,`<p>${escapeHtml(order.rfqTitle)}</p><p>Buyer: ${escapeHtml(order.buyerDisplayName)} · Supplier: ${escapeHtml(order.supplierDisplayName)}</p><p>Status: ${escapeHtml(order.status)} · Accepted: ${escapeHtml(order.acceptedAt)}</p>${quotationDetail(order,true)}<h2>Order history</h2><ol id="order-history">${order.history.map(event=>`<li>${escapeHtml(event.status)} · ${escapeHtml(event.occurredAt)}</li>`).join('')}</ol><p>Progress reports apply to the entire order. Partial deliveries, cancellation and disputes are not available here.</p><div class="actions">${order.allowedActions.map(action=>`<button data-order-action="${escapeHtml(action)}">${orderActionLabel(action)}</button>`).join('')}</div>`);
+    procurementPage(`Order ${order.id}`,`<p>${escapeHtml(order.rfqTitle)}</p><dl class="order-summary"><div><dt>Buyer</dt><dd>${escapeHtml(order.buyerDisplayName)}</dd></div><div><dt>Supplier</dt><dd>${escapeHtml(order.supplierDisplayName)}</dd></div><div><dt>Order value</dt><dd>${escapeHtml(order.currency)} ${escapeHtml(order.subtotal)}<small>Excluding tax and shipping</small></dd></div><div><dt>Current status</dt><dd>${escapeHtml(queueStatusLabel('ORDERS',order.status))}</dd></div></dl>${orderProgress(order)}<section class="order-next-actions"><h2>Next step</h2><p>Progress reports apply to the entire order.</p><div class="actions">${order.allowedActions.length?order.allowedActions.map(action=>`<button data-order-action="${escapeHtml(action)}">${orderActionLabel(action)}</button>`).join(''):`<p>${order.status==='RECEIVED'?'This order is complete.':'No progress action is currently available to your account.'}</p>`}</div></section>${quotationDetail(order,true)}<h2>Order history</h2><ol id="order-history">${order.history.map(event=>`<li>${escapeHtml(queueStatusLabel('ORDERS',event.status))} · <time datetime="${escapeHtml(event.occurredAt)}">${escapeHtml(event.occurredAt)}</time></li>`).join('')}</ol><p>Partial deliveries, cancellation and disputes are not available here.</p>`);
     app.querySelectorAll('[data-order-action]').forEach(button=>button.onclick=()=>{
       const action=button.dataset.orderAction;
       if(action==='dispatch'||action==='receive')reviewOrderAction(order,action);else submitOrderAction(order.id,action,button);
     });
+}
+function queueStatusLabel(kind,status) {
+  if (!status) return 'All statuses';
+  const labels = {
+    RFQS:{DRAFT:'Draft requests',SENT:'Sent requests',AWARDED:'Awarded requests'},
+    INVITATIONS:{INVITED:'Awaiting quotation',DRAFT:'Draft quotations',SUBMITTED:'Submitted quotations',ACCEPTED:'Accepted quotations'},
+    ORDERS:{CREATED:'Created',CONFIRMED:'Confirmed',PROCESSING:'Processing',DISPATCHED:'Dispatched',RECEIVED:'Received'}
+  };
+  return labels[kind]?.[status] || status;
+}
+function orderProgress(order) {
+  const stages=queueStatuses.ORDERS,current=stages.indexOf(order.status);
+  const dates=new Map(order.history.map(event=>[event.status,event.occurredAt]));
+  return `<h2>Order progress</h2><ol class="order-progress" aria-label="Order progress">${stages.map((stage,index)=>{
+    const state=index<current?'Complete':index===current?'Current':'Pending';
+    const date=index<=current?dates.get(stage):null;
+    return `<li class="${state.toLowerCase()}" ${index===current?'aria-current="step"':''}><span class="progress-number" aria-hidden="true">${index+1}</span><strong>${escapeHtml(queueStatusLabel('ORDERS',stage))}</strong><span>${state}</span>${date?`<time datetime="${escapeHtml(date)}">${escapeHtml(date)}</time>`:''}</li>`;
+  }).join('')}</ol>`;
 }
   function orderActionLabel(action){return {'confirm':'Confirm order','start-processing':'Start processing','dispatch':'Mark entire order dispatched','receive':'Acknowledge entire order received'}[action];}
   function reviewOrderAction(order,action){

@@ -1,0 +1,17 @@
+# VER-FDP-REQ-001 — separate requirement review
+
+2026-10-15. Reviewer: separate delegated context, no application edits. Result: **PASS** for `.agile-v/requirements/fsb-demo-production.md` revision 1 as read before freeze. This is technical requirement review, not implementation, publication proof or delegated approval itself.
+
+Reviewed actual requirement, root AGENTS/RTK instructions, current STATE/REQUIREMENTS and scoped APPROVALS sections, relevant workflow review/gate procedure, actual local DemoDataSeeder, and quotation/award/fulfillment migrations V6–V8. Current owner request expressly includes production demo insertion and scoped code/deployment; prior local-only authority is not silently broadened. Required distinct baseline/issue/implementation and later acceptance gates remain explicit.
+
+REQ-FDP-001 reuses actual aggregate/history/action contracts; does not infer actions from presentation state. Accessibility, pagination/filter behavior and session handling remain required. No extra endpoint or framework needed.
+
+REQ-FDP-002 provides bounded fixed identities, normal authenticated role permissions, separate opt-in production runner, explicit observed database match and actual PostgreSQL/TLS target checks before writes. Preverification is confined to newly inserted fictional accounts. No endpoint, anonymous commercial access, default credential or mail side effect is authorized. Password must travel only through provider secret settings and an ignored local owner artifact, never review evidence or tracked output.
+
+Dataset is arithmetically coherent: seven RFQs (one draft, two sent, four awarded), six invitations-bearing RFQs to two suppliers, two comparison offers plus four accepted winners, four orders with exact requested state distribution and two per supplier. V7 permits ACCEPTED quotations; “six submitted quotes minimum counting winners” means six submitted-or-accepted commercial offers, not six additional SUBMITTED rows. Quote validity, item links, snapshot arithmetic, organization isolation and actual event actors/timestamps are explicitly testable. CREATED is represented by accepted_at; V8 order_events begins at CONFIRMED, so no invented CREATED event should be inserted.
+
+Edit-preserving reruns correctly avoid product/count/status reconstruction. A narrow completion table is justified if used: a transaction-owned fixture key/version plus exact identity/organization bindings establishes completed creation independently of mutable descriptions, profile publication, products and order progress. It must not become a repair/reset subsystem. Missing/partial/conflicting identity bindings must fail before writes, and completion insertion must remain last in the same advisory-locked transaction. Existing local seed guards remain unchanged.
+
+REQ-FDP-003 requires exact reviewed release scope, dirty-work preservation, backend-first deployment, actual hosted ordinary-login/tenant proof and removal of temporary enable/password settings. Provider access limitations must be reported honestly. Required tests include real PostgreSQL atomicity, collision and edited-rerun behavior, actual-target override validation and concurrency; implementation review must inspect the corresponding evidence rather than accept test names alone.
+
+No blocking correction. No application behavior, database fixture, deployed code, credentials or tests executed/accepted by this review. Inspect implementation against the frozen bundle separately; this PASS cannot establish production success.

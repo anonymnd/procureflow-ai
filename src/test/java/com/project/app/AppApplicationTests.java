@@ -51,7 +51,7 @@ class AppApplicationTests {
 		assertEquals(1, jdbc.queryForObject("SELECT count(*) FROM flyway_schema_history WHERE version='1' AND success", Integer.class));
 		assertEquals(5, jdbc.queryForObject("SELECT count(*) FROM flyway_schema_history WHERE version IN ('1','2','3','4','5') AND success", Integer.class));
 		// REQ-S2-005: the legacy `suppliers` table (V1) is retained unused, with no entity mapping to it anymore.
-		assertEquals(java.util.List.of("accounts", "flyway_schema_history", "identity_tokens", "marketplace_offerings",
+		assertEquals(java.util.List.of("accounts", "demo_seed_completions", "flyway_schema_history", "identity_tokens", "marketplace_offerings",
 				"marketplace_profiles", "order_events", "organizations", "purchase_order_items", "purchase_orders", "quotation_items", "quotations", "rfq_invitations", "rfq_items", "rfqs", "supplier_contacts",
 				"suppliers"), jdbc.queryForList(
 				"SELECT table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_name", String.class));

@@ -32,3 +32,23 @@ Project owner: “i approve”, following the completed Slice 0 implementation r
 ## Slice 0 publication authorization — 2026-10-11
 
 Project owner explicitly authorized: review current changes, preserve unrelated work, commit the approved Slice 0 implementation and evidence, and push to `origin/main`; do not merge or deploy. This later, scoped instruction authorizes one commit/push of the reviewed Slice 0 change set. It does not authorize other work or deployment.
+
+
+## GATE-FDP-IMPLEMENT-DELEGATED — 2026-10-15
+
+Distinct implementation authorization under DIR-FDP-OWNER / DIR-DELEGATED-LOOP-003 after VER-FDP-REQ-001 separate PASS, GATE-FDP-REQ-DELEGATED, immutable BL-FDP-R1 SHA256 e6a29a8cd78ea9f3365079482c123509c059d91b69a690fbf35b97e72827f232, and issue34 creation/readback https://github.com/anonymnd/procureflow-ai/issues/34. Authorizes bounded frontend status/progress, explicit guarded production demo runner and marker migration, real isolated DB/browser proof, docs/trace, separate implementation review/corrections. Current owner separately authorizes scoped commit/push/deploy and this production fixture after required review; no general auth bypass, real-data mutation/reset, paid resources or new provider. Preserve main dirty tree/index and existing DBs; publish only exact reviewed delta on current live f61fcdb base.
+
+
+## DIR-FDP-OWNER / GATE-FDP-REQ-DELEGATED — 2026-10-15
+
+Owner explicitly requests fast YAGNI planning/comparison/code/deployment and production demo users/RFQs/quotations/orders, bypass onboarding only for these fixtures; email deferred. This authorizes scoped production publication/seeding on existing Free/Hobby providers, not general authentication bypass or unrelated data changes. Separate requirement review VER-FDP-REQ-001 PASS precedes this delegated requirement approval of REQ-FDP-001..003@R1, SHA256 e6a29a8cd78ea9f3365079482c123509c059d91b69a690fbf35b97e72827f232. Narrow marker table justified for edit-preserving atomic idempotence; no applied migration edit. Freeze BL-FDP-R1, create meaningful issue, then distinct implementation gate. All gates delegated, not direct owner review.
+
+
+## GATE-FDP-FINAL-DELEGATED — development acceptance — 2026-10-16
+
+Under DIR-FDP-OWNER / DIR-DELEGATED-LOOP-003, record distinct delegated development acceptance of BL-FDP-R1 / issue34 after separate VER-FDP-IMPL-001 final PASS. Eleven scoped release paths, seven focused fixture tests, browser proof and final JAR/static/source bindings inspected. Original regression118 had one outdated schema allowlist failure; corrected isolated schema test1 passed, remaining checks unchanged. This is delegated acceptance, not direct owner technical review or hosted success.
+
+
+## GATE-FDP-PUBLISH-DELEGATED — scoped publication execution — 2026-10-16
+
+Distinct publication gate under direct DIR-FDP-OWNER and owner's continuation instructing finish production without interruptions, after separate review PASS and distinct development acceptance. Authorizes committing/pushing only reviewed delta from exact f61fcdb to codex/fsb-demo-production, backend exact-commit deployment on existing Render Free, then frontend promotion on existing Vercel Hobby after backend readiness. Saved existing demo settings observed exact target procureflow/enable true/valid strong credential; no new credential entered in continuation. Authorizes deliberate transaction fixture insertion and normal demo-only account sign-in/read proof, followed by disabling temporary seed flag/removing temporary password setting. No real account/order mutation, paid resources, new provider, auth bypass, destructive migration or unrelated dirty work publication. Hosted verification/separate review/acceptance remain required.

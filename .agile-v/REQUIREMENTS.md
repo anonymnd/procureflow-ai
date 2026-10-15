@@ -9,3 +9,6 @@ This is an index, not a second specification. Follow the authoritative slice lin
 High-level scope remains in [living plan](../docs/planning/living-plan.md), [confirmed decisions](../docs/planning/decisions.md), [roadmap](../docs/planning/vertical-slices.md) and [planning ADRs](../docs/planning/architecture-decisions.md). No later slice requirement is approved merely because it appears in the roadmap.
 
 On approval, preserve a revisioned bundle under `requirements/baselines/slice-0-r1/`: this requirement document plus its normative decision, test-plan and traceability companions. Record every file's SHA-256, original path and approval reference in a manifest, and use that exact bundle for issue creation, implementation and verification. Material requirement or acceptance changes require a new revision and approval; never edit a frozen baseline in place. Later live records may append implementation/results without altering the frozen acceptance bundle.
+
+
+REQ-FDP-001..003@R1 / fsb-demo-production.md / BL-FDP-R1 / issue34: queue status cards, order progress and guarded six-user production demonstration fixture. Separate development PASS/acceptance; scoped publication executing.

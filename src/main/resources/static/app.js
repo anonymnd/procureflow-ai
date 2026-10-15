@@ -37,17 +37,30 @@ function message(text, type = '') {
 
 function form(title, fields, button, submit, extra = '') {
   app.innerHTML = `<h1>${title}</h1>${extra}<form>${fields.map(f => `<label>${f.label}<input name="${f.name}" type="${f.type || 'text'}" ${f.required === false ? '' : 'required'} ${f.autocomplete ? `autocomplete="${f.autocomplete}"` : ''} ${f.max ? `maxlength="${f.max}"` : ''}></label>`).join('')}<button>${button}</button></form>`;
-  app.querySelector('form').addEventListener('submit', async event => {
-    event.preventDefault(); message('');
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+  const element = app.querySelector('form');
+  let pending = false;
+  element.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (pending) return;
+    const values = Object.fromEntries(new FormData(element));
+    const control = element.querySelector('button');
+    pending = true; control.disabled = true; element.setAttribute('aria-busy', 'true');
+    control.textContent = button === 'Sign in' ? 'Signing in…' : button === 'Register' ? 'Creating organization…' : button === 'Send invitation' ? 'Sending invitation…' : 'Accepting invitation…';
+    message(button === 'Register' ? 'Creating your organization and sending the verification email…' : button === 'Sign in' ? 'Checking your account…' : button === 'Send invitation' ? 'Sending your invitation…' : 'Accepting your invitation…');
     try { await submit(values); } catch (error) { message(error.message, 'error'); }
+    finally {
+      pending = false;
+      if (element.isConnected) {
+        control.disabled = false; control.textContent = button; element.setAttribute('aria-busy', 'false');
+      }
+    }
   });
 }
 
 function showSignIn() {
   form('Sign in', [{label:'Email',name:'email',type:'email',autocomplete:'email'}, {label:'Password',name:'password',type:'password',autocomplete:'current-password'}], 'Sign in', async values => {
     me = await request('/api/auth/login', {method:'POST',body:values});
-    history.replaceState({}, '', '/'); message('Signed in.', 'success'); showWorkspace();
+    history.replaceState({}, '', '/'); message('Signed in.', 'success'); renderWorkspace(me);
   }, '<p class="muted">Your organization administrator can invite you. New organizations can register below.</p><div class="actions"><button class="secondary" type="button" id="register">Register an organization</button></div>');
   app.querySelector('#register').addEventListener('click', showRegistration);
 }
@@ -66,7 +79,11 @@ function showRegistration() {
 function showWorkspace() {
   app.setAttribute('aria-busy','true');
   app.innerHTML = '<h1>Loading organization access…</h1>';
-  request('/api/auth/me').then(account => {
+  return request('/api/auth/me').then(renderWorkspace).catch(error => { if (error.status === 401) me = null; message(error.message,'error'); showSignIn(); }).finally(() => { app.setAttribute('aria-busy','false'); });
+}
+
+function renderWorkspace(account) {
+  app.setAttribute('aria-busy','false');
     me = account;
     if (!account.emailVerified) { app.innerHTML = `<h1>Verify your email</h1><p>Check ${escapeHtml(account.email)} for the verification link. Protected organization features are unavailable until verification.</p><button id="logout">Sign out</button>`; bindLogout(); return; }
     const marketplaceHost = (account.buyerGrant || account.supplierGrant ? '<div class="actions"><button type="button" id="procurement">Procurement workspace</button></div>' : '') + (account.supplierGrant ? '<div id="marketplace">Loading your supplier profile…</div>' : '');
@@ -77,7 +94,6 @@ function showWorkspace() {
     app.innerHTML = `<h1>${escapeHtml(account.organizationName)}</h1><p>Organization administrator · ${escapeHtml(account.email)}</p><div class="actions"><button id="invite" class="secondary">Invite employee</button><button id="logout">Sign out</button></div><div id="employees">Loading employees…</div>${marketplaceHost}`;
     bindLogout(); bindProcurement(); app.querySelector('#invite').addEventListener('click', showInvite); loadEmployees();
     if (account.supplierGrant) loadMarketplace();
-  }).catch(error => { message(error.message,'error'); showSignIn(); }).finally(() => app.setAttribute('aria-busy','false'));
 }
 
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
@@ -477,7 +493,7 @@ async function initialize() {
         await request('/api/auth/invitations/accept',{method:'POST',body:{...values,token}}); message('Invitation accepted. Check your email to verify before signing in.','success'); showSignIn();
       });
     } else {
-      try { me = await request('/api/auth/me'); showWorkspace(); }
+      try { me = await request('/api/auth/me'); renderWorkspace(me); }
       catch { showSignIn(); }
     }
   } catch(error) { message(error.message,'error'); showSignIn(); }

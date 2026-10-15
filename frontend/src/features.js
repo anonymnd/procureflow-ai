@@ -95,11 +95,90 @@ function showWorkspace() {
   activeView = 'workspace';
   app.setAttribute('aria-busy','true');
   app.innerHTML = '<h1>Loading organization access…</h1>';
-  return request('/api/auth/me').then(renderWorkspace).catch(error => { if (disposed) return; if (error.status === 401) me = null; message(error.message,'error'); showSignIn(); }).finally(() => { if (!disposed) app.setAttribute('aria-busy','false'); });
+  return request('/api/auth/me').then(showOverview).catch(error => { if (disposed) return; if (error.status === 401) me = null; message(error.message,'error'); showSignIn(); }).finally(() => { if (!disposed) app.setAttribute('aria-busy','false'); });
 }
 
 function renderWorkspace(account) {
-  activeView = 'workspace';
+  me = account;
+  if (!account.emailVerified) return renderTeam(account);
+  return account.buyerGrant ? showCatalog() : showOverview(account);
+}
+
+function showOverview(account = me) {
+  me = account; activeView = 'workspace';
+  app.innerHTML = `<h1>${escapeHtml(account.organizationName)}</h1><p>Welcome, ${escapeHtml(account.fullName)}. Choose your next step.</p><div class="workspace-actions">${account.buyerGrant ? '<button data-go="marketplace">Browse products</button><button data-go="rfqs">Create a sourcing request</button>' : ''}${account.supplierGrant ? '<button data-go="products">Manage products</button><button data-go="invitations">Received sourcing requests</button>' : ''}${account.buyerGrant || account.supplierGrant ? '<button data-go="quotations">Quotations and comparison</button><button data-go="orders">Track orders</button>' : '<p>Your administrator can assign buyer or supplier access.</p>'}<button data-go="profile">My profile</button><button data-go="help">How procurement works</button>${account.organizationAdmin ? '<button data-go="team">Manage team access</button>' : ''}<button id="logout" class="secondary">Sign out</button></div>`;
+  bindSectionLinks(); bindLogout();
+}
+
+function bindSectionLinks() {
+  app.querySelectorAll('[data-go]').forEach(button => button.onclick = () => {
+    const actions = {marketplace:showCatalog,rfqs:showRfqs,products:showProducts,invitations:showInvitations,
+      quotations:showQuotations,orders:showOrders,profile:showProfile,help:showHelp,team:()=>renderTeam(me)};
+    procurementAction(actions[button.dataset.go]);
+  });
+}
+
+function showProducts() {
+  activeView = 'products';
+  app.innerHTML = '<h1>Your products</h1><p>Publish your supplier profile and products to make them discoverable.</p><div id="marketplace">Loading products…</div>';
+  return loadMarketplace();
+}
+
+function showSupplierProfile() {
+  activeView = 'supplier-profile';
+  app.innerHTML = '<h1>Supplier profile</h1><p>Manage the public introduction buyers see when discovering your organization.</p><div id="marketplace">Loading supplier profile…</div>';
+  return loadMarketplace(true);
+}
+
+function showHelp() {
+  activeView = 'help';
+  app.innerHTML = `<h1>How procurement works</h1><ol class="help-steps"><li><h2>Discover products</h2><p>Search by category and supplier. Prices are agreed in a quotation.</p></li><li><h2>Send a sourcing request</h2><p>Buyers define quantities, specifications and units, then explicitly choose supplier recipients.</p></li><li><h2>Prepare and compare quotations</h2><p>Suppliers save a draft, price every requested line and submit. Buyers compare submitted offers in their original currencies.</p></li><li><h2>Accept and track the order</h2><p>Accepting a complete quotation creates an order. The supplier confirms, processes and dispatches it; the buyer records full receipt.</p></li></ol><button data-go="${me.buyerGrant?'marketplace':me.supplierGrant?'products':'profile'}">${me.buyerGrant?'Browse products':me.supplierGrant?'Manage products':'My profile'}</button>`;
+  bindSectionLinks();
+}
+
+function showProfile() {
+  activeView = 'profile';
+  app.innerHTML = `<h1>My profile</h1><p>${escapeHtml(me.email)}</p><p>${escapeHtml(me.organizationName)} · ${[me.organizationAdmin && 'Administrator',me.buyerGrant && 'Buyer',me.supplierGrant && 'Supplier'].filter(Boolean).join(' · ') || 'Organization member'}</p><form id="account-profile"><label>Your name<input name="fullName" required maxlength="160" value="${escapeHtml(me.fullName)}"></label><button>Save my profile</button></form>${me.organizationAdmin ? `<form id="organization-profile"><h2>Organization profile</h2><label>Organization name<input name="displayName" required maxlength="160" value="${escapeHtml(me.organizationName)}"></label><button>Save organization</button></form>` : '<p>Your administrator manages the organization name and team permissions.</p>'}<button id="logout" class="secondary">Sign out</button>`;
+  for (const [id,path] of [['account-profile','profile'],['organization-profile','organization']]) {
+    const element = app.querySelector('#'+id); if (!element) continue;
+    element.onsubmit = async event => {
+      event.preventDefault(); const button = element.querySelector('button'); if (button.disabled) return;
+      button.disabled = true; element.setAttribute('aria-busy','true');
+      try { me = await request('/api/auth/'+path,{method:'PUT',body:Object.fromEntries(new FormData(element))}); if(disposed)return; showProfile(); message('Profile saved.','success'); }
+      catch(error) { if(disposed)return; if(error.status===401){me=null;showSignIn();} message(error.message,'error'); }
+      finally { if(!disposed && element.isConnected){button.disabled=false;element.setAttribute('aria-busy','false');} }
+    };
+  }
+  bindLogout();
+}
+
+let quotationsState = {kind:null,page:0,size:20,q:'',status:''};
+async function showQuotations() {
+  activeView = 'quotations';
+  const kinds = [me.buyerGrant && 'RFQS',me.supplierGrant && 'INVITATIONS'].filter(Boolean);
+  if (!kinds.includes(quotationsState.kind)) quotationsState = {...quotationsState,kind:kinds[0],page:0,status:''};
+  app.innerHTML = '<h1>Quotations</h1><p role="status">Loading quotation requests…</p>';
+  try {
+    const data = await request(`${procurementBase}/workspace?${queryString(quotationsState)}`);
+    const supplier = quotationsState.kind === 'INVITATIONS';
+    app.innerHTML = `<h1>Quotations${supplier?'':' and comparison'}</h1><p>${supplier?'Open a received request to create, edit or submit its quotation.':'Open a sent sourcing request to compare submitted offers. Draft requests have no responses yet.'}</p><form id="quote-filter"><label>Workspace<select name="kind">${kinds.map(k=>`<option value="${k}" ${k===quotationsState.kind?'selected':''}>${k==='RFQS'?'Buyer quotations':'Supplier quotations'}</option>`).join('')}</select></label><label>Search requests<input name="q" maxlength="160" value="${escapeHtml(quotationsState.q)}"></label><button>Search</button></form><p>${data.total} requests · Page ${data.page+1} of ${Math.max(1,Math.ceil(data.total/data.size))}</p><div class="quotation-list">${data.rows.length ? data.rows.map(row=>`<article><div><h2>${escapeHtml(row.title)}</h2><p>${escapeHtml(row.counterparty)} · ${escapeHtml(row.status)}</p></div><button data-quotation-request="${row.id}">${supplier?'Prepare or view quotation':row.status==='DRAFT'?'Complete request':'View quotations and compare'}</button></article>`).join('') : '<p>No requests yet. Your quotations will appear with their sourcing requests.</p>'}</div><div class="actions"><button id="quotes-prev" ${data.page===0?'disabled':''}>Previous</button><button id="quotes-next" ${(data.page+1)*data.size>=data.total?'disabled':''}>Next</button></div>`;
+    const statusLabel = document.createElement('label');
+    if (supplier) app.querySelector('h1 + p').append(' Invited requests have no quotation yet.');
+    statusLabel.innerHTML = `Status<select name="status"><option value="">All statuses</option>${queueStatuses[quotationsState.kind].map(status=>`<option value="${status}" ${status===quotationsState.status?'selected':''}>${status}</option>`).join('')}</select>`;
+    app.querySelector('#quote-filter button').before(statusLabel);
+    app.querySelector('#quote-filter select[name="kind"]').onchange = () => {
+      quotationsState = {...quotationsState,kind:app.querySelector('#quote-filter select[name="kind"]').value,status:'',page:0};
+      procurementAction(showQuotations);
+    };
+    app.querySelector('#quote-filter').onsubmit = event => {event.preventDefault();quotationsState={...quotationsState,...Object.fromEntries(new FormData(event.currentTarget)),page:0};procurementAction(showQuotations);};
+    app.querySelector('#quotes-prev').onclick=()=>{quotationsState.page--;procurementAction(showQuotations);};
+    app.querySelector('#quotes-next').onclick=()=>{quotationsState.page++;procurementAction(showQuotations);};
+    app.querySelectorAll('[data-quotation-request]').forEach(button=>button.onclick=()=>procurementAction(()=>supplier?showInvitation(button.dataset.quotationRequest):showRfq(button.dataset.quotationRequest)));
+  } catch(error) { if(disposed)return; if(error.status===401)throw error; app.innerHTML='<h1>Quotations</h1><p role="alert">Unable to load requests. Please retry.</p><button id="quotes-retry">Retry</button>'; app.querySelector('#quotes-retry').onclick=()=>procurementAction(showQuotations); }
+}
+
+function renderTeam(account) {
+  activeView = 'team';
   app.setAttribute('aria-busy','false');
     me = account;
     if (!account.emailVerified) { app.innerHTML = `<h1>Verify your email</h1><p>Check ${escapeHtml(account.email)} for the verification link. Protected organization features are unavailable until verification.</p><button id="logout">Sign out</button>`; bindLogout(); return; }
@@ -114,6 +193,32 @@ function renderWorkspace(account) {
 }
 
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+
+function requestProduct(product) {
+  activeView = 'rfqs';
+  const summary = Array.from(product.description).slice(0,2000).join('');
+  app.innerHTML = `<h1>Request a quotation</h1><p>${escapeHtml(product.title)} · ${escapeHtml(product.supplierDisplayName)}</p><p>Create a draft, review specifications, then choose suppliers before sending.</p>${summary!==product.description?'<p>The description was shortened to 2,000 characters. Review and edit the summary below.</p>':''}<form id="product-request"><label>Request title<input name="title" maxlength="160" required value="${escapeHtml(product.title)}"></label><label>Specifications<textarea name="description" required>${escapeHtml(summary)}</textarea></label><label>Quantity<input name="quantity" type="number" min="1" max="1000000" step="1" required value="1"></label><label>Unit<input name="unit" maxlength="40" required value="unit"></label><button>Create sourcing draft</button></form>`;
+  const element = app.querySelector('#product-request');
+  let draftId, itemSaved = false;
+  element.onsubmit = async event => {
+    event.preventDefault(); const button=element.querySelector('button'); if(button.disabled)return;
+    const values=Object.fromEntries(new FormData(element));
+    if(Array.from(values.description).length>2000){message('Specifications must be at most 2,000 characters.','error');return;}
+    button.disabled=true;button.textContent='Creating draft…';
+    try {
+      if (draftId) { await showRfq(draftId); return; }
+      const draft=await request(`${procurementBase}/rfqs`,{method:'POST',body:{title:values.title}}); draftId=draft.id;
+      await request(`${procurementBase}/rfqs/${draftId}/items`,{method:'POST',body:{description:values.description,quantity:Number(values.quantity),unit:values.unit}});
+      itemSaved = true;
+      if(disposed)return; await showRfq(draftId); message('Draft ready. Review the items and choose recipients before sending.','success');
+    } catch(error) {
+      if(disposed)return;
+      if(error.status===401){me=null;showSignIn();}
+      else if(draftId){await procurementAction(()=>showRfq(draftId));message(itemSaved?'Your draft and item were saved, but the detail could not be opened. Open the saved draft to continue.':'The request draft was created, but its item could not be saved. Add the item to this draft before sending.','error');}
+      else message(error.message,'error');
+    } finally {if(!disposed && element.isConnected){button.disabled=false;button.textContent=draftId?'Open saved draft':'Create sourcing draft';}}
+  };
+}
 
 const procurementBase = '/api/procurement';
 function bindProcurement() { app.querySelector('#procurement')?.addEventListener('click', () => procurementAction(showProcurement)); }
@@ -223,7 +328,7 @@ async function showRfqs() {
   app.querySelectorAll('[data-rfq]').forEach(b => b.onclick = () => procurementAction(() => showRfq(b.dataset.rfq)));
 }
 function rfqItemFields(item = {}) {
-  return `<label>Description<textarea name="description" required maxlength="2000">${escapeHtml(item.description || '')}</textarea></label><label>Quantity<input name="quantity" type="number" required min="1" max="1000000" step="1" value="${item.quantity || 1}"></label><label>Unit<input name="unit" required maxlength="40" value="${escapeHtml(item.unit || '')}"></label>`;
+  return `<label>Description<textarea name="description" required>${escapeHtml(item.description || '')}</textarea></label><label>Quantity<input name="quantity" type="number" required min="1" max="1000000" step="1" value="${item.quantity || 1}"></label><label>Unit<input name="unit" required maxlength="40" value="${escapeHtml(item.unit || '')}"></label>`;
 }
 function readRfqItem(form) { const v = Object.fromEntries(new FormData(form)); return {...v,quantity:Number(v.quantity)}; }
 async function showRfq(id) {
@@ -399,16 +504,17 @@ async function showCatalog(state = {}) {
     if (!categoriesCache) categoriesCache = await request('/api/public/categories');
     const result = await request(`/api/public/offerings?${queryString({q, category, page})}`);
     const options = categoriesCache.map(c => `<option value="${c.code}" ${c.code===category?'selected':''}>${escapeHtml(c.name)}</option>`).join('');
-    const cards = result.items.map(item => `<div class="card"><h3><a href="#" data-offering="${item.id}">${escapeHtml(item.title)}</a></h3><p class="muted">${escapeHtml(item.categoryName)} · <a href="#" data-supplier="${item.supplierId}">${escapeHtml(item.supplierDisplayName)}</a></p><p>${escapeHtml(item.description)}</p></div>`).join('');
+    const cards = result.items.map(item => `<article class="product-card"><div class="product-visual" aria-hidden="true"><svg viewBox="0 0 100 80" fill="none"><path d="M18 28 50 12 82 28v34L50 78 18 62ZM18 28l32 16 32-16M50 44v34M34 20l32 16"/></svg></div><div class="product-content"><span class="product-category">${escapeHtml(item.categoryName)}</span><h2><a href="#" data-offering="${item.id}">${escapeHtml(item.title)}</a></h2><a href="#" data-supplier="${item.supplierId}">${escapeHtml(item.supplierDisplayName)}</a><p>${escapeHtml(item.description)}</p><strong>Price on request</strong>${me?.buyerGrant?`<button data-request-product="${item.id}">Request quotation</button>`:''}</div></article>`).join('');
     app.innerHTML = `<h1>Marketplace</h1><form class="inline" id="search"><label>Search<input name="q" value="${escapeHtml(q)}" placeholder="Search offerings" maxlength="100"></label><label>Category<select name="category"><option value="">All categories</option>${options}</select></label><button>Search</button></form>` +
-      (result.items.length ? `<div class="cards">${cards}</div>` : '<p class="muted">No offerings match your search.</p>') +
+      (result.items.length ? `<div class="product-grid">${cards}</div>` : '<p class="muted">No offerings match your search. Try another category or search term.</p>') +
       `<div class="pager"><button class="secondary" id="prev" ${page<=0?'disabled':''}>Previous</button><span class="muted">Page ${result.page+1} of ${Math.max(result.totalPages,1)} · ${result.totalElements} result(s)</span><button class="secondary" id="next" ${page+1>=result.totalPages?'disabled':''}>Next</button></div>`;
     app.querySelector('#search').addEventListener('submit', event => { event.preventDefault(); const v = Object.fromEntries(new FormData(event.currentTarget)); showCatalog({...v, page:0}); });
     app.querySelector('#prev').addEventListener('click', () => showCatalog({q, category, page: page-1}));
     app.querySelector('#next').addEventListener('click', () => showCatalog({q, category, page: page+1}));
     app.querySelectorAll('[data-offering]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); showOfferingDetail(link.dataset.offering); }));
     app.querySelectorAll('[data-supplier]').forEach(link => link.addEventListener('click', event => { event.preventDefault(); showSupplierDetail(link.dataset.supplier); }));
-  } catch (error) { if (disposed) return; app.innerHTML = '<h1>Marketplace</h1>'; message(error.message, 'error'); }
+    app.querySelectorAll('[data-request-product]').forEach(button=>button.onclick=()=>requestProduct(result.items.find(item=>String(item.id)===button.dataset.requestProduct)));
+  } catch (error) { if (disposed) return; app.innerHTML = '<h1>Marketplace</h1><p>Unable to load products.</p><button id="catalog-retry">Retry</button>'; app.querySelector('#catalog-retry').onclick=()=>showCatalog({q,category,page}); message(error.message, 'error'); }
   app.setAttribute('aria-busy','false');
 }
 
@@ -419,6 +525,7 @@ async function showOfferingDetail(id) {
     const offering = await request(`/api/public/offerings/${id}`);
     app.innerHTML = `<button class="secondary" id="back">Back to marketplace</button><h1>${escapeHtml(offering.title)}</h1><p class="muted">${escapeHtml(offering.categoryName)} · <a href="#" id="supplier-link">${escapeHtml(offering.supplierDisplayName)}</a></p><p>${escapeHtml(offering.description)}</p>`;
     app.querySelector('#supplier-link').addEventListener('click', event => { event.preventDefault(); showSupplierDetail(offering.supplierId); });
+    if(me?.buyerGrant){const button=document.createElement('button');button.textContent='Request quotation';button.onclick=()=>requestProduct(offering);app.append(button);}
   } catch (error) { if (disposed) return;
     app.innerHTML = `<button class="secondary" id="back">Back to marketplace</button><p class="error">${error.status===404 ? 'This offering is no longer available.' : escapeHtml(error.message)}</p>`;
   }
@@ -439,7 +546,7 @@ async function showSupplierDetail(id) {
   app.querySelector('#back').addEventListener('click', () => showCatalog());
 }
 
-async function loadMarketplace() {
+async function loadMarketplace(profileOnly = false) {
   const host = app.querySelector('#marketplace');
   if (!host) return;
   host.innerHTML = 'Loading your supplier profile…';
@@ -450,21 +557,22 @@ async function loadMarketplace() {
     (profile ? `<span class="badge ${profile.published?'published':'draft'}">${profile.published?'Published':'Draft'}</span><p class="muted">Unpublishing hides every offering from the public catalog without changing their own state; republishing restores only the ones that are still individually published.</p>` : '<p class="muted">Create a profile before you can add offerings.</p>') +
     `<form id="profile-form"><label>Public description<textarea name="description" maxlength="2000" required>${escapeHtml(profile ? profile.description : '')}</textarea></label><div class="actions"><button>${profile ? 'Save' : 'Create profile'}</button>` +
     (profile ? `<button type="button" class="secondary" id="profile-toggle">${profile.published ? 'Unpublish' : 'Publish'} profile</button>` : '') + '</div></form>' +
-    '<h2>Offerings</h2><div id="offering-form-host"></div><div id="offerings-list">Loading…</div>';
+    (profileOnly ? '' : '<h2>Offerings</h2><div id="offering-form-host"></div><div id="offerings-list">Loading…</div>');
   host.querySelector('#profile-form').addEventListener('submit', async event => {
     event.preventDefault(); message('');
     const values = Object.fromEntries(new FormData(event.currentTarget));
-    try { await request('/api/marketplace/profile', {method:'PUT', body: values}); message('Profile saved.','success'); loadMarketplace(); }
+    try { await request('/api/marketplace/profile', {method:'PUT', body: values}); message('Profile saved.','success'); loadMarketplace(profileOnly); }
     catch (error) { if (disposed) return; message(error.message,'error'); }
   });
   if (profile) {
     host.querySelector('#profile-toggle').addEventListener('click', async () => {
-      try { await request(`/api/marketplace/profile/${profile.published?'unpublish':'publish'}`, {method:'POST'}); message(`Profile ${profile.published?'unpublished':'published'}.`,'success'); loadMarketplace(); }
+      try { await request(`/api/marketplace/profile/${profile.published?'unpublish':'publish'}`, {method:'POST'}); message(`Profile ${profile.published?'unpublished':'published'}.`,'success'); loadMarketplace(profileOnly); }
       catch (error) { if (disposed) return; message(error.message,'error'); }
     });
+    if (profileOnly) return;
     renderOfferingCreateButton();
     await loadOfferings();
-  } else {
+  } else if (!profileOnly) {
     host.querySelector('#offerings-list').innerHTML = '<p class="muted">No offerings yet — create a profile first.</p>';
   }
 }
@@ -523,7 +631,7 @@ async function initialize() {
         await request('/api/auth/invitations/accept',{method:'POST',body:{...values,token}}); message('Invitation accepted. Check your email to verify before signing in.','success'); showSignIn();
       });
     } else {
-      try { me = await request('/api/auth/me'); renderWorkspace(me); }
+      try { me = await request('/api/auth/me'); await renderWorkspace(me); }
       catch { if (disposed) return; showSignIn(); }
     }
   } catch(error) { if (disposed) return; message(error.message,'error'); showSignIn(); }
@@ -567,7 +675,9 @@ return {
       workspace: showWorkspace, procurement: () => procurementAction(showProcurement),
       rfqs: () => procurementAction(showRfqs), contacts: () => procurementAction(showContacts),
       invitations: () => procurementAction(showInvitations), orders: () => procurementAction(showOrders),
-      queues: () => procurementAction(showOperationalQueue), analytics: () => procurementAction(showCompletedAnalytics)
+      queues: () => procurementAction(showOperationalQueue), analytics: () => procurementAction(showCompletedAnalytics),
+      quotations: () => procurementAction(showQuotations), products: () => procurementAction(showProducts),
+      'supplier-profile': () => procurementAction(showSupplierProfile), profile: showProfile, help: showHelp, team: () => renderTeam(me)
     };
     const publicScreens = ['login', 'register', 'marketplace'];
     if (!publicScreens.includes(screen) && screen !== 'workspace') {
@@ -575,8 +685,9 @@ return {
       catch { if (disposed || revision !== navigationRevision) return false; me = null; showSignIn(); return true; }
       if (revision !== navigationRevision || disposed) return false;
       if ((['rfqs', 'contacts'].includes(screen) && !me.buyerGrant) ||
-          (screen === 'invitations' && !me.supplierGrant) ||
-          (['procurement','queues','orders','analytics'].includes(screen) && !(me.buyerGrant || me.supplierGrant))) {
+          (['invitations','products','supplier-profile'].includes(screen) && !me.supplierGrant) ||
+          (screen === 'team' && !me.organizationAdmin) ||
+          (['procurement','queues','orders','analytics','quotations'].includes(screen) && !(me.buyerGrant || me.supplierGrant))) {
         showWorkspace(); return true;
       }
     }

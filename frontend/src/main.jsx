@@ -7,6 +7,7 @@ import '@fontsource/manrope/latin-700.css';
 import '@fontsource/manrope/latin-800.css';
 import {mountFeatures} from './features.js';
 import './styles.css';
+import './workspace.css';
 
 const paths = {
   arrow: 'M5 12h14m-6-6 6 6-6 6', grid: 'M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z',
@@ -85,7 +86,7 @@ function Shell() {
     controller.current=mountFeatures(featureHost.current,noticeHost.current,info=>{if(!alive)return;setAccount(info.account);setTitle(info.title);setActiveView(info.activeView);});
     controller.current.ready.then(async()=>{
       if(!alive)return;
-      if(requested && navRevision.current===0 && !(requested==='workspace' && controller.current.account))await go(requested,{push:false});
+      if(requested && navRevision.current===0)await go(requested,{push:false});
       else if(!hadToken && navRevision.current===0 && controller.current.account && alive)setScreen('workspace');
       if(alive)setReady(true);
     });
@@ -94,13 +95,13 @@ function Shell() {
     window.addEventListener('popstate',pop);window.addEventListener('keydown',escape);
     return()=>{alive=false;navRevision.current++;controller.current?.dispose();window.removeEventListener('popstate',pop);window.removeEventListener('keydown',escape);};
   },[]);
-  const navItems=[['workspace','Organization','grid'],...(account?.buyerGrant?[['rfqs','Your RFQs','file'],['contacts','Supplier contacts','users']]:[]),...(account?.supplierGrant?[['invitations','Supplier invitations','file']]:[]),...(account?.buyerGrant||account?.supplierGrant?[['orders','Orders','box'],['queues','Operational queues','flow'],['analytics','Analytics','chart']]:[]),['marketplace','Marketplace','search']];
+  const navItems=[...(account?.buyerGrant?[['marketplace','Browse products','search']]:[]),['workspace','Overview','grid'],...(account?.buyerGrant?[['rfqs','Sourcing requests','file'],['contacts','Supplier contacts','users']]:[]),...(account?.supplierGrant?[['products','Your products','box'],['invitations','Received RFQs','file']]:[]),...(account?.buyerGrant||account?.supplierGrant?[['quotations','Quotations','file'],['orders','Orders & tracking','box'],['queues','Operational queues','flow'],['analytics','Analytics','chart']]:[]),...(account?.supplierGrant?[['supplier-profile','Supplier profile','users']]:[]),['profile','My profile','users'],...(account?.organizationAdmin?[['team','Team & access','users']]:[]),['help','Help & information','shield']];
   const isWorkspace=!isHome&&!isAuth&&account;
   return <div className={`site ${isHome?'home-mode':isAuth?'auth-mode':'feature-mode'} ${isWorkspace?'workspace-mode':''}`}>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <header className="site-header"><div className="header-inner"><Brand onClick={e=>{e.preventDefault();go('home');}}/>
       <button className="menu-toggle" aria-expanded={menu} aria-controls="primary-nav" aria-label={menu?'Close navigation':'Open navigation'} onClick={()=>setMenu(!menu)}><Icon name={menu?'close':'menu'}/></button>
-      <nav id="primary-nav" className={menu?'nav-open':''} aria-label="Main navigation"><a id="nav-marketplace" href="?view=marketplace" onClick={e=>{e.preventDefault();go('marketplace');}} aria-current={screen==='marketplace'?'page':undefined}>Marketplace</a><a href="/#process">How it works</a><a href="?view=workspace" onClick={e=>{e.preventDefault();go(account?'workspace':'login');}}>Workspace</a><span className="nav-divider"/>{account?<a className="button button-purple" href="?view=workspace" onClick={e=>{e.preventDefault();go('workspace');}}>Your organization <Icon name="arrow" size={17}/></a>:<><a className="sign-in-link" href="?view=login" onClick={e=>{e.preventDefault();go('login');}}>Sign in</a><a className="button button-purple" href="?view=register" onClick={e=>{e.preventDefault();go('register');}}>Get started <Icon name="arrow" size={17}/></a></>}</nav>
+      <nav id="primary-nav" className={menu?'nav-open':''} aria-label="Main navigation"><a id="nav-marketplace" href="?view=marketplace" onClick={e=>{e.preventDefault();go('marketplace');}} aria-current={!isHome && activeView==='marketplace'?'page':undefined}>Marketplace</a><a href="/#process">How it works</a><a href="?view=workspace" onClick={e=>{e.preventDefault();go(account?'workspace':'login');}}>Workspace</a><span className="nav-divider"/>{account?<a className="button button-purple" href="?view=workspace" onClick={e=>{e.preventDefault();go('workspace');}}>Your organization <Icon name="arrow" size={17}/></a>:<><a className="sign-in-link" href="?view=login" onClick={e=>{e.preventDefault();go('login');}}>Sign in</a><a className="button button-purple" href="?view=register" onClick={e=>{e.preventDefault();go('register');}}>Get started <Icon name="arrow" size={17}/></a></>}</nav>
     </div></header>
     <div className="navigation-progress" role="status">{pending?'Opening your next view…':!ready?'Connecting your workspace…':''}</div>
     <div className="notice-wrap"><div ref={noticeHost} id="notice" role="status" aria-live="polite"/></div>

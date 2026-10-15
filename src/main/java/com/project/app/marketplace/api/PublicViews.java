@@ -19,7 +19,12 @@ public final class PublicViews {
                     new CategoryView("OFFICE_SUPPLIES", "Office supplies"),
                     new CategoryView("FURNITURE", "Furniture"),
                     new CategoryView("INDUSTRIAL_SUPPLIES", "Industrial supplies"),
-                    new CategoryView("OTHER", "Other"));
+                    new CategoryView("OTHER", "Other"),
+                    new CategoryView("SAFETY_EQUIPMENT", "Safety equipment"),
+                    new CategoryView("PACKAGING", "Packaging"),
+                    new CategoryView("ELECTRICAL", "Electrical"),
+                    new CategoryView("TOOLS", "Tools"),
+                    new CategoryView("CLEANING", "Cleaning"));
         }
         private static final java.util.Map<String, String> NAMES = all().stream()
                 .collect(java.util.stream.Collectors.toMap(CategoryView::code, CategoryView::name));

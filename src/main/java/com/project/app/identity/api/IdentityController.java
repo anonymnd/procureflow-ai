@@ -60,6 +60,18 @@ public class IdentityController {
         return new Csrf(token.getToken());
     }
 
+    @PutMapping("/profile")
+    public IdentityViews.AccountView updateProfile(@AuthenticationPrincipal AccountPrincipal principal,
+            @Valid @RequestBody IdentityRequests.UpdateProfile request) {
+        return identity.updateProfile(principal, request.fullName());
+    }
+
+    @PutMapping("/organization")
+    public IdentityViews.AccountView updateOrganization(@AuthenticationPrincipal AccountPrincipal principal,
+            @Valid @RequestBody IdentityRequests.UpdateOrganization request) {
+        return identity.updateOrganization(principal, request.displayName());
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Message> register(@Valid @RequestBody Register request) {
         identity.register(request);

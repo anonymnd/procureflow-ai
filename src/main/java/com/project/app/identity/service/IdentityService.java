@@ -112,6 +112,43 @@ public class IdentityService {
     }
 
     @Transactional
+    public AccountView updateProfile(AccountPrincipal principal, String fullName) {
+        Account account = eligibleAccount(principal);
+        account.setFullName(profileName(fullName));
+        return AccountView.from(accounts.saveAndFlush(account));
+    }
+
+    @Transactional
+    public AccountView updateOrganization(AccountPrincipal principal, String displayName) {
+        // Match employee-access lock order: organization before account.
+        Organization organization = organizations.findLockedById(principal.getOrganizationId())
+                .orElseThrow(IdentityException::notFound);
+        Account account = eligibleAccount(principal);
+        if (!account.isOrganizationAdmin()) {
+            throw new IdentityException(HttpStatus.FORBIDDEN, "FORBIDDEN", "Organization administrator access is required.");
+        }
+        organization.setDisplayName(profileName(displayName));
+        organizations.saveAndFlush(organization);
+        return AccountView.from(account);
+    }
+
+    private Account eligibleAccount(AccountPrincipal principal) {
+        Account account = accounts.findLockedInOrganization(principal.getAccountId(), principal.getOrganizationId())
+                .orElseThrow(IdentityException::notFound);
+        if (!account.isActive() || !account.isEmailVerified() || account.getAuthVersion() != principal.getAuthVersion()) {
+            throw new IdentityException(HttpStatus.FORBIDDEN, "FORBIDDEN", "Please sign in with an active verified account.");
+        }
+        return account;
+    }
+
+    private static String profileName(String value) {
+        if (value == null || value.strip().isEmpty() || value.strip().length() > 160) {
+            throw IdentityException.badRequest("Name must contain 1 to 160 characters.");
+        }
+        return value.strip();
+    }
+
+    @Transactional
     public void changePassword(AccountPrincipal principal, ChangePassword change) {
         requirePassword(change.newPassword());
         Account account = accounts.findLockedInOrganization(principal.getAccountId(), principal.getOrganizationId())

@@ -18,7 +18,8 @@ import jakarta.persistence.Version;
 @Entity
 @Table(name = "marketplace_offerings")
 public class Offering {
-    public enum Category { IT_EQUIPMENT, OFFICE_SUPPLIES, FURNITURE, INDUSTRIAL_SUPPLIES, OTHER }
+    public enum Category { IT_EQUIPMENT, OFFICE_SUPPLIES, FURNITURE, INDUSTRIAL_SUPPLIES, OTHER,
+        SAFETY_EQUIPMENT, PACKAGING, ELECTRICAL, TOOLS, CLEANING }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -27,5 +27,6 @@ public class Organization {
 
     public Long getId() { return id; }
     public String getDisplayName() { return displayName; }
+    public void setDisplayName(String value) { displayName = value; }
     public Instant getCreatedAt() { return createdAt; }
 }

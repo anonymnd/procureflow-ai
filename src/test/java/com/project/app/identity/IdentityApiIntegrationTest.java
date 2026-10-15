@@ -74,9 +74,12 @@ class IdentityApiIntegrationTest {
     @Test
     void browserShellAndIdentityAssetsArePublicWhileAccountApiRemainsProtected() throws Exception {
         mvc.perform(get("/index.html")).andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Organization access")));
-        mvc.perform(get("/app.js")).andExpect(status().isOk()).andExpect(content().string(org.hamcrest.Matchers.containsString("X-XSRF-TOKEN")));
-        mvc.perform(get("/styles.css")).andExpect(status().isOk());
+                .andExpect(content().string(org.hamcrest.Matchers.containsString("ProcureFlow")));
+        String html=mvc.perform(get("/index.html")).andReturn().getResponse().getContentAsString();
+        var assets=Pattern.compile("(?:src|href)=\"(/assets/[^\"]+)\"").matcher(html);
+        int assetCount=0;
+        while(assets.find()){mvc.perform(get(assets.group(1))).andExpect(status().isOk());assetCount++;}
+        assertTrue(assetCount>=2,"The public React shell must serve both script and style assets.");
         mvc.perform(get(AUTH + "/me")).andExpect(status().isUnauthorized());
     }
 

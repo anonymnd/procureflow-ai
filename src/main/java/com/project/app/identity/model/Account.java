@@ -82,6 +82,7 @@ public class Account {
     public Instant getCreatedAt() { return createdAt; }
 
     public void setBuyerGrant(boolean value) { buyerGrant = value; }
+    public void setFullName(String value) { fullName = value; }
     public void setSupplierGrant(boolean value) { supplierGrant = value; }
     public void setOrganizationAdmin(boolean value) { organizationAdmin = value; }
     public void setActive(boolean value) { active = value; }

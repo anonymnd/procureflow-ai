@@ -208,7 +208,7 @@ class MarketplaceApiIntegrationTest {
                 .andExpect(jsonPath("$.offerings", org.hamcrest.Matchers.hasSize(1)));
 
         mvc.perform(get(PUBLIC + "/categories")).andExpect(status().isOk())
-                .andExpect(jsonPath("$", org.hamcrest.Matchers.hasSize(5)))
+                .andExpect(jsonPath("$", org.hamcrest.Matchers.hasSize(10)))
                 .andExpect(jsonPath("$[0].code").value("IT_EQUIPMENT"));
     }
 

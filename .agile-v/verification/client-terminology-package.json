@@ -1,0 +1,41 @@
+{
+  "base": "021b048d94c9002bd29d466f3d58c9569a8ce27f",
+  "baselineSHA256": "640865b951f4b50517995d9d73a322c1b8b76eacf87415f63dbe9cf0d66a3d37",
+  "tests": [
+    {
+      "name": "ClientLabelsMigrationIntegrationTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    {
+      "name": "ProductionDemoSeederGuardTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  ],
+  "jarBindings": [
+    "BOOT-INF/classes/db/migration/V11__realistic_sample_labels.sql",
+    "BOOT-INF/classes/static/index.html",
+    "BOOT-INF/classes/static/assets/index-2wD7_5U2.js",
+    "BOOT-INF/classes/static/assets/index-5TMG5HM9.css",
+    "com/project/app/demo/ProductionDemoSeeder.class",
+    "com/project/app/demo/DemoDataSeeder.class"
+  ],
+  "sourceHashes": {
+    "frontend/src/features.js": "d739d740afc5a96ec6303154f24c60ebe471d8b65b4e174bebdfa05f2d8c6363",
+    "frontend/src/main.jsx": "cf6d2680cdddfd720d656109bb8500fd0680f7bac0d2c99211974c5cc0d7b0f7",
+    "src/main/java/com/project/app/demo/ProductionDemoSeeder.java": "3a85a032ce481e02f5cfe8fba5148896861165f88dfa6ae2073b61cbf0e2ba24",
+    "src/main/java/com/project/app/demo/DemoDataSeeder.java": "5b1b26330d47298bdb7917e50cc5df5ac032a7c26397106c2e91087efff24505",
+    "src/main/resources/db/migration/V11__realistic_sample_labels.sql": "2fde3728872d3c9349a0774014e28c60740d4bc5210ad6b9d7262eafde334038",
+    "src/test/java/com/project/app/demo/ClientLabelsMigrationIntegrationTest.java": "e44f1b88d5e5f10bee94c64ec3b7e310166963debb732ba849718f5501e6fdeb",
+    "src/test/java/com/project/app/demo/DemoWorkspaceIntegrationTest.java": "de91d1e6e199725980c5bb650539d71c86fb1141cdaf5ac328c231918b68dab9",
+    "src/main/resources/static/index.html": "61edd7645db2a07a1a79792b76deb8f6bf2a10691353d306493144c5fa78f65f",
+    "src/main/resources/static/assets/index-2wD7_5U2.js": "85684c36759407d5d8a0f01aedb7350a2c932b36bcf6bca9df8cdf65e6fcdc34",
+    "src/main/resources/static/assets/index-5TMG5HM9.css": "7ee79b0e36a57e5a7fb8523bf12535c2eb90734be7b1ab1f44a9e9057182bc1d"
+  },
+  "jarSHA256": "a687e11a393f746417b846c5b3199af4997358ab1bb107a379b008eaeb262254"
+}

@@ -28,11 +28,14 @@ import com.project.app.marketplace.model.Offering.Category;
 @ConditionalOnProperty(name="PROCUREFLOW_PRODUCTION_DEMO_ENABLED", havingValue="true")
 public class ProductionDemoSeeder implements ApplicationRunner {
     static final String KEY = "production-demo-v1";
-    static final List<String> EMAILS = List.of("demo.buyer@procureflow.invalid", "demo.buyer.employee@procureflow.invalid",
-            "demo.atlas@procureflow.invalid", "demo.atlas.employee@procureflow.invalid",
-            "demo.meridian@procureflow.invalid", "demo.meridian.employee@procureflow.invalid");
-    static final List<String> ORGANIZATIONS = List.of("Demo Buyer Workshop", "Demo Atlas Supply", "Demo Meridian Goods");
-    private static final String TERMS = "Demo / fictional transaction; no payment or real fulfillment. Illustrative terms only.";
+    static final List<String> EMAILS = List.of("amina.bennani@northstar.invalid", "youssef.amrani@northstar.invalid",
+            "karim.mansouri@atlas-supply.invalid", "salma.idrissi@atlas-supply.invalid",
+            "lina.haddad@meridian-goods.invalid", "omar.tazi@meridian-goods.invalid");
+    static final List<String> ORGANIZATIONS = List.of("Northstar Manufacturing", "Atlas Industrial Supply", "Meridian Business Goods");
+    private static final List<String> NAMES = List.of("Amina Bennani","Youssef Amrani","Karim El Mansouri","Salma Idrissi","Lina Haddad","Omar Tazi");
+    private static final List<String> PRODUCT_NAMES = List.of("Business Laptop 14-inch","A4 Copy Paper 80gsm","Ergonomic Task Chair","Heavy-Duty Fastener Kit","Workshop Maintenance Kit","Nitrile Safety Gloves","Corrugated Shipping Boxes","LED Panel Light 36W","Precision Hand Tool Set","Industrial Surface Cleaner 5L");
+    private static final List<String> OTHER_PRODUCT_NAMES = List.of("Office Monitor 24-inch","Ballpoint Pen Set","Adjustable Office Desk","Stainless Steel Bolt Set","Facility Service Kit","Protective Safety Goggles","Reinforced Packing Tape","Commercial LED Downlight","Cordless Drill Kit","Multi-Surface Detergent 5L");
+    private static final String TERMS = "Payment within 30 days. Tax and shipping quoted separately.";
     private final JdbcTemplate jdbc;
     private final PasswordEncoder encoder;
     private final Environment env;
@@ -140,30 +143,30 @@ public class ProductionDemoSeeder implements ApplicationRunner {
                     insert into accounts(full_name,email,password_hash,organization_id,organization_admin,
                         buyer_grant,supplier_grant,active,email_verified,created_at)
                     values (?,?,?,?,?,?,?,true,true,?) returning id
-                    """, "Demo "+(i==0?"Buyer":i==1?"Atlas":"Meridian")+(member==0?" Admin":" Employee"),
+                    """, NAMES.get(index),
                         EMAILS.get(index),hash,organizations[i],member==0,i==0,i!=0,created);
             }
             if (i==0) continue;
             long profile=id("""
                 insert into marketplace_profiles(organization_id,description,published,published_at,created_at)
                 values (?,?,true,?,?) returning id
-                """,organizations[i],"Demo fictional supplier; no real fulfillment.",created,created);
+                """,organizations[i],"Industrial and workplace supplies with responsive quotation support.",created,created);
             for (Category category:Category.values()) jdbc.update("""
                 insert into marketplace_offerings(profile_id,title,description,category,published,published_at,created_at)
                 values (?,?,?,?,true,?,?)
-                """,profile,"Demo "+(i==1?"Atlas ":"Meridian ")+category.name().toLowerCase().replace('_',' '),
-                    "Demo fictional product for exploring sourcing; no real fulfillment.",category.name(),created,created);
+                """,profile,(i==1?PRODUCT_NAMES:OTHER_PRODUCT_NAMES).get(category.ordinal()),
+                    "Commercial-grade supplies for workplace and facility operations.",category.name(),created,created);
             jdbc.update("insert into supplier_contacts(buyer_organization_id,supplier_organization_id,note) values (?,?,?)",
-                    organizations[0],organizations[i],"Demo fictional supplier contact.");
+                    organizations[0],organizations[i],"Approved quotation contact.");
         }
-        String[] titles={"Draft specifications","Awaiting supplier responses","Compare two quotations","Order created",
-                "Order processing","Order dispatched","Order received"};
+        String[] titles={"Office furniture procurement","Warehouse protective equipment","Packaging materials replenishment","IT equipment refresh","Production workshop supplies","Lighting upgrade","Office stationery restock"};
+        String[] specifications={"Ergonomic task chair with adjustable lumbar support.","Powder-free nitrile gloves, size L.","Double-wall corrugated shipping boxes, 40 x 30 x 30 cm.","Business laptop with 16 GB RAM and 512 GB SSD.","Zinc-plated M8 fastener assortment for workshop use.","36W LED panels with neutral white output.","A4 white copy paper, 80 gsm, 500 sheets per ream."};
         String[] stages={"CREATED","CONFIRMED","PROCESSING","DISPATCHED","RECEIVED"};
         for (int i=0;i<7;i++) {
-            String title="Demo / fictional: "+titles[i];
+            String title=titles[i];
             long rfq=id("insert into rfqs(organization_id,title,created_at) values (?,?,?) returning id",organizations[0],title,created);
             long item=id("insert into rfq_items(rfq_id,description,quantity,unit,created_at) values (?,?,10,'units',?) returning id",
-                    rfq,"Demo fictional office supply specification; no real fulfillment.",created);
+                    rfq,specifications[i],created);
             if (i==0) continue;
             jdbc.update("update rfqs set status='SENT' where id=?",rfq);
             int winner=i%2+1;

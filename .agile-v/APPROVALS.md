@@ -77,3 +77,12 @@ Distinct delegated acceptance REQ-WP-001..003/BL-WP-R1/issue35 under owner full-
 ## GATE-WP-PUBLISH-DELEGATED â€” publication execution â€” 2026-10-16
 
 Distinct frontend-only scoped publication gate under owner ongoing productiondelivery request after development review/acceptance. Commit/push reviewed3source/generatedstatic/provenance on existing codex/fsb-demo-production based7457cad, deploy existing VercelHobby canonical domain, verify exactSHA/assets/normal buyer/supplier navigation and refresh portfolio demo screenshots. Render backend/static stays7457cad, no restart or schema/auth/data changes; disclose older fallback. No paid/newprovider/security weakening/commercial action. Hostedreview/acceptance separate.
+
+
+## GATE-CT-FINAL-DELEGATED — development acceptance — 2026-10-16
+
+REQ-CT-001..003/BL-CT-R1/issue36 accepted after separate VER-CT-IMPL-001 final PASS:9tests,10sourcehashes,6JARbindings. Three review findings closed. Owner final Client/Supplier wording and fictional fixture names scoped. Not hosted acceptance.
+
+## GATE-CT-PUBLISH-DELEGATED — 2026-10-16
+
+Owner explicitly directs scoped application/fixture production delivery. After separate review/development acceptance, authorize exact reviewed commit/nonforce push on codex/client-terminology, backend exactcommit migration deploy on existing Render followed by frontend publication on existing Vercel only after backend ready, normal sign-in/asset checks and screenshots. Existing passwords/grants/providers/Free preserved; no seed enable/newseeding/email. Browser disabled currently blocks provider execution; do not silently promote frontend only.

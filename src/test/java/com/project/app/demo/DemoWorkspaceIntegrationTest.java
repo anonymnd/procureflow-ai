@@ -47,7 +47,7 @@ class DemoWorkspaceIntegrationTest {
         mvc.perform(get("/api/public/categories")).andExpect(jsonPath("$.length()").value(10));
         mvc.perform(get("/api/public/offerings").param("category","PACKAGING"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.totalElements").value(2));
-        for(String email:new String[]{"buyer@procureflow.invalid","supplier.one@procureflow.invalid","supplier.two@procureflow.invalid"}) {
+        for(String email:new String[]{"amina.bennani@northstar.invalid","karim.mansouri@atlas-supply.invalid","lina.haddad@meridian-goods.invalid"}) {
             MockHttpSession session=login(email);
             mvc.perform(get("/api/auth/me").session(session)).andExpect(status().isOk());
         }
@@ -62,7 +62,7 @@ class DemoWorkspaceIntegrationTest {
     }
 
     @Test @Transactional void editsOwnProfileAndOrganizationWithIsolationAndCsrf() throws Exception {
-        MockHttpSession buyer=login("buyer@procureflow.invalid");
+        MockHttpSession buyer=login("amina.bennani@northstar.invalid");
         mvc.perform(put("/api/auth/profile").session(buyer).contentType(MediaType.APPLICATION_JSON)
             .content("{\"fullName\":\"Changed Buyer\"}")).andExpect(status().isForbidden());
         mvc.perform(put("/api/auth/profile").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ class DemoWorkspaceIntegrationTest {
         mvc.perform(put("/api/auth/organization").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .content("{\"displayName\":\"New Buyer Studio\"}"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.organizationName").value("New Buyer Studio"));
-        assertEquals(2,jdbc.queryForObject("select count(*) from organizations where display_name in ('Atlas Demo Supply','Meridian Demo Goods')",Integer.class));
+        assertEquals(2,jdbc.queryForObject("select count(*) from organizations where display_name in ('Atlas Industrial Supply','Meridian Business Goods')",Integer.class));
         mvc.perform(put("/api/auth/profile").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .content("{\"fullName\":\" "+"x".repeat(160)+" \"}"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.fullName").value("x".repeat(160)));
@@ -80,11 +80,11 @@ class DemoWorkspaceIntegrationTest {
             .andExpect(status().isOk()).andExpect(jsonPath("$.organizationName").value("y".repeat(160)));
         for(String content:new String[]{"{\"fullName\":\"   \"}","{\"fullName\":\""+"x".repeat(161)+"\"}"})
             mvc.perform(put("/api/auth/profile").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(content)).andExpect(status().isBadRequest());
-        jdbc.update("update accounts set organization_admin=false where email='buyer@procureflow.invalid'");
+        jdbc.update("update accounts set organization_admin=false where email='amina.bennani@northstar.invalid'");
         entityManager.clear(); // A later HTTP request has a fresh persistence context after external access changes.
         mvc.perform(put("/api/auth/organization").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .content("{\"displayName\":\"Forbidden\"}")).andExpect(status().isForbidden());
-        jdbc.update("update accounts set active=false where email='buyer@procureflow.invalid'");
+        jdbc.update("update accounts set active=false where email='amina.bennani@northstar.invalid'");
         entityManager.clear();
         mvc.perform(put("/api/auth/profile").session(buyer).with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .content("{\"fullName\":\"Forbidden\"}")).andExpect(status().isForbidden());
@@ -94,7 +94,7 @@ class DemoWorkspaceIntegrationTest {
         jdbc.update("update marketplace_offerings set description='Owner edited demo product',published=false where id=(select min(id) from marketplace_offerings)");
         seeder.run(new DefaultApplicationArguments());
         assertEquals(1,jdbc.queryForObject("select count(*) from marketplace_offerings where description='Owner edited demo product' and not published",Integer.class));
-        jdbc.update("update accounts set email='collision@procureflow.invalid' where email='buyer@procureflow.invalid'");
+        jdbc.update("update accounts set email='collision@procureflow.invalid' where email='amina.bennani@northstar.invalid'");
         var before=jdbc.queryForList("select id,email from accounts order by id");
         assertThrows(IllegalStateException.class,()->seeder.run(new DefaultApplicationArguments()));
         assertEquals(before,jdbc.queryForList("select id,email from accounts order by id"));

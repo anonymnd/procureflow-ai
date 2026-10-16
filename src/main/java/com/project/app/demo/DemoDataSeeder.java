@@ -24,9 +24,9 @@ import com.project.app.marketplace.model.Offering.Category;
 @Profile("demo")
 @ConditionalOnProperty(name = "PROCUREFLOW_DEMO_SEED_ENABLED", havingValue = "true")
 public class DemoDataSeeder implements ApplicationRunner {
-    private static final List<String> EMAILS = List.of("buyer@procureflow.invalid",
-            "supplier.one@procureflow.invalid", "supplier.two@procureflow.invalid");
-    private static final List<String> NAMES = List.of("Demo Buyer Studio", "Atlas Demo Supply", "Meridian Demo Goods");
+    private static final List<String> EMAILS = List.of("amina.bennani@northstar.invalid",
+            "karim.mansouri@atlas-supply.invalid", "lina.haddad@meridian-goods.invalid");
+    private static final List<String> NAMES = List.of("Northstar Manufacturing", "Atlas Industrial Supply", "Meridian Business Goods");
     private static final String[][] PRODUCTS = {
         {"USB-C office dock", "Recycled notebook pack", "Adjustable office chair", "Warehouse shelving unit",
          "Reusable event badge", "Protective work gloves", "Recycled shipping cartons", "LED task light",
@@ -100,19 +100,19 @@ public class DemoDataSeeder implements ApplicationRunner {
                 insert into accounts(full_name,email,password_hash,organization_id,organization_admin,
                                      buyer_grant,supplier_grant,active,email_verified)
                 values (?,?,?,?,true,?,?,true,true)
-                """, index == 0 ? "Demo Buyer" : "Demo Supplier " + index, EMAILS.get(index), hash,
+                """, List.of("Amina Bennani", "Karim El Mansouri", "Lina Haddad").get(index), EMAILS.get(index), hash,
                     organization, index == 0, index != 0);
             if (index == 0) continue;
             long profile = jdbc.queryForObject("""
                 insert into marketplace_profiles(organization_id,description,published,published_at)
                 values (?, ?, true, current_timestamp) returning id
-                """, Long.class, organization, "Demo supplier catalog for exploring ProcureFlow. Fictional goods; request a quotation.");
+                """, Long.class, organization, "Industrial and workplace supplies with responsive quotation support.");
             for (int product = 0; product < Category.values().length; product++) {
                 jdbc.update("""
                     insert into marketplace_offerings(profile_id,title,description,category,published,published_at)
                     values (?,?,?,?,true,current_timestamp)
                     """, profile, PRODUCTS[index - 1][product],
-                        "Demo product from " + NAMES.get(index) + ". Specifications and commercial terms are agreed through an RFQ.",
+                        "Product from " + NAMES.get(index) + ". Specifications and commercial terms are agreed through an RFQ.",
                         Category.values()[product].name());
             }
         }

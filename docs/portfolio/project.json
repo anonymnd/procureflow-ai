@@ -1,0 +1,124 @@
+{
+  "title": "ProcureFlow",
+  "subtitle": "B2B procurement platform",
+  "description": "A full-stack platform for company discovery, RFQs, quotation comparison and purchase-order tracking, with organization-scoped access and responsive client/company workspaces.",
+  "liveUrl": "https://procureflow-anonymnd.vercel.app",
+  "sourceUrl": "https://github.com/anonymnd/procureflow-ai/tree/codex/fsb-demo-production",
+  "caseStudyUrl": "https://github.com/anonymnd/procureflow-ai/blob/codex/portfolio-assets/docs/portfolio/README.md",
+  "stack": [
+    "Java 17",
+    "Spring Boot 4.1.1",
+    "React 19",
+    "Vite 8",
+    "PostgreSQL",
+    "Spring Data JPA",
+    "Spring Security",
+    "Flyway",
+    "Docker",
+    "Vercel",
+    "Render"
+  ],
+  "architecture": "Feature-oriented modular monolith with controller/service/repository layers and a separate frontend deployment",
+  "modules": [
+    "Identity and organization access",
+    "Marketplace and company publishing",
+    "Procurement: RFQs, quotations, awards, orders, queues and analytics"
+  ],
+  "patterns": [
+    "Repository",
+    "Service Layer",
+    "DTO",
+    "Constructor Dependency Injection",
+    "Explicit State Transitions",
+    "Order Snapshots",
+    "Idempotent Commands",
+    "Centralized Exception Handling"
+  ],
+  "methodology": "Adapted lightweight Agile V: iterative vertical slices, requirement-to-test traceability, frozen baselines, GitHub issues, scoped gates, separate-context review and hosted verification",
+  "principles": [
+    "YAGNI",
+    "KISS",
+    "Separation of concerns",
+    "Authorization at trust boundaries"
+  ],
+  "limits": [
+    "Free backend cold starts",
+    "Fresh email delivery verification deferred",
+    "AI drafting/extraction/scoring not delivered",
+    "Direct Render static fallback has preceding UI"
+  ],
+  "screenshots": [
+    {
+      "file": "01-client-dashboard.jpg",
+      "title": "Client dashboard",
+      "caption": "Live sourcing, order and completed-order totals.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/01-client-dashboard.jpg",
+      "sha256": "dcf6cc13ab138d9e13ba63dc6f8bf03df9ec21bc05ab6d1bc333de6102efa1d5"
+    },
+    {
+      "file": "02-company-dashboard.jpg",
+      "title": "Company dashboard",
+      "caption": "Role-specific overview and received-request totals.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/02-company-dashboard.jpg",
+      "sha256": "a57a1e25c6b3767dc6ee11b8dfc8eadf00a9ed7bf484a2965795f6dfefd9b69c"
+    },
+    {
+      "file": "03-quotations.jpg",
+      "title": "Quotation workspace",
+      "caption": "Company quotation filters and request list.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/03-quotations.jpg",
+      "sha256": "1da299c7822563c4c93d6bfde52f73740adda8da86329e862c32f3e717344c67"
+    },
+    {
+      "file": "04-marketplace.jpg",
+      "title": "Marketplace products",
+      "caption": "Published fictional products in the client catalog.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/04-marketplace.jpg",
+      "sha256": "72a61623e16bf3e7f872488c8b638962c72cefc53b5f60fbbffab80e15a61d28"
+    },
+    {
+      "file": "05-quotation-comparison.jpg",
+      "title": "Compare quotations",
+      "caption": "Two company offers compared within the same currency.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/05-quotation-comparison.jpg",
+      "sha256": "19fa5a8ce0a16900c2047b9bd95a77484469d880a7e2628b025b3e9611d14cc3"
+    },
+    {
+      "file": "06-orders.jpg",
+      "title": "Order workspace",
+      "caption": "Demo orders across fulfillment states.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/06-orders.jpg",
+      "sha256": "098cbfd0c9ead314dc57a6019c597e87c87e2c867d638d652f5b15bdb0fccdd1"
+    },
+    {
+      "file": "07-order-progress.jpg",
+      "title": "Order progress",
+      "caption": "Five stages and the current permitted next action.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/07-order-progress.jpg",
+      "sha256": "6173d505fabd2a5ce375b0b8110d0f4352cd252d45398a720021b6efbcc67093"
+    },
+    {
+      "file": "08-operational-queues.jpg",
+      "title": "Operational queues",
+      "caption": "Aligned filters for kind, status, title and page size.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/08-operational-queues.jpg",
+      "sha256": "1ad2fe16e58f167590aad3b74d7d1f4d8bf6802e290d82fa32c5627d0320ee8c"
+    },
+    {
+      "file": "09-company-products.jpg",
+      "title": "Company products",
+      "caption": "Published company offerings and profile controls.",
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/09-company-products.jpg",
+      "sha256": "34a4dcb6a6b3191a443bbeebe842a79d2fcda9dc7c0001a7be904525a4baf65f"
+    }
+  ],
+  "terminology": {
+    "clients": "Create requests, compare quotations and acknowledge receipt.",
+    "companies": "Publish offerings, submit quotations and fulfill orders.",
+    "internalRoleMapping": {
+      "client": "BUYER",
+      "company": "SUPPLIER"
+    },
+    "screenshots": "Unedited deployed UI; some earlier labels remain visible."
+  }
+}

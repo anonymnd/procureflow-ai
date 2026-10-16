@@ -1,22 +1,22 @@
-# ProcureFlow — portfolio case study
+# ProcureFlow â€” portfolio case study
 
-[Live application](https://procureflow-anonymnd.vercel.app) · [Production source](https://github.com/anonymnd/procureflow-ai/tree/codex/fsb-demo-production) · [Screenshots](screenshots/)
+[Live application](https://procureflow-anonymnd.vercel.app) Â· [Production source](https://github.com/anonymnd/procureflow-ai/tree/codex/fsb-demo-production) Â· [Screenshots](screenshots/)
 
 ## Portfolio description
 
-ProcureFlow is a full-stack B2B procurement application connecting clients and companies. It brings company discovery, requests for quotation (RFQs), company responses, quotation comparison, purchase orders and fulfillment tracking into one workspace. Separate client and company interfaces expose the actions permitted for each organization and account.
+ProcureFlow is a full-stack B2B procurement application connecting clients and suppliers. It brings supplier discovery, requests for quotation (RFQs), supplier responses, quotation comparison, purchase orders and fulfillment tracking into one workspace. Separate client and supplier interfaces expose the actions permitted for each organization and account.
 
 The project demonstrates end-to-end product development: domain modeling, REST APIs, organization-scoped authorization, transactional business rules, responsive interface design, database migrations, testing and cloud deployment. The implementation follows a modular-monolith architecture and an iterative, traceable delivery process.
 
 ## Implemented product capabilities
 
-- Public company/product discovery and company publishing.
-- Organization accounts, administrator/employee access and client/company grants.
-- Private company contacts and multi-recipient RFQs with line items.
-- Company quotation drafting/submission, commercial terms and validity dates.
+- Public supplier/product discovery and supplier publishing.
+- Organization accounts, administrator/employee access and client/supplier grants.
+- Private supplier contacts and multi-recipient RFQs with line items.
+- Supplier quotation drafting/submission, commercial terms and validity dates.
 - Comparison grouped by currency, with eligibility and lowest eligible subtotal indicators.
 - Atomic quotation acceptance and an order snapshot of agreed commercial details.
-- Whole-order tracking: Created → Confirmed → Processing → Dispatched → Received.
+- Whole-order tracking: Created â†’ Confirmed â†’ Processing â†’ Dispatched â†’ Received.
 - Operational queues, deterministic analytics and role-specific dashboard summaries.
 - Demo fixtures: six accounts, three organizations, twenty products, seven RFQs, six quotations and four orders. All are fictional; ordinary authentication remains enforced.
 
@@ -37,7 +37,7 @@ The project demonstrates end-to-end product development: domain modeling, REST A
 
 ```mermaid
 flowchart LR
-  U[Client / company browser] -->|HTTPS| V[Vercel: React frontend]
+  U[Client / supplier browser] -->|HTTPS| V[Vercel: React frontend]
   V -->|/api rewrite, no cache| S[Spring Security + Spring MVC on Render]
   S --> I[Identity module]
   S --> M[Marketplace module]
@@ -51,15 +51,15 @@ flowchart LR
 
 The backend is one deployable application, organized by business feature: `identity`, `marketplace` and `procurement`, with shared error handling in `common`. Within each module, controllers handle HTTP requests, services own business rules and transactions, repositories handle persistence, and models represent stored domain state. The React shell and existing JavaScript view/controller functions share frontend responsibilities; it is not described as a wholly componentized React rewrite.
 
-Public terminology is **clients** (create sourcing requests) and **companies** (publish offerings and respond with quotations). Internal authorization names `BUYER` and `SUPPLIER` remain implementation details. The screenshots reproduce the deployed UI and may retain its earlier terminology.
+Public terminology is **clients** (create sourcing requests) and **suppliers** (publish offerings and respond with quotations). Internal authorization names `BUYER` and `SUPPLIER` remain implementation details. The screenshots reproduce the preceding deployed UI and retain its earlier terminology and sample names. The Client/Supplier and realistic fictional name correction is reviewed at [02405ee](https://github.com/anonymnd/procureflow-ai/tree/codex/client-terminology); its production deployment and refreshed screenshots are pending because browser access is disabled. Do not present these images as proof that correction is live.
 
 The browser uses same-origin `/api` URLs. Vercel rewrites them to the Render backend. Spring Security checks authentication and role grants, while service/repository queries constrain records to the current organization or permitted commercial participant. PostgreSQL is shared across organizations, using organization identifiers and application-enforced scoping rather than a separate database per tenant. Database TLS, HTTPS, secure session cookies and CSRF tokens protect the relevant boundaries.
 
 ### Core data relationships
 
-- One organization has many accounts and client RFQs; it has at most one company profile, which owns many offerings.
-- An RFQ has many required items and company invitations.
-- An invitation connects a client RFQ to a company organization; its quotation has priced line items.
+- One organization has many accounts and client RFQs; it has at most one supplier profile, which owns many offerings.
+- An RFQ has many required items and supplier invitations.
+- An invitation connects a client RFQ to a supplier organization; its quotation has priced line items.
 - An awarded RFQ has at most one purchase order; unique database constraints also protect the accepted quotation/order relationship.
 - An order stores agreed details and item snapshots, and has multiple progress events recording actor and time.
 
@@ -67,7 +67,7 @@ The browser uses same-origin `/api` URLs. Vercel rewrites them to the Render bac
 
 Quotation acceptance runs in a transaction and locks the RFQ/related records. Repeating acceptance of the same winning quotation returns the existing order; attempting to choose a different winner conflicts. Unique constraints provide a second layer of duplicate protection.
 
-Order progress uses explicit predecessor/target states and participant permissions. Company actions advance fulfillment; the client acknowledges receipt. Row locks and a unique `(order_id, target_status)` event constraint make repeated transitions safe. This is an audit history, not event sourcing: current state is stored on the order.
+Order progress uses explicit predecessor/target states and participant permissions. Supplier actions advance fulfillment; the client acknowledges receipt. Row locks and a unique `(order_id, target_status)` event constraint make repeated transitions safe. This is an audit history, not event sourcing: current state is stored on the order.
 
 Comparison uses decimal monetary values and groups offers by currency; it does not invent foreign-exchange conversions. Dashboard summaries reuse existing tenant-scoped workspace queries. A failed optional summary displays unavailable data rather than a fabricated zero; expired authentication returns the user to sign-in.
 
@@ -76,7 +76,7 @@ Comparison uses decimal monetary values and groups offers by currency; it does n
 | Pattern / technique | Concrete application |
 |---|---|
 | Modular monolith | Business feature modules inside one Spring Boot deployable |
-| Layered architecture | Controller → service → repository → PostgreSQL |
+| Layered architecture | Controller â†’ service â†’ repository â†’ PostgreSQL |
 | Repository pattern | Spring Data repositories and focused workspace/analytics query repositories |
 | Service layer + transactional boundaries | RFQ submission, quotation acceptance and order transitions |
 | DTO pattern | Explicit API request and response/view types keep persistence models off the API boundary |
@@ -92,7 +92,7 @@ The state-transition implementation is not a GoF State class hierarchy. The proj
 
 The repository uses an **adapted lightweight Agile V workflow**: small vertical feature slices paired with explicit verification. It is an iterative approach with V-model-style traceability, not a claim of Scrum certification or full formal V-model compliance.
 
-The recorded flow is requirements and acceptance criteria → review → scoped approval → immutable requirement baseline → GitHub issue → separate implementation authorization → code and tests → separate-context review → corrections → acceptance → scoped deployment and hosted verification.
+The recorded flow is requirements and acceptance criteria â†’ review â†’ scoped approval â†’ immutable requirement baseline â†’ GitHub issue â†’ separate implementation authorization â†’ code and tests â†’ separate-context review â†’ corrections â†’ acceptance â†’ scoped deployment and hosted verification.
 
 Requirements, decisions, issues, source paths and tests are linked in `.agile-v/`. `docs/code-reading-guide.md` explains implemented behavior. The approach applies YAGNI and KISS by extending existing APIs and responsible modules, keeping transactions and authorization explicit, and avoiding speculative infrastructure. Some historical slices explicitly record skipped reviews; do not claim every stage received an independent review.
 
@@ -102,29 +102,29 @@ The workspace redesign applies UI/UX Pro Max guidance to hierarchy, navigation, 
 
 ## Evidence and honest limits
 
-Frontend release `021b048d94c9002bd29d466f3d58c9569a8ce27f` is the captured production redesign. The scoped hosted review verified served assets and public/authentication boundaries; ordinary client and company demo login was observed. Selected screenshots contain fictional demo data only and show native viewport/detail captures.
+Frontend release `021b048d94c9002bd29d466f3d58c9569a8ce27f` is the captured production redesign. The scoped hosted review verified served assets and public/authentication boundaries; ordinary client and supplier demo login was observed. Selected screenshots contain fictional demo data only and show native viewport/detail captures.
 
-The Render Free backend can incur connection/cold-start delays. The canonical Vercel application has the new UI; Render's direct static fallback retains the preceding UI. Fresh email delivery remains deferred. AI-assisted drafting, document extraction and company scoring must not be presented as delivered features. Current analytics and comparisons are deterministic.
+The Render Free backend can incur connection/cold-start delays. The canonical Vercel application has the new UI; Render's direct static fallback retains the preceding UI. Fresh email delivery remains deferred. AI-assisted drafting, document extraction and supplier scoring must not be presented as delivered features. Current analytics and comparisons are deterministic.
 
 ## Screenshot links
 
 | Screen | Image |
 |---|---|
 | Client dashboard | [JPEG](screenshots/01-client-dashboard.jpg) |
-| Company dashboard | [JPEG](screenshots/02-company-dashboard.jpg) |
-| Company quotations | [JPEG](screenshots/03-quotations.jpg) |
+| Supplier dashboard | [JPEG](screenshots/02-supplier-dashboard.jpg) |
+| Supplier quotations | [JPEG](screenshots/03-quotations.jpg) |
 | Marketplace | [JPEG](screenshots/04-marketplace.jpg) |
 | Quotation comparison | [JPEG](screenshots/05-quotation-comparison.jpg) |
 | Orders | [JPEG](screenshots/06-orders.jpg) |
 | Order progress | [JPEG](screenshots/07-order-progress.jpg) |
 | Operational queues | [JPEG](screenshots/08-operational-queues.jpg) |
-| Company products | [JPEG](screenshots/09-company-products.jpg) |
+| Supplier products | [JPEG](screenshots/09-supplier-products.jpg) |
 
 ![ProcureFlow client dashboard](screenshots/01-client-dashboard.jpg)
 
 ## Short copy for a portfolio card
 
-> **ProcureFlow — B2B Procurement Platform**
-> A full-stack platform for company discovery, RFQs, quotation comparison and purchase-order tracking. Built with React, Spring Boot and PostgreSQL, with organization-scoped access, transactional award handling and responsive client/company dashboards. Delivered through iterative feature slices, requirement-to-test traceability, code review and cloud deployment.
+> **ProcureFlow â€” B2B Procurement Platform**
+> A full-stack platform for supplier discovery, RFQs, quotation comparison and purchase-order tracking. Built with React, Spring Boot and PostgreSQL, with organization-scoped access, transactional award handling and responsive client/supplier dashboards. Delivered through iterative feature slices, requirement-to-test traceability, code review and cloud deployment.
 
-Suggested tags: `Java` · `Spring Boot` · `React` · `PostgreSQL` · `REST API` · `Spring Security` · `Docker` · `Flyway` · `Modular Monolith` · `UI/UX` · `Agile V`.
+Suggested tags: `Java` Â· `Spring Boot` Â· `React` Â· `PostgreSQL` Â· `REST API` Â· `Spring Security` Â· `Docker` Â· `Flyway` Â· `Modular Monolith` Â· `UI/UX` Â· `Agile V`.

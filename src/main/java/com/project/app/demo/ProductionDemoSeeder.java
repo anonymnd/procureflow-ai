@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import com.zaxxer.hikari.HikariDataSource;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -50,9 +52,11 @@ public class ProductionDemoSeeder implements ApplicationRunner {
             boolean local=isLoopbackPostgres(actualUrl);
             if (!database.equals(jdbc.queryForObject("select current_database()", String.class)))
                 throw refused("Actual database does not match the explicitly configured target.");
-            if (!local && !Boolean.TRUE.equals(jdbc.queryForObject(
-                    "select ssl from pg_stat_ssl where pid=pg_backend_pid()", Boolean.class)))
-                throw refused("Remote fixture connection requires TLS.");
+            if (!local) {
+                // Neon terminates client TLS at its proxy; pg_stat_ssl describes a different hop.
+                // Require the existing pool's strict driver TLS contract on this actual connection.
+                validateRemotePool(jdbc.getDataSource(),actualUrl);
+            }
             jdbc.queryForObject("select pg_advisory_xact_lock(792431002)", Object.class);
             if (hasCompatibleReceipt()) return;
             if (jdbc.queryForObject("select count(*) from accounts where email in (?,?,?,?,?,?)", Integer.class,
@@ -84,6 +88,22 @@ public class ProductionDemoSeeder implements ApplicationRunner {
             // Query parameters can override the host; only an unambiguous loopback URL exempts TLS.
             return uri.getRawQuery()==null && List.of("localhost","127.0.0.1","::1","[::1]").contains(uri.getHost());
         } catch (RuntimeException ex) { throw refused("Actual connection must be an explicit PostgreSQL connection."); }
+    }
+
+    static void validateRemotePool(javax.sql.DataSource source, String actualUrl) {
+        if (!(source instanceof HikariDataSource pool)
+                || pool.getDataSource()!=null || pool.getDataSourceClassName()!=null || pool.getDataSourceJNDI()!=null)
+            throw refused("Remote fixture requires the configured JDBC pool.");
+        validateRemoteTls(actualUrl,pool.getDataSourceProperties());
+    }
+
+    static void validateRemoteTls(String actualUrl, Properties properties) {
+        // Refuse URL overrides rather than maintaining a second PostgreSQL option parser.
+        if (URI.create(actualUrl.substring(5)).getRawQuery()!=null
+                || !"verify-full".equals(properties.getProperty("sslmode"))
+                || !"org.postgresql.ssl.DefaultJavaSSLFactory".equals(properties.getProperty("sslfactory"))
+                || properties.containsKey("sslhostnameverifier") || properties.containsKey("socketFactory"))
+            throw refused("Remote fixture requires verify-full TLS with the trusted default factory and no overrides.");
     }
 
     private boolean hasCompatibleReceipt() {

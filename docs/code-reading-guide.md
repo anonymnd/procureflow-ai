@@ -99,3 +99,5 @@ Tests use an explicitly opted-in exclusively owned PostgreSQL database. Observed
 
 
 FSB UI reading order: frontend/src/features.js showOperationalQueue/queueStatusLabel/orderProgress/showOrder, then frontend/src/styles.css. Server statusCounts owns totals across pages/statuses; card clicks preserve title/size and reset page0. Actual order history provides dates and allowedActions owns buttons; dispatch/receipt review and duplicate guards remain. No API/schema change for presentation. TC-FDP-004 Chrome proof covers paging,390CSSpx/focus/session and all five stages; see verification/fsb-demo-production-browser.json.
+
+Transport correction: read validateRemotePool/validateRemoteTls. The actual Hikari JDBC pool must enforce verify-full/default Java SSL factory, with no datasource/JNDI/verifier/socket/URL overrides. PostgreSQL pg_stat_ssl reflects the server-side proxy hop, so it cannot attest the JVM-to-Neon TLS connection. No certificate verification setting changed.

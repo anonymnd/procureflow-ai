@@ -1,0 +1,17 @@
+{
+  "parent": "ab4450a0b7ff9aaf49393dfae8fce6fa3d7a81aa",
+  "files": [
+    {
+      "path": "src/main/java/com/project/app/demo/ProductionDemoSeeder.java",
+      "sha256": "6312f9f79dc08826ad1d385c9f4610f4564adcb892d5d663874c55a7123474ea"
+    },
+    {
+      "path": "src/test/java/com/project/app/demo/ProductionDemoSeederGuardTest.java",
+      "sha256": "72963cfe81d67bf53cff5cd24cca6dadb3c2375e5cff9a34e046a3b8dc5f7fcb"
+    },
+    {
+      "path": "docs/demo-workspace.md",
+      "sha256": "9093b6ba64235003d4559d0af56cd01fed7a99c003d9a0d2b7e1985a38b268f4"
+    }
+  ]
+}

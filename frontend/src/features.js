@@ -104,16 +104,40 @@ function renderWorkspace(account) {
   return account.buyerGrant ? showCatalog() : showOverview(account);
 }
 
-function showOverview(account = me) {
+async function showOverview(account = me) {
   me = account; activeView = 'workspace';
-  app.innerHTML = `<h1>${escapeHtml(account.organizationName)}</h1><p>Welcome, ${escapeHtml(account.fullName)}. Choose your next step.</p><div class="workspace-actions">${account.buyerGrant ? '<button data-go="marketplace">Browse products</button><button data-go="rfqs">Create a sourcing request</button>' : ''}${account.supplierGrant ? '<button data-go="products">Manage products</button><button data-go="invitations">Received sourcing requests</button>' : ''}${account.buyerGrant || account.supplierGrant ? '<button data-go="quotations">Quotations and comparison</button><button data-go="orders">Track orders</button>' : '<p>Your administrator can assign buyer or supplier access.</p>'}<button data-go="profile">My profile</button><button data-go="help">How procurement works</button>${account.organizationAdmin ? '<button data-go="team">Manage team access</button>' : ''}<button id="logout" class="secondary">Sign out</button></div>`;
+  const operational=account.buyerGrant||account.supplierGrant;
+  const shortcut=(key,title,copy,number)=>`<button class="dashboard-shortcut" data-go="${key}"><span class="shortcut-number">${number}</span><span><strong>${title}</strong><small>${copy}</small></span><span aria-hidden="true">↗</span></button>`;
+  app.innerHTML = `<div class="dashboard-welcome"><div><span class="eyebrow">${account.buyerGrant&&account.supplierGrant?'Buyer & supplier':account.buyerGrant?'Buyer':account.supplierGrant?'Supplier':'Organization'} workspace</span><h1>Your sourcing, at a glance.</h1><p>Welcome back, ${escapeHtml(account.fullName)}. Here is what is moving at ${escapeHtml(account.organizationName)}.</p></div>${operational?`<button data-go="${account.buyerGrant?'rfqs':'invitations'}">${account.buyerGrant?'Create a sourcing request':'View received requests'} <span aria-hidden="true">↗</span></button>`:''}</div>
+    ${operational?'<div id="dashboard-data" aria-live="polite"><p class="dashboard-loading" role="status">Loading your workspace summary…</p></div>':'<section class="dashboard-panel"><h2>Your account is ready</h2><p>Your administrator can assign buyer or supplier access. You can still manage your profile and explore the guide.</p></section>'}
+    <div class="section-title"><div><span class="eyebrow">Make your next move</span><h2>Your workspace</h2></div><p>One connected sourcing process.</p></div><div class="dashboard-shortcuts">${account.buyerGrant?shortcut('marketplace','Discover suppliers','Browse products and find the right fit.','01')+shortcut('rfqs','Sourcing requests','Define requirements and invite suppliers.','02'):''}${account.supplierGrant?shortcut('products','Your storefront','Manage your published products.','01')+shortcut('invitations','Received requests','Review requirements from buyers.','02'):''}${operational?shortcut('quotations','Quotations','Review offers and commercial terms.','03')+shortcut('orders','Orders & tracking','Follow every step through to receipt.','04'):''}</div>
+    <div class="dashboard-account"><div><strong>Keep your team connected</strong><p>Manage your account, understand the workflow and find help.</p></div><div class="actions"><button class="secondary" data-go="profile">My profile</button>${account.organizationAdmin?'<button class="secondary" data-go="team">Team & access</button>':''}<button class="secondary" data-go="help">Help & guide</button><button id="logout" class="secondary">Sign out</button></div></div>`;
   bindSectionLinks(); bindLogout();
+  if(!operational)return;
+  const host=app.querySelector('#dashboard-data');
+  const kinds=[account.buyerGrant&&'RFQS',account.supplierGrant&&'INVITATIONS','ORDERS'].filter(Boolean);
+  const results=await Promise.allSettled(kinds.map(kind=>request(`${procurementBase}/workspace?${queryString({kind,size:5,page:0})}`)));
+  if(disposed||!host.isConnected||me!==account||activeView!=='workspace')return;
+  if(results.some(r=>r.status==='rejected'&&r.reason.status===401)){me=null;showSignIn();message('Please sign in to continue.','error');return;}
+  const labels={RFQS:'Sourcing requests',INVITATIONS:'Received requests',ORDERS:'Orders'};
+  const data=results.map((r,i)=>({kind:kinds[i],value:r.status==='fulfilled'?r.value:null}));
+  const metric=(label,count,copy)=>`<article class="dashboard-metric"><span>${label}</span><strong>${count??'—'}</strong><small>${copy}</small></article>`;
+  const orders=data.find(d=>d.kind==='ORDERS')?.value;
+  const received=orders?.statusCounts.find(s=>s.status==='RECEIVED')?.count??(orders?0:null);
+  host.innerHTML=`<div class="dashboard-metrics">${data.map(d=>metric(labels[d.kind],d.value?.total,d.value?'Across all statuses':'Summary unavailable')).join('')}${metric('Completed orders',received,'Entire order received')}</div><div class="dashboard-columns">${data.map(d=>`<section class="dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">Latest records</span><h2>${labels[d.kind]}</h2></div><button class="secondary" data-dashboard-kind="${d.kind}">View all <span aria-hidden="true">↗</span></button></div>${!d.value?'<p class="dashboard-empty">This summary could not be loaded. Open the queue to retry.</p>':!d.value.rows.length?'<p class="dashboard-empty">Nothing here yet. Your records will appear as sourcing gets underway.</p>':`<div class="dashboard-records">${d.value.rows.slice(0,4).map(row=>`<button class="dashboard-record" data-dashboard-kind="${d.kind}" data-dashboard-record="${row.id}"><span><strong>${escapeHtml(row.title)}</strong><small>${escapeHtml(row.counterparty||'Your organization')}</small></span>${statusBadge(d.kind,row.status)}<span aria-hidden="true">›</span></button>`).join('')}</div>`}</section>`).join('')}</div>`;
+  host.querySelectorAll('[data-dashboard-kind]').forEach(button=>button.onclick=()=>procurementAction(()=>{
+    const kind=button.dataset.dashboardKind,id=button.dataset.dashboardRecord;
+    if(id)return kind==='RFQS'?showRfq(id):kind==='ORDERS'?showOrder(id):showInvitation(id);
+    queueState={...queueState,kind,page:0,status:'',q:''};return showOperationalQueue();
+  }));
 }
+
+function statusBadge(kind,status) { return `<span class="status-pill status-${escapeHtml(status.toLowerCase())}">${escapeHtml(queueStatusLabel(kind,status))}</span>`; }
 
 function bindSectionLinks() {
   app.querySelectorAll('[data-go]').forEach(button => button.onclick = () => {
     const actions = {marketplace:showCatalog,rfqs:showRfqs,products:showProducts,invitations:showInvitations,
-      quotations:showQuotations,orders:showOrders,profile:showProfile,help:showHelp,team:()=>renderTeam(me)};
+      quotations:showQuotations,orders:showOrders,queues:showOperationalQueue,analytics:showCompletedAnalytics,profile:showProfile,help:showHelp,team:()=>renderTeam(me)};
     procurementAction(actions[button.dataset.go]);
   });
 }
@@ -669,6 +693,7 @@ const observer = new MutationObserver(() => {
     wrapper.setAttribute('aria-label', `${app.querySelector('h1')?.textContent || 'Workspace'} table`);
     table.before(wrapper); wrapper.append(table);
   });
+  app.dataset.view=activeView;
   const heading = app.querySelector('h1');
   if (heading && heading !== focusedHeading) {
     focusedHeading = heading;

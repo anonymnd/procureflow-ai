@@ -12,3 +12,6 @@ On approval, preserve a revisioned bundle under `requirements/baselines/slice-0-
 
 
 REQ-FDP-001..003@R1 / fsb-demo-production.md / BL-FDP-R1 / issue34: queue status cards, order progress and guarded six-user production demonstration fixture. Separate development PASS/acceptance; scoped publication executing.
+
+
+Workspace redesign REQ-WP-001..003@R1/BL-WP-R1/issue35 development separatePASS/accepted; scopedfrontendpublication executing on7457base. See verification/workspace-polish-results.md; no hosted success yet.

@@ -36,3 +36,6 @@ The owner’s “i approve” on 2026-10-11 accepts completed Slice 0 revision 1
 
 
 Current2026-10-16: FSB demo development accepted, BL-FDP-R1/issue34 separate review PASS. Scoped exact publication executing under GATE-FDP-PUBLISH-DELEGATED; no hosted success yet. See verification/fsb-demo-production-results.md. Email deferred.
+
+
+Workspace redesign REQ-WP-001..003@R1/BL-WP-R1/issue35 development separatePASS/accepted; scopedfrontendpublication executing on7457base. See verification/workspace-polish-results.md; no hosted success yet.

@@ -1,0 +1,170 @@
+{
+  "scope": "I0 realChrome isolatedVite18160/proxy18150 localfixture only",
+  "checks": [
+    {
+      "check": "buyer-overview",
+      "metrics": [
+        "Sourcing requests12Across all statuses",
+        "Orders4Across all statuses",
+        "Completed orders1Entire order received"
+      ],
+      "result": "PASS"
+    },
+    {
+      "check": "Sourcing requests",
+      "title": "Your RFQs",
+      "result": "PASS"
+    },
+    {
+      "check": "Supplier contacts",
+      "title": "Supplier contacts",
+      "result": "PASS"
+    },
+    {
+      "check": "Quotations",
+      "title": "Quotations and comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "Orders & tracking",
+      "title": "Orders",
+      "result": "PASS"
+    },
+    {
+      "check": "Operational queues",
+      "title": "Operational queues",
+      "result": "PASS"
+    },
+    {
+      "check": "Analytics",
+      "title": "Completed-order analytics",
+      "result": "PASS"
+    },
+    {
+      "check": "My profile",
+      "title": "My profile",
+      "result": "PASS"
+    },
+    {
+      "check": "Team & access",
+      "title": "Demo Buyer Workshop",
+      "result": "PASS"
+    },
+    {
+      "check": "Help & information",
+      "title": "How procurement works",
+      "result": "PASS"
+    },
+    {
+      "check": "Browse products",
+      "title": "Marketplace",
+      "result": "PASS"
+    },
+    {
+      "check": "optional summary failure",
+      "result": "PASS",
+      "metrics": [
+        "Sourcing requests—Summary unavailable",
+        "Orders—Summary unavailable",
+        "Completed orders—Entire order received"
+      ],
+      "shortcuts": 4
+    },
+    {
+      "check": "summary401 clears account and private navigation",
+      "result": "PASS",
+      "privateLinks": 0
+    },
+    {
+      "check": "supplier overview",
+      "result": "PASS",
+      "metrics": [
+        "Received requests6Across all statuses",
+        "Orders2Across all statuses",
+        "Completed orders1Entire order received"
+      ],
+      "buyerLinks": 0
+    },
+    {
+      "check": "supplier Your products",
+      "result": "PASS",
+      "title": "Your products"
+    },
+    {
+      "check": "supplier Received RFQs",
+      "result": "PASS",
+      "title": "Supplier invitations"
+    },
+    {
+      "check": "supplier Quotations",
+      "result": "PASS",
+      "title": "Quotations"
+    },
+    {
+      "check": "supplier Orders & tracking",
+      "result": "PASS",
+      "title": "Orders"
+    },
+    {
+      "check": "supplier Supplier profile",
+      "result": "PASS",
+      "title": "Supplier profile"
+    },
+    {
+      "check": "supplier Team & access",
+      "result": "PASS",
+      "title": "Demo Atlas Supply"
+    },
+    {
+      "check": "supplier Help & information",
+      "result": "PASS",
+      "title": "How procurement works"
+    },
+    {
+      "check": "390px team local table scroll",
+      "result": "PASS",
+      "dimensions": {
+        "documentWidth": 382,
+        "tableWidth": 344,
+        "width": 390
+      }
+    },
+    {
+      "check": "390px dashboard",
+      "result": "PASS",
+      "dimensions": {
+        "documentWidth": 382,
+        "metrics": 3,
+        "width": 390
+      }
+    },
+    {
+      "check": "checkbox final dimensions",
+      "result": "PASS",
+      "dimensions": {
+        "height": 20,
+        "width": 20
+      }
+    },
+    {
+      "check": "768px team responsive",
+      "result": "PASS",
+      "dimensions": {
+        "documentWidth": 759,
+        "width": 767
+      }
+    },
+    {
+      "check": "visible keyboard focus",
+      "result": "PASS",
+      "outline": "solid"
+    },
+    {
+      "check": "dashboard record opens authorized order",
+      "result": "PASS",
+      "steps": 5
+    }
+  ],
+  "stale": "Slow1.5s summary unique host removed by My profile shortcut; heading retained on following observation, no stale dashboard render. 503 and401 injected only by ignored localViteproxy, never production.",
+  "limits": "Existing default buyer catalog-first verified. No-grant/dual branch source-reviewed; no real commercial data changed."
+}

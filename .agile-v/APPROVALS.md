@@ -57,3 +57,23 @@ Distinct publication gate under direct DIR-FDP-OWNER and owner's continuation in
 ## GATE-FDP-TLS-CORRECTION-DELEGATED — 2026-10-16
 
 Distinct delegated corrective development acceptance and separately scoped corrective publication execution under DIR-FDP-OWNER after separate corrective source/package PASS in fsb-demo-production-hosted-review.md. Initial ab4450a deploy refused before fixture writes on proxy-side pg_stat_ssl; V10 applied, prior release retained. Reviewed correction validates actual Hikari strict verify-full/defaultfactory transport and refuses datasource/URL/verifier/socket overrides without changing datasource security. Fresh8 focused tests and final4 guard verify/JAR bindings pass. Authorizes only six reviewed correction paths plus evidence/gate records, exact new commit backend deployment then frontend promotion after readiness on existing Free/Hobby. No weakening of TLS/auth or new provider/data scope. Hosted final acceptance remains separate.
+
+
+## GATE-WP-REQ-DELEGATED — 2026-10-16
+
+Owner requests full workspace UI redesign with UIUXProMax and fast new screenshots in ongoing production delivery. Under standing delegated loop record requirement approval after separate VER-WP-REQ-001 PASS, REQ-WP-001..003@R1 exactSHA 2a054bd4157cf378629cd0af734fe9161f2bbc1f2c4787c3ed7d200842c7fb7f. Freeze BL-WP-R1 before issue/distinct implementation gate. User authorizes scoped frontend publication in existing product context; no backend/data/auth/paid/provider changes.
+
+
+## GATE-WP-IMPLEMENT-DELEGATED — 2026-10-16
+
+Distinct implementation authorization under owner's full-workspace redesign/fast production delivery request and standing delegated loop, after VER-WP-REQ-001 PASS, requirement approval, immutable BL-WP-R1 SHA2a054bd4157cf378629cd0af734fe9161f2bbc1f2c4787c3ed7d200842c7fb7f and issue35 creation/readback. Authorizes scoped frontend dashboard/shared workspace redesign, build/browser proof/docs/review/corrections/new screenshots. Preserve existing APIs/security/data, staged main/index; no backend migration/seeder/dependency. Scoped Vercel frontend production publication after separate review/acceptance; current Render backend remains unchanged and its static fallback lag disclosed.
+
+
+## GATE-WP-FINAL-DELEGATED — development acceptance — 2026-10-16
+
+Distinct delegated acceptance REQ-WP-001..003/BL-WP-R1/issue35 under owner full-workspace request after separate VER-WP-IMPL-001 PASS closes3CSSfindings, source/static/baseline hashes and browser/build proof inspected. No backend/data/auth changes. Not direct owner visual review.
+
+
+## GATE-WP-PUBLISH-DELEGATED — publication execution — 2026-10-16
+
+Distinct frontend-only scoped publication gate under owner ongoing productiondelivery request after development review/acceptance. Commit/push reviewed3source/generatedstatic/provenance on existing codex/fsb-demo-production based7457cad, deploy existing VercelHobby canonical domain, verify exactSHA/assets/normal buyer/supplier navigation and refresh portfolio demo screenshots. Render backend/static stays7457cad, no restart or schema/auth/data changes; disclose older fallback. No paid/newprovider/security weakening/commercial action. Hostedreview/acceptance separate.

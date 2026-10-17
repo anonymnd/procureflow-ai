@@ -21,7 +21,7 @@ The application uses a feature-oriented modular monolith. Tests cover business r
 
 ## Repository structure
 
-`main` contains the consolidated application, architecture/setup documentation and [portfolio assets](docs/portfolio/README.md). It includes changes that may not yet be deployed; repository updates alone do not establish hosted availability.
+`main` contains the consolidated application and architecture/setup documentation. It includes changes that may not yet be deployed; repository updates alone do not establish hosted availability.
 
 Two deployment branches are retained because the existing frontend/backend hosting configurations reference them. They should be removed only after those configurations are moved to the intended release process.
 

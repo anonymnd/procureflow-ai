@@ -34,7 +34,7 @@
     "Idempotent Commands",
     "Centralized Exception Handling"
   ],
-  "methodology": "Adapted lightweight Agile V: iterative vertical slices, requirement-to-test traceability, frozen baselines, GitHub issues, scoped gates, separate-context review and hosted verification",
+  "methodology": "Iterative vertical slices, requirement-to-test traceability and review using an adapted Agile V workflow.",
   "principles": [
     "YAGNI",
     "KISS",
@@ -42,85 +42,64 @@
     "Authorization at trust boundaries"
   ],
   "limits": [
-    "Free backend cold starts",
-    "Fresh email delivery verification deferred",
-    "AI drafting/extraction/scoring not delivered",
-    "Direct Render static fallback has preceding UI"
+    "In-memory sessions require additional design before multi-instance deployment.",
+    "AI extraction and supplier scoring are not implemented."
   ],
   "screenshots": [
     {
       "file": "01-client-dashboard.jpg",
       "title": "Client dashboard",
       "caption": "Live sourcing, order and completed-order totals.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/01-client-dashboard.jpg",
-      "sha256": "dcf6cc13ab138d9e13ba63dc6f8bf03df9ec21bc05ab6d1bc333de6102efa1d5"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/01-client-dashboard.jpg"
     },
     {
       "file": "02-supplier-dashboard.jpg",
       "title": "Supplier dashboard",
       "caption": "Role-specific overview and received-request totals.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/02-supplier-dashboard.jpg",
-      "sha256": "a57a1e25c6b3767dc6ee11b8dfc8eadf00a9ed7bf484a2965795f6dfefd9b69c"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/02-supplier-dashboard.jpg"
     },
     {
       "file": "03-quotations.jpg",
       "title": "Quotation workspace",
       "caption": "Supplier quotation filters and request list.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/03-quotations.jpg",
-      "sha256": "1da299c7822563c4c93d6bfde52f73740adda8da86329e862c32f3e717344c67"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/03-quotations.jpg"
     },
     {
       "file": "04-marketplace.jpg",
       "title": "Marketplace products",
       "caption": "Published fictional products in the client catalog.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/04-marketplace.jpg",
-      "sha256": "72a61623e16bf3e7f872488c8b638962c72cefc53b5f60fbbffab80e15a61d28"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/04-marketplace.jpg"
     },
     {
       "file": "05-quotation-comparison.jpg",
       "title": "Compare quotations",
       "caption": "Two supplier offers compared within the same currency.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/05-quotation-comparison.jpg",
-      "sha256": "19fa5a8ce0a16900c2047b9bd95a77484469d880a7e2628b025b3e9611d14cc3"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/05-quotation-comparison.jpg"
     },
     {
       "file": "06-orders.jpg",
       "title": "Order workspace",
       "caption": "Demo orders across fulfillment states.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/06-orders.jpg",
-      "sha256": "098cbfd0c9ead314dc57a6019c597e87c87e2c867d638d652f5b15bdb0fccdd1"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/06-orders.jpg"
     },
     {
       "file": "07-order-progress.jpg",
       "title": "Order progress",
       "caption": "Five stages and the current permitted next action.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/07-order-progress.jpg",
-      "sha256": "6173d505fabd2a5ce375b0b8110d0f4352cd252d45398a720021b6efbcc67093"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/07-order-progress.jpg"
     },
     {
       "file": "08-operational-queues.jpg",
       "title": "Operational queues",
       "caption": "Aligned filters for kind, status, title and page size.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/08-operational-queues.jpg",
-      "sha256": "1ad2fe16e58f167590aad3b74d7d1f4d8bf6802e290d82fa32c5627d0320ee8c"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/08-operational-queues.jpg"
     },
     {
       "file": "09-supplier-products.jpg",
       "title": "Supplier products",
       "caption": "Published supplier offerings and profile controls.",
-      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/09-supplier-products.jpg",
-      "sha256": "34a4dcb6a6b3191a443bbeebe842a79d2fcda9dc7c0001a7be904525a4baf65f"
+      "url": "https://raw.githubusercontent.com/anonymnd/procureflow-ai/refs/heads/codex/portfolio-assets/docs/portfolio/screenshots/09-supplier-products.jpg"
     }
   ],
-  "terminology": {
-    "clients": "Create requests, compare quotations and acknowledge receipt.",
-    "suppliers": "Publish offerings, submit quotations and fulfill orders.",
-    "internalRoleMapping": {
-      "client": "BUYER",
-      "supplier": "SUPPLIER"
-    },
-    "screenshots": "Unedited deployed UI; some earlier labels remain visible."
-  },
-  "pendingReleaseUrl": "https://github.com/anonymnd/procureflow-ai/tree/codex/client-terminology",
-  "screenshotStatus": "Previous deployed UI; updated Client/Supplier terminology and fictional names await deployment and new browser captures."
+  "screenshotNote": "Earlier release; fictional sample data. Refresh before presenting the later terminology update."
 }

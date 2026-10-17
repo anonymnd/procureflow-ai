@@ -32,4 +32,6 @@ Accounts belong to organizations. A supplier profile owns published offerings. C
 
 The implementation uses modular-monolith and layered architecture, repositories, service-layer transactions, DTOs, constructor dependency injection, explicit state transitions, commercial snapshots and idempotent command handling. It was developed in iterative vertical slices with requirement-to-test traceability and review, using an adapted Agile V workflow and YAGNI/KISS principles.
 
-AI-assisted extraction, drafting and supplier scoring are not implemented. The application does not currently provide a distributed load-balancing or rate-limiting setup.
+API rate limiting runs before CSRF and controller processing: 180 API requests per minute per client address, 10 sign-in attempts per minute and 5 combined registration/verification/invitation-acceptance attempts per 15 minutes. Excess requests return JSON HTTP 429 with `Retry-After`. Static assets are excluded. Counters are bounded in memory, use fixed windows and reset on process restart; these limits are per instance, not a distributed quota or DDoS service. Client addresses come from the servlet container's proxy handling; arbitrary forwarded headers are not parsed by the limiter.
+
+AI-assisted extraction, drafting and supplier scoring are not implemented. The application does not currently provide a distributed load-balancing setup.

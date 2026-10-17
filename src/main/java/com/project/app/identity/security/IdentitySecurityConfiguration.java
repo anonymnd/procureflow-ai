@@ -2,6 +2,9 @@ package com.project.app.identity.security;
 
 import java.io.IOException;
 import java.time.Clock;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.web.csrf.CsrfFilter;
+import com.project.app.common.web.RateLimitFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +50,8 @@ public class IdentitySecurityConfiguration {
     HttpSessionEventPublisher httpSessionEventPublisher() { return new HttpSessionEventPublisher(); }
 
     @Bean
-    SecurityFilterChain identitySecurity(HttpSecurity http, SessionRegistry sessionRegistry) throws Exception {
+    SecurityFilterChain identitySecurity(HttpSecurity http, SessionRegistry sessionRegistry,
+            @Value("${procureflow.rate-limit.enabled:true}") boolean rateLimitEnabled) throws Exception {
         CookieCsrfTokenRepository csrfTokens = CookieCsrfTokenRepository.withHttpOnlyFalse();
         csrfTokens.setCookieCustomizer(cookie -> cookie.path("/").secure(true).sameSite("Lax"));
 
@@ -79,6 +83,7 @@ public class IdentitySecurityConfiguration {
                     .sessionRegistry(sessionRegistry)
                     .expiredSessionStrategy(event -> event.getResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED)));
 
+        if (rateLimitEnabled) http.addFilterBefore(new RateLimitFilter(), CsrfFilter.class);
         http.addFilterAfter(new SessionLifetimeFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

@@ -1,9 +1,0 @@
-{
-  "baseline": "BL-FDP-R1",
-  "requirement": ".agile-v/requirements/fsb-demo-production.md",
-  "sha256": "e6a29a8cd78ea9f3365079482c123509c059d91b69a690fbf35b97e72827f232",
-  "review": ".agile-v/verification/fsb-demo-production-requirement-review.md",
-  "reviewSha256": "791abfa085491d3afc977ea06695e852275f8514abecfa2456d6b3a7729b7c0d",
-  "preImplementationBase": "f61fcdb1943f335682d8c39ad5fbc662b1d4c122",
-  "frozenAt": "2026-10-15T18:29:01.198Z"
-}

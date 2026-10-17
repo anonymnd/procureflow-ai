@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Local tools, workflow records and private operational artifacts
+.agents/
+.agile-v/
+AGENTS.md
+design-system/
+portfolio-screenshots*/
+*.log
+*.bundle
+*.secrets*
+**/node_modules/
+frontend/dist/
